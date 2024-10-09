@@ -20,15 +20,19 @@ dependencies:
   freezed_annotation: ^2.4.1
   json_annotation: ^4.8.1
   equatable: ^2.0.5
-  intl: ^0.18.1
+  intl: any
   dio: ^5.4.0
-  go_router: ^13.2.0
+  go_router: ^14.3.0
+  infinite_scroll_pagination: ^4.0.0
+  collection: ^1.18.0
+  http: ^1.2.2
+  google_fonts: ^6.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^3.0.1
+  flutter_lints: ^5.0.0
   build_runner: ^2.4.8
   freezed: ^2.4.7
   json_serializable: ^6.7.1
@@ -75,10 +79,3 @@ fluttergen:
 
   integrations:
     flutter_svg: true
-
-flutter_intl:
-  enabled: true
-  class_name: I18n
-  main_locale: en
-  arb_dir: lib/src/core/i18n/l10n
-  output_dir: lib/src/core/i18n

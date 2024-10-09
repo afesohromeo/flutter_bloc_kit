@@ -1,3 +1,3 @@
 export 'app_theme.dart';
-export 'colors.dart';
+export 'app_colors.dart';
 export 'color_schemes.dart';

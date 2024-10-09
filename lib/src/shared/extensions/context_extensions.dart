@@ -1,5 +1,6 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc_kit/src/core/core.dart';
+import 'package:flutter_bloc_kit/src/shared/shared.dart';
 
 extension ThemeDataX on BuildContext {
   Brightness get brightness => Theme.of(this).brightness;
@@ -12,5 +13,12 @@ extension ThemeDataX on BuildContext {
 }
 
 extension MediaQueryX on BuildContext {
+  MediaQueryData get mediaQuery => MediaQuery.of(this);
   Size get screenSize => MediaQuery.of(this).size;
+}
+
+extension LocalizationX on BuildContext {
+  AppLocalizations get localization {
+    return LocalizationService.localization;
+  }
 }
