@@ -1,0 +1,6 @@
+{
+    "count": "Count",
+    "@count": {
+        "description": "counter count"
+    }
+}
