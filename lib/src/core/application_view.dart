@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc_kit/src/shared/shared.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'core.dart';
@@ -19,22 +20,42 @@ class _ApplicationViewState extends State<ApplicationView> {
     super.didChangeDependencies();
     // LocalizationService.setAppLocalizations(AppLocalizations.of(context)!);
 
-
-    _router = Provider.of<RouteManager>(context, listen: false).router;
+    _router = context.read<RouteManager>().router;
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'MyApp',
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      routerConfig: _router,
-      theme: AppTheme.light,
-      locale: const Locale('fr'),
+    return Builder(builder: (context) {
+      final double scaleFactor = MediaQuery.of(context).textScaler.scale(1);
 
-      // darkTheme: AppTheme.dark,
-      debugShowCheckedModeBanner: false,
-    );
+      // Limit the scale between 1.0 and 1.2
+      final double limitedScaleFactor =
+          scaleFactor < 1.0 ? 1.0 : (scaleFactor > 1.2 ? 1.2 : scaleFactor);
+
+      return MediaQuery(
+          data: MediaQuery.of(context).copyWith(
+            textScaler: TextScaler.linear(
+              limitedScaleFactor,
+            ),
+          ),
+          child: MaterialApp.router(
+            onGenerateTitle: (context) {
+              // Set the localization in the service when the app starts
+              LocalizationService.setAppLocalizations(
+                  AppLocalizations.of(context)!);
+              return AppLocalizations.of(context)!.appTitle;
+            },
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            routerConfig: _router,
+            theme: AppTheme.light,
+            locale: const Locale('fr'),
+
+            // darkTheme: AppTheme.dark,
+            debugShowCheckedModeBanner: false,
+          ));
+    });
+
+    // LocalizationWrapper(child: HomePage());
   }
 }

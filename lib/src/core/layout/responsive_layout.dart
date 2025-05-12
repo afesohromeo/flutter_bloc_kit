@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 typedef ResponsiveWidgetBuilder = Widget Function(BuildContext, Widget?);
@@ -14,15 +16,20 @@ class ResponsiveLayout extends StatelessWidget {
       required this.desktop,
       this.child});
 
-  static bool isMobile(BuildContext context) =>
-      MediaQuery.of(context).size.width <= 800;
+  static bool isMobile(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return (size.shortestSide < 600 || size.width <= 800);
+  }
 
-  static bool isTablet(BuildContext context) =>
-      MediaQuery.of(context).size.width < 1024 &&
-      MediaQuery.of(context).size.width > 800;
+  static bool isTablet(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return size.shortestSide >= 600 && size.shortestSide < 1100;
+  }
 
-  static bool isDesktop(BuildContext context) =>
-      MediaQuery.of(context).size.width >= 1024;
+  static bool isDesktop(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return size.shortestSide >= 1100;
+  }
 
   final Widget Function()? child;
 
@@ -30,12 +37,14 @@ class ResponsiveLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        // final Size size = MediaQuery.of(context).size;
-        final double maxWidth = constraints.maxWidth;
+        final maxWidth = constraints.maxWidth;
+        final shortestSide = MediaQuery.of(context).size.shortestSide;
 
-        if (maxWidth <= 800) {
+        if (shortestSide < 600 || maxWidth <= 800) {
+          log('building mobile $shortestSide ${shortestSide < 600 || maxWidth <= 800}');
           return mobile(context, child?.call());
-        } else if (maxWidth < 1024 && maxWidth > 800) {
+        } else if (shortestSide < 1100 || (maxWidth > 800 && maxWidth < 1100)) {
+          log('building tablet $shortestSide');
           return tablet(context, child?.call());
         } else {
           return desktop(context, child?.call());

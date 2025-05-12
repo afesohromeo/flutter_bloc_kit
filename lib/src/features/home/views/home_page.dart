@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_kit/src/core/core.dart';
 import 'package:flutter_bloc_kit/src/core/theme/dimens.dart';
-import 'package:flutter_bloc_kit/src/features/home/logic/counter_cubit.dart';
+import 'package:flutter_bloc_kit/src/features/features.dart';
 import 'package:flutter_bloc_kit/src/shared/components/gap.dart';
 import 'package:flutter_bloc_kit/src/shared/extensions/context_extensions.dart';
 
@@ -23,7 +23,7 @@ class HomePage extends StatelessWidget {
                 style: context.textTheme.bodyLarge,
               ),
               const Gap.vertical(height: Dimens.spacing),
-              BlocBuilder<CounterCubit, CounterState>(
+              BlocBuilder<HomeBloc, HomeState>(
                 builder: (context, state) {
                   return Text(
                     '${state.value}',
@@ -35,7 +35,7 @@ class HomePage extends StatelessWidget {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () => context.read<CounterCubit>().increment(),
+          onPressed: () => context.read<HomeBloc>().add(HomeEvent.increment()),
           child: const Icon(Icons.add),
         ));
   }

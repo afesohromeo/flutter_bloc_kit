@@ -1,20 +1,30 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc_kit/src/core/core.dart';
 import 'package:flutter_bloc_kit/src/features/features.dart';
 import 'package:go_router/go_router.dart';
 
-import 'routing.dart';
-
 class RouteManager {
-  RouteManager();
+  RouteManager() {
+    router = createRouter();
+  }
 
-  final GlobalKey<NavigatorState> _rootNavigatorKey =
+  static GlobalKey<NavigatorState> rootNavigatorKey =
       GlobalKey<NavigatorState>();
 
-  late final GoRouter router = GoRouter(
-    navigatorKey: _rootNavigatorKey,
-    debugLogDiagnostics: true,
-    initialLocation: '/home',
-    routes: [
+  late final GoRouter router;
+  GoRouter createRouter() {
+    return GoRouter(
+        navigatorKey: rootNavigatorKey,
+        debugLogDiagnostics: true,
+        initialLocation: homePage,
+        routes: [...shellSubRoutes]);
+  }
+
+  static List<RouteBase> get shellSubRoutes {
+    return [
+     
       GoRoute(
         name: homeRouteName,
         path: homePage,
@@ -27,8 +37,9 @@ class RouteManager {
           //     state, const HomePage(), const Offset(0.0, 1.0));
         },
       ),
-    ],
-  );
+    ];
+  }
+
   CustomTransitionPage slideTransition(
       GoRouterState state, Widget child, Offset begin) {
     return CustomTransitionPage<void>(

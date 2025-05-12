@@ -45,7 +45,7 @@ This kit comes with a set of preconfigured features and utilities:
 - Utility widgets
 - Default Theming using Material 3 and google font
 
-## 🗺️ I18n
+    ## 🗺️ I18n
 This kit uses packages flutter_localizations and [intl](https://pub.dev/packages/intl) for internationalization. To add a new language, add a new file to the `src/core/l10n` folder. The file name should be the language code prefixed with app_ (e.g. `intl_fr.arb`).
 
 To generate the code for the new language, run the following command:
@@ -65,7 +65,7 @@ See the [go_router documentation](https://pub.dev/packages/go_router) for more i
 This kit uses [BLoC](https://pub.dev/packages/flutter_bloc) for state management. 
 See the [BLoC documentation](https://bloclibrary.dev/#/gettingstarted) for more information.
 
-An example of a BLoC can be found in the `src/features/home_screen/logic` folder.
+An example of a BLoC can be found in the `src/features/home_screen/bloc` folder.
 
 ## 🗼 Extensions
 This kit comes with a few extensions on the `BuildContext` and `Iterable` classes. See the `src/shared/extensions` folder for more information.

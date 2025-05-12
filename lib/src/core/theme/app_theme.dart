@@ -34,7 +34,7 @@ class AppTheme {
       color: AppColors.black1,
     ),
     displaySmall: GoogleFonts.quicksand(
-      fontSize: 16.0,
+      fontSize: 13.0,
       fontWeight: FontWeight.w500,
       color: AppColors.secondary,
     ),
@@ -157,6 +157,19 @@ class AppTheme {
         textTheme: lightTextTheme,
         elevatedButtonTheme: ElevatedButtonThemeData(
             style: TextButton.styleFrom(backgroundColor: AppColors.primary)),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            disabledForegroundColor: AppColors.grey3,
+            foregroundColor: AppColors.primary,
+            textStyle: AppTheme.lightTextTheme.displayLarge!
+                .copyWith(color: AppColors.primary, fontSize: 14),
+            visualDensity: VisualDensity(vertical: -4, horizontal: 0),
+            padding: EdgeInsets.zero,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+        ),
         datePickerTheme: DatePickerThemeData(
           yearStyle:
               AppTheme.lightTextTheme.headlineLarge!.copyWith(fontSize: 18),

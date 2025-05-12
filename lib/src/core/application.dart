@@ -12,43 +12,28 @@ class Application extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return
-        // MultiRepositoryProvider(
-        //   providers: const [
-        //     //Define all repositories used by the app here. Example
-        //     //RepositoryProvider(create: (context) => AuthenticationRepository()),
-        //   ],
-        //   child:
-        MultiBlocProvider(
-      providers: [
-        //Define all bloc used by the app here. Example
-        // BlocProvider(
-        //     create: (context) => ProfileBloc(
-        //           userRepository: context.read<UserRepository>(),
-        //         )..add(const ProfileLoaded())),
-        // BlocProvider(
-        //     create: (context) => AppointmentBloc(
-        //           userRepository: context.read<UserRepository>(),
-        //         )..add(const AppointmentInitialized())),
+    return MultiRepositoryProvider(
+        providers: [
+          //Define all repositories used by the app here. Example
+          //RepositoryProvider(create: (context) => AuthenticationRepository()),
+          Provider<RouteManager>(
+              lazy: true, create: (context) => RouteManager())
+        ],
+        child: MultiBlocProvider(providers: [
+          //Define all bloc used by the app here. Example
+          // BlocProvider(
+          //     create: (context) => ProfileBloc(
+          //           userRepository: context.read<UserRepository>(),
+          //         )..add(const ProfileLoaded())),
+          // BlocProvider(
+          //     create: (context) => AppointmentBloc(
+          //           userRepository: context.read<UserRepository>(),
+          //         )..add(const AppointmentInitialized())),
 
-        BlocProvider(
-          create: (_) => CounterCubit(),
-          child: this,
-        ),
-      ],
-      child: Builder(builder: (context) {
-        return MultiProvider(
-            providers: [
-              Provider<RouteManager>(
-                  lazy: false,
-                  create: (BuildContext createContext) => RouteManager())
-            ],
-            child: Builder(builder: (context) {
-              return const ApplicationView();
-            }));
-      }),
-    )
-        // )
-        ;
+          BlocProvider(
+            create: (_) => HomeBloc(),
+            child: this,
+          ),
+        ], child: ApplicationView()));
   }
 }

@@ -2,5 +2,9 @@
     "count": "Count",
     "@count": {
         "description": "counter count"
+    },
+    "appTitle": "Flutter bloc kit",
+    "@appTitle": {
+        "description": "counter count"
     }
 }
