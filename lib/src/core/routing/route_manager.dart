@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc_kit/src/core/core.dart';
 import 'package:flutter_bloc_kit/src/features/features.dart';
@@ -24,7 +22,6 @@ class RouteManager {
 
   static List<RouteBase> get shellSubRoutes {
     return [
-     
       GoRoute(
         name: homeRouteName,
         path: homePage,
@@ -37,6 +34,18 @@ class RouteManager {
           //     state, const HomePage(), const Offset(0.0, 1.0));
         },
       ),
+      // GoRoute(
+      //   name: loginRouteName,
+      //   path: loginPage,
+      //   pageBuilder: (context, state) {
+      //     return NoTransitionPage<void>(
+      //       key: state.pageKey,
+      //       child: const LoginPage(),
+      //     );
+      //     //  slideTransition(
+      //     //     state, const HomePage(), const Offset(0.0, 1.0));
+      //   },
+      // ),
     ];
   }
 

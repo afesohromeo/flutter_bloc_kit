@@ -21,26 +21,27 @@ class ScaffoldWrapperProps {
   final Color bgColor;
   final double? elevation;
   final double? toolBarHeight;
+  final bool? showDrawer;
 
-  const ScaffoldWrapperProps({
-    this.leading,
-    this.title,
-    this.bottom,
-    this.actions,
-    this.floatingActionButtonLocation,
-    this.bottomNav,
-    this.onPressed,
-    this.floatingButtonPadding,
-    this.buttonIcon,
-    this.buttonColor,
-    this.mini,
-    this.resizeToAvoidBottomInset = false,
-    this.showBottomNav = false,
-    this.showFloatingButton = false,
-    this.hasAppbar = true,
-    this.appBarBgColor = AppColors.white1,
-    this.bgColor = AppColors.white1,
-    this.elevation,
-    this.toolBarHeight,
-  });
+  const ScaffoldWrapperProps(
+      {this.leading,
+      this.title,
+      this.bottom,
+      this.actions,
+      this.floatingActionButtonLocation,
+      this.bottomNav,
+      this.onPressed,
+      this.floatingButtonPadding,
+      this.buttonIcon,
+      this.buttonColor,
+      this.mini,
+      this.resizeToAvoidBottomInset = false,
+      this.showBottomNav = false,
+      this.showFloatingButton = false,
+      this.hasAppbar = true,
+      this.appBarBgColor = AppColors.white1,
+      this.bgColor = AppColors.white1,
+      this.elevation,
+      this.toolBarHeight,
+      this.showDrawer = true});
 }

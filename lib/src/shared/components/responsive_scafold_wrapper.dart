@@ -19,6 +19,7 @@ class ResponsiveScaffoldWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveLayout(
       mobile: (context, _) => ScaffoldWrapper(
+        showDrawer: props.showDrawer,
         body: mobileBody,
         leading: props.leading,
         title: props.title,
@@ -41,6 +42,7 @@ class ResponsiveScaffoldWrapper extends StatelessWidget {
         toolBarHeight: props.toolBarHeight,
       ),
       tablet: (context, _) => ScaffoldWrapper(
+        showDrawer: props.showDrawer,
         body: tabletBody ?? mobileBody,
         leading: props.leading,
         title: props.title,
@@ -63,6 +65,7 @@ class ResponsiveScaffoldWrapper extends StatelessWidget {
         toolBarHeight: props.toolBarHeight,
       ),
       desktop: (context, _) => ScaffoldWrapper(
+        showDrawer: props.showDrawer,
         body: desktopBody ?? tabletBody ?? mobileBody,
         leading: props.leading,
         title: props.title,

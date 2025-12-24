@@ -1,4 +1,5 @@
 {
+    "@@locale": "en",
     "count": "Count",
     "@count": {
         "description": "counter count"
@@ -6,5 +7,30 @@
     "appTitle": "Flutter bloc kit",
     "@appTitle": {
         "description": "counter count"
-    }
+    },
+    "refresh": "Refresh",
+    "@refresh": {
+        "description": "Button text to refresh content"
+    } ,"searchCountry": "Search country",
+    "@searchCountry": {
+        "description": "Placeholder text for country search field"
+    },"validateMobile1": "Invalid Mobile Number",
+    "@validateMobile1": {
+        "description": "Phone number validation text 1"
+    },
+    "tel": "Tel",
+    "@tel": {
+        "description": "Label for telephone field"
+    },
+"validateMobile2": "Phone number must start with 6.",
+"@validateMobile2": {
+    "description": "Phone number validation text 2"
+},"authenticationRequired": "Authentication Required",
+"@authenticationRequired": {
+    "description": "Dialog title when user needs to authenticate"
+},
+"ok": "Close",
+"@ok": {
+    "description": "Button text for OK action"
+}
 }

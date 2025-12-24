@@ -7,11 +7,11 @@ class InputField extends StatelessWidget {
       {super.key,
       this.inputFormatters,
       required this.validator,
-      required this.keyboardType,
+      this.keyboardType,
       this.style,
       this.onChanged,
       this.onTap,
-      required this.labelText,
+      this.labelText,
       this.obscureText = false,
       this.enableSuggestions = true,
       this.controller,
@@ -19,6 +19,7 @@ class InputField extends StatelessWidget {
       this.prefixIcon,
       this.suffixIcon,
       this.labelColor,
+      this.bgColor = AppColors.white1,
       this.radius,
       this.maxlines,
       this.minlines,
@@ -28,7 +29,10 @@ class InputField extends StatelessWidget {
       this.padding,
       this.contentPadding,
       this.inputStyle,
-      this.onEditingComplete});
+      this.onEditingComplete,
+      this.elevation = 0,
+      this.focusNode,
+      this.borderRadius});
 
   final List<TextInputFormatter>? inputFormatters;
   final String? Function(String?)? validator;
@@ -43,6 +47,7 @@ class InputField extends StatelessWidget {
   final String? initialValue;
   final Icon? prefixIcon;
   final Color? labelColor;
+  final Color bgColor;
 
   final Widget? suffixIcon;
   final double? radius;
@@ -57,6 +62,9 @@ class InputField extends StatelessWidget {
 
   final TextStyle? inputStyle;
   final VoidCallback? onEditingComplete;
+  final double elevation;
+  final FocusNode? focusNode;
+  final BorderRadius? borderRadius;
 
   @override
   Widget build(BuildContext context) {
@@ -64,21 +72,24 @@ class InputField extends StatelessWidget {
       alignment: AlignmentDirectional.centerStart,
       children: [
         Padding(
-          padding: padding ?? const EdgeInsets.symmetric(horizontal: 12.0),
+          padding: padding ??
+              const EdgeInsets.symmetric(
+                horizontal: 12.0,
+              ),
           child: Material(
-            color: AppColors.white1,
+            color: bgColor,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(radius ?? 10),
+              borderRadius: borderRadius ?? BorderRadius.circular(radius ?? 10),
             ),
-            elevation: 10.0,
+            elevation: elevation,
             shadowColor: AppColors.grey1.withValues(alpha: 0.2),
             child: TextFormField(
+                focusNode: focusNode,
                 onEditingComplete: onEditingComplete,
                 enabled: enabled,
                 onTap: onTap,
                 readOnly: readOnly!,
                 maxLines: maxlines ?? 1,
-                minLines: minlines ?? 1,
                 initialValue: initialValue,
                 controller: controller,
                 obscureText: obscureText,
@@ -87,11 +98,19 @@ class InputField extends StatelessWidget {
                 validator: validator,
                 keyboardType: keyboardType,
                 style: inputStyle ??
-                    AppTheme.lightTextTheme.displaySmall!
-                        .copyWith(color: AppColors.black1, fontSize: 14),
+                    AppTheme.lightTextTheme.displaySmall!.copyWith(
+                        color: labelColor ?? AppColors.black1, fontSize: 14),
                 onChanged: onChanged,
-                decoration: customInputDecoration(labelText, prefixIcon,
-                    suffixIcon, labelColor, radius, hintText, contentPadding)),
+                decoration: customInputDecoration(
+                    labelText,
+                    prefixIcon,
+                    borderRadius: borderRadius,
+                    suffixIcon,
+                    labelColor,
+                    radius,
+                    hintText,
+                    contentPadding,
+                    bgColor: bgColor)),
           ),
         ),
         // const Icon(

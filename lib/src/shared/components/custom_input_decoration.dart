@@ -9,7 +9,9 @@ InputDecoration customInputDecoration(
     double? radius,
     String? hintText,
     EdgeInsets? contentPadding,
-    {FloatingLabelAlignment alignment = FloatingLabelAlignment.start}) {
+    {FloatingLabelAlignment alignment = FloatingLabelAlignment.start,
+    Color bgColor = AppColors.white1,
+    BorderRadius? borderRadius}) {
   return InputDecoration(
     // counterStyle: AppTheme.lightTextTheme.displayMedium!.copyWith(fontSize: 29),
     contentPadding: contentPadding ?? const EdgeInsets.all(12),
@@ -24,11 +26,14 @@ InputDecoration customInputDecoration(
     // ),
 
     hintText: hintText,
+    hintStyle: AppTheme.lightTextTheme.bodyMedium?.copyWith(
+      color: AppColors.grey3,
+    ),
     prefixIcon: prefixIcon,
     suffixIcon: suffixIcon,
-    fillColor: Colors.white,
+    fillColor: bgColor,
     filled: true,
-    labelText: labelText ?? '',
+    labelText: labelText,
     labelStyle: AppTheme.lightTextTheme.displayMedium!.copyWith(
       fontSize: 14,
       color: labelColor ?? AppColors.grey,
@@ -41,7 +46,7 @@ InputDecoration customInputDecoration(
       borderSide: BorderSide(color: labelColor ?? AppColors.grey, width: 1),
     ),
     enabledBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(radius ?? 10),
+      borderRadius: borderRadius ?? BorderRadius.circular(radius ?? 10),
       borderSide: BorderSide(
           color: labelColor ?? AppColors.grey.withValues(alpha: .5), width: 1),
     ),
@@ -50,8 +55,8 @@ InputDecoration customInputDecoration(
     //   borderSide: BorderSide(color: labelColor ?? AppColors.primary),
     // ),
     focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(radius ?? 10),
-      borderSide: const BorderSide(color: AppColors.primary, width: 1),
+      borderRadius: borderRadius ?? BorderRadius.circular(radius ?? 10),
+      borderSide: BorderSide(color: labelColor ?? AppColors.primary, width: 1),
     ),
     errorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(radius ?? 10),
@@ -62,7 +67,7 @@ InputDecoration customInputDecoration(
         .copyWith(color: AppColors.error, fontSize: 12),
     focusedErrorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(radius ?? 10),
-      borderSide: const BorderSide(color: AppColors.primary, width: 1),
+      borderSide: BorderSide(color: labelColor ?? AppColors.primary, width: 1),
     ),
   );
 }

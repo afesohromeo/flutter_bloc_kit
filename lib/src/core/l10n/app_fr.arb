@@ -1,4 +1,12 @@
 {
+    "@@locale": "fr",
     "count": "Count",
-    "appTitle": "Flutter bloc kit"
+    "appTitle": "Flutter bloc kit",
+    "refresh": "Rafraîchir",
+    "searchCountry": "Rechercher un pays",
+    "validateMobile1": "Numéro de téléphone invalide",
+    "tel": "Tel",
+    "validateMobile2": "Le numéro de téléphone doit commencer par 6.",
+    "authenticationRequired": "Authentification Requise",
+    "ok": "OK"
 }

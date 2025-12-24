@@ -95,7 +95,7 @@ class AppTheme {
           ),
           systemOverlayStyle: SystemUiOverlayStyle.dark,
         ),
-        dialogTheme: DialogTheme(
+        dialogTheme: DialogThemeData(
             elevation: 10,
             backgroundColor: AppColors.white1,
             surfaceTintColor: Colors.transparent,
@@ -114,11 +114,11 @@ class AppTheme {
           backgroundColor: AppColors.white1,
           surfaceTintColor: Colors.transparent,
         ),
-        tabBarTheme: const TabBarTheme(
+        tabBarTheme: const TabBarThemeData(
             indicatorSize: TabBarIndicatorSize.label,
             dividerHeight: 0,
             unselectedLabelColor: AppColors.grey1),
-        cardTheme: const CardTheme(
+        cardTheme: const CardThemeData(
           color: AppColors.white1,
           surfaceTintColor: Colors.transparent,
         ),

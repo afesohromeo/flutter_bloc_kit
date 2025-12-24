@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc_kit/flutter_bloc_kit.dart';
 
@@ -23,7 +25,8 @@ class ScaffoldWrapper extends StatelessWidget {
       this.bottom,
       this.resizeToAvoidBottomInset = false,
       this.elevation,
-      this.toolBarHeight});
+      this.toolBarHeight,
+      this.showDrawer = true});
 
   final Widget? body;
   final Widget? leading;
@@ -42,13 +45,14 @@ class ScaffoldWrapper extends StatelessWidget {
   final bool? mini;
   final bool? resizeToAvoidBottomInset;
   final Color bgColor;
-
   final Color appBarBgColor;
   final double? elevation;
   final double? toolBarHeight;
+  final bool? showDrawer;
 
   @override
   Widget build(BuildContext context) {
+    log('scalfold wrapper $showDrawer');
     return Scaffold(
       backgroundColor: bgColor,
       resizeToAvoidBottomInset: resizeToAvoidBottomInset,
@@ -69,11 +73,10 @@ class ScaffoldWrapper extends StatelessWidget {
               backgroundColor: appBarBgColor,
               title: title,
               titleSpacing: 0,
-
               // title of appbar
             )
           : null,
-      body: body!,
+      body: SafeArea(top: false, child: body!),
       floatingActionButton: showFloatingButton
           ? Padding(
               padding:
@@ -94,7 +97,11 @@ class ScaffoldWrapper extends StatelessWidget {
                       )),
             )
           : null,
-      // drawer: const AppDrawer(),
+      drawer: showDrawer!
+          ? AppDrawer(
+              parentContext: context,
+            )
+          : null,
     );
   }
 }

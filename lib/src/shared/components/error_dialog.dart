@@ -4,16 +4,15 @@ import 'package:flutter_bloc_kit/flutter_bloc_kit.dart';
 class ErrorDialog extends StatelessWidget {
   const ErrorDialog(
       {super.key,
-      this.messageWidget,
-      this.buttons,
-      required this.errorMessage,
-      required this.onPressed,
-      required this.refreshText});
-  final Widget? messageWidget;
-  final List<Widget>? buttons;
-  final String errorMessage;
-  final VoidCallback onPressed;
-  final String refreshText;
+      required this.message,
+      this.onPressed,
+      this.refreshText,
+      required this.parentContext});
+
+  final VoidCallback? onPressed;
+  final String? refreshText;
+  final String message;
+  final BuildContext parentContext;
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +20,69 @@ class ErrorDialog extends StatelessWidget {
         alignment: Alignment.center,
         titlePadding: EdgeInsets.zero,
         contentPadding: const EdgeInsets.all(30),
-        insetPadding: const EdgeInsets.all(20),
+        insetPadding: EdgeInsets.zero,
         scrollable: true,
         elevation: 0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        content: ErrorrWidget(
-            errorMessage: errorMessage,
-            onPressed: onPressed,
-            refreshText: refreshText));
+        content: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 100,
+              height: 100,
+              padding: const EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: LinearGradient(
+                    // begin: Alignment.topLeft,
+                    // end: Alignment.bottomRight,
+                    stops: const [
+                      0.8,
+                      1,
+                    ],
+                    colors: [
+                      AppColors.error.withValues(alpha: .9),
+                      AppColors.error.withValues(alpha: .5),
+                    ],
+                  )),
+              child: Container(
+                padding: const EdgeInsets.all(5),
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white,
+                ),
+                child: const Icon(
+                  Icons.close_rounded,
+                  color: AppColors.error,
+                  size: 75,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Text(message,
+                textAlign: TextAlign.center,
+                style: AppTheme.lightTextTheme.bodyMedium),
+            const SizedBox(
+              height: 20,
+            ),
+            // PrimaryButton(
+            //     height: 55,
+            //     shape: RoundedRectangleBorder(
+            //         borderRadius: BorderRadius.circular(10.0)),
+            //     inkRaduis: 10,
+            //     child: Text(
+            //       AppLocalizations.of(parentContext)!.ok,
+            //       style: AppTheme.lightTextTheme.displayMedium!
+            //           .copyWith(color: Colors.white, fontSize: 14),
+            //     ),
+            //     onPressed: () {
+            //       context.read<CheckoutBloc>().add(CheckoutEvent.updateStatus(
+            //           status: CheckoutStatus.initial));
+            //       context.pop();
+            //     }),
+          ],
+        ));
   }
 }

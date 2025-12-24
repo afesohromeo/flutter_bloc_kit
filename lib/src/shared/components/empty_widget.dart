@@ -26,7 +26,7 @@ class EmptyWidget extends StatelessWidget {
               style: AppTheme.lightTextTheme.displayMedium!
                   .copyWith(fontSize: 14, height: 2, wordSpacing: 2),
             ),
-             Gap.vertical(
+            const Gap.vertical(
               height: 15,
             ),
             TextButton(

@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-
 import 'package:flutter_bloc_kit/flutter_bloc_kit.dart';
 
 import 'package:flutter/material.dart';
@@ -45,6 +44,7 @@ class _PhoneNumberFormFieldState extends State<PhoneNumberFormField> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(widget.parentContext)!;
     return ValueListenableBuilder<String?>(
       valueListenable: _errorNotifier,
       builder: (context, errorText, child) {
@@ -74,7 +74,7 @@ class _PhoneNumberFormFieldState extends State<PhoneNumberFormField> {
                           //         backgroundColor:
                           //             AppColors.error.withValues(alpha: .7),
                           //         content: Text(
-                          //           AppLocalizations.of(widget.parentContext)!
+                          //          l10n
                           //               .selectPayMethod,
                           //           style: Theme.of(context)
                           //               .textTheme
@@ -94,8 +94,7 @@ class _PhoneNumberFormFieldState extends State<PhoneNumberFormField> {
                               .lightTextTheme.displayMedium!
                               .copyWith(fontSize: 14, color: AppColors.black1),
                           searchFieldInputDecoration: customInputDecoration(
-                            AppLocalizations.of(widget.parentContext)!
-                                .searchCountry,
+                            l10n.searchCountry,
                             null,
                             const Icon(Icons.search_rounded),
                             null,
@@ -111,9 +110,7 @@ class _PhoneNumberFormFieldState extends State<PhoneNumberFormField> {
                             const EdgeInsets.fromLTRB(.7, 0, 8, 0),
                         controller: widget.phoneNumberController,
                         initialValue: widget.initialValue,
-                        invalidNumberMessage:
-                            AppLocalizations.of(widget.parentContext)!
-                                .validateMobile1,
+                        invalidNumberMessage: l10n.validateMobile1,
                         flagsButtonPadding: const EdgeInsets.only(left: 10),
                         style: AppTheme.lightTextTheme.displaySmall!
                             .copyWith(color: AppColors.black1, fontSize: 14),
@@ -139,7 +136,7 @@ class _PhoneNumberFormFieldState extends State<PhoneNumberFormField> {
                         dropdownIconPosition: IconPosition.trailing,
                         autovalidateMode: AutovalidateMode.disabled,
                         decoration: customInputDecoration(
-                          AppLocalizations.of(widget.parentContext)!.tel,
+                          l10n.tel,
                           null,
                           null,
                           null,
@@ -150,7 +147,7 @@ class _PhoneNumberFormFieldState extends State<PhoneNumberFormField> {
                         initialCountryCode: widget.initialCountryCode,
                         onChanged: (phone) {
                           if (_validateAsUserTypes) {
-                            _validatePhoneNumber(phone.number);
+                            _validatePhoneNumber(phone.number, l10n);
                           }
                           widget.onChanged?.call(phone);
                           state.didChange(phone.number);
@@ -194,7 +191,7 @@ class _PhoneNumberFormFieldState extends State<PhoneNumberFormField> {
           validator: (value) {
             log('submit $value'); // Always validate during submission
             final error = _validatePhoneNumber(
-                value ?? widget.phoneNumberController?.text);
+                value ?? widget.phoneNumberController?.text, l10n);
 
             if (error != null) {
               // Enable dynamic validation for subsequent typing
@@ -210,15 +207,15 @@ class _PhoneNumberFormFieldState extends State<PhoneNumberFormField> {
     );
   }
 
-  String? _validatePhoneNumber(String? value) {
+  String? _validatePhoneNumber(String? value, AppLocalizations l10n) {
     if (value == null || value.isEmpty) {
-      final error = AppLocalizations.of(widget.parentContext)!.validateMobile1;
+      final error = l10n.validateMobile1;
       _errorNotifier.value = error;
       return error;
     }
     // Ensure the number starts with '6'
     if (!value.startsWith('6')) {
-      final error = AppLocalizations.of(widget.parentContext)!.validateMobile2;
+      final error = l10n.validateMobile2;
       _errorNotifier.value = error;
       return error;
     }
@@ -242,7 +239,7 @@ class _PhoneNumberFormFieldState extends State<PhoneNumberFormField> {
 
     //   default:
     //     {
-    //       validationError = AppLocalizations.of(widget.parentContext)!.invalidPaymentMode;
+    //       validationError =l10n.invalidPaymentMode;
     //       break;
     //     }
     // }
@@ -257,7 +254,7 @@ class _PhoneNumberFormFieldState extends State<PhoneNumberFormField> {
   //   final mtnRegex = RegExp(r'^(67\d{7}|65[0-4]\d{6}|68[0-4]\d{6})$');
 
   //   if (!mtnRegex.hasMatch(value)) {
-  //     return AppLocalizations.of(widget.parentContext)!.invalidMtnNumber;
+  //     returnl10n.invalidMtnNumber;
   //   }
   //   return null;
   // }
@@ -268,7 +265,7 @@ class _PhoneNumberFormFieldState extends State<PhoneNumberFormField> {
   //       RegExp(r'^(69\d{7}|64\d{7}|65[5-9]\d{6}|68[5-9]\d{6})$');
 
   //   if (!orangeRegex.hasMatch(value)) {
-  //     return AppLocalizations.of(widget.parentContext)!.invalidOrangeNumber;
+  //     returnl10n.invalidOrangeNumber;
   //   }
   //   return null;
   // }
