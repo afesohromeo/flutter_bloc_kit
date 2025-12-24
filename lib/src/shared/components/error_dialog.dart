@@ -63,7 +63,7 @@ class ErrorDialog extends StatelessWidget {
             ),
             Text(message,
                 textAlign: TextAlign.center,
-                style: AppTheme.lightTextTheme.bodyMedium),
+                style: AppTextTheme.light.bodyMedium),
             const SizedBox(
               height: 20,
             ),
@@ -74,7 +74,7 @@ class ErrorDialog extends StatelessWidget {
             //     inkRaduis: 10,
             //     child: Text(
             //       AppLocalizations.of(parentContext)!.ok,
-            //       style: AppTheme.lightTextTheme.displayMedium!
+            //       style: AppTextTheme.light.displayMedium!
             //           .copyWith(color: Colors.white, fontSize: 14),
             //     ),
             //     onPressed: () {

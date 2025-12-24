@@ -33,7 +33,7 @@ class DrawerTile extends StatelessWidget {
                 splashColor: AppColors.primary.withValues(alpha: .3),
                 title: Text(
                   title,
-                  style: AppTheme.lightTextTheme.displayMedium!.copyWith(
+                  style: AppTextTheme.light.displayMedium!.copyWith(
                       color: selected
                           ? AppColors.white1
                           : (!enabled || onTap == null)

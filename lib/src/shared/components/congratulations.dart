@@ -62,7 +62,7 @@ class Congratulations extends StatelessWidget {
             ),
             Text(message,
                 textAlign: TextAlign.center,
-                style: AppTheme.lightTextTheme.bodyMedium),
+                style: AppTextTheme.light.bodyMedium),
 
             const SizedBox(
               height: 20,
@@ -80,7 +80,7 @@ class Congratulations extends StatelessWidget {
             //     inkRaduis: 10,
             //     child: Text(
             //       'Fermer',
-            //       style: AppTheme.lightTextTheme.displayMedium!
+            //       style: AppTextTheme.light.displayMedium!
             //           .copyWith(color: Colors.white, fontSize: 16),
             //     ),
             //     onPressed: () {

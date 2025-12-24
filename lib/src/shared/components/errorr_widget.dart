@@ -32,7 +32,7 @@ class ErrorrWidget extends StatelessWidget {
             ),
             Text(
               errorMessage,
-              style: AppTheme.lightTextTheme.displayMedium!
+              style: AppTextTheme.light.displayMedium!
                   .copyWith(fontSize: 14, height: 2, wordSpacing: 1.5),
               textAlign: TextAlign.center,
             ),
@@ -43,8 +43,8 @@ class ErrorrWidget extends StatelessWidget {
                 onPressed: onPressed,
                 child: Text(
                   refreshText,
-                  style: AppTheme.lightTextTheme.displayLarge!
-                      .copyWith(fontSize: 16),
+                  style:
+                      AppTextTheme.light.displayLarge!.copyWith(fontSize: 16),
                 ))
           ],
         ),

@@ -87,11 +87,9 @@ class _PhoneNumberFormFieldState extends State<PhoneNumberFormField> {
                         },
                         pickerDialogStyle: PickerDialogStyle(
                           width: MediaQuery.of(context).size.width * .8,
-                          countryNameStyle: AppTheme
-                              .lightTextTheme.displayMedium!
+                          countryNameStyle: AppTextTheme.light.displayMedium!
                               .copyWith(fontSize: 14),
-                          countryCodeStyle: AppTheme
-                              .lightTextTheme.displayMedium!
+                          countryCodeStyle: AppTextTheme.light.displayMedium!
                               .copyWith(fontSize: 14, color: AppColors.black1),
                           searchFieldInputDecoration: customInputDecoration(
                             l10n.searchCountry,
@@ -112,10 +110,9 @@ class _PhoneNumberFormFieldState extends State<PhoneNumberFormField> {
                         initialValue: widget.initialValue,
                         invalidNumberMessage: l10n.validateMobile1,
                         flagsButtonPadding: const EdgeInsets.only(left: 10),
-                        style: AppTheme.lightTextTheme.displaySmall!
+                        style: AppTextTheme.light.displaySmall!
                             .copyWith(color: AppColors.black1, fontSize: 14),
-                        dropdownTextStyle: AppTheme
-                            .lightTextTheme.displayMedium!
+                        dropdownTextStyle: AppTextTheme.light.displayMedium!
                             .copyWith(fontSize: 14),
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly

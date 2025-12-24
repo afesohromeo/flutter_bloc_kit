@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc_kit/flutter_bloc_kit.dart';
 import 'package:flutter_bloc_kit/src/shared/shared.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'core.dart';
+
 // import 'theme/app_theme.dart';
 
 class ApplicationView extends StatefulWidget {

@@ -98,7 +98,7 @@ class InputField extends StatelessWidget {
                 validator: validator,
                 keyboardType: keyboardType,
                 style: inputStyle ??
-                    AppTheme.lightTextTheme.displaySmall!.copyWith(
+                    AppTextTheme.light.displaySmall!.copyWith(
                         color: labelColor ?? AppColors.black1, fontSize: 14),
                 onChanged: onChanged,
                 decoration: customInputDecoration(

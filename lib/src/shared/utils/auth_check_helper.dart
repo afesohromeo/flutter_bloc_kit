@@ -82,7 +82,7 @@ class AuthCheckHelper {
               Expanded(
                 child: Text(
                   l10n.authenticationRequired,
-                  style: AppTheme.lightTextTheme.displayLarge?.copyWith(
+                  style: AppTextTheme.light.displayLarge?.copyWith(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
                   ),
@@ -92,7 +92,7 @@ class AuthCheckHelper {
           ),
           content: Text(
             message,
-            style: AppTheme.lightTextTheme.bodyMedium?.copyWith(
+            style: AppTextTheme.light.bodyMedium?.copyWith(
               fontSize: 14,
               color: AppColors.grey1,
             ),
@@ -112,7 +112,7 @@ class AuthCheckHelper {
                       const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                   child: Text(
                     l10n.ok,
-                    style: AppTheme.lightTextTheme.displayMedium!
+                    style: AppTextTheme.light.displayMedium!
                         .copyWith(color: AppColors.white1, fontSize: 14),
                   ),
                 )),

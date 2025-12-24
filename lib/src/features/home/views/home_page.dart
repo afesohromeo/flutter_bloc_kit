@@ -1,7 +1,7 @@
+import 'package:app_theme_kit/app_theme_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_kit/src/core/core.dart';
-import 'package:flutter_bloc_kit/src/core/theme/dimens.dart';
 import 'package:flutter_bloc_kit/src/features/features.dart';
 import 'package:flutter_bloc_kit/src/shared/components/gap.dart';
 import 'package:flutter_bloc_kit/src/shared/extensions/context_extensions.dart';
@@ -22,7 +22,7 @@ class HomePage extends StatelessWidget {
                 AppLocalizations.of(context)!.count,
                 style: context.textTheme.bodyLarge,
               ),
-              const Gap.vertical(height: Dimens.spacing),
+              const Gap.vertical(height: AppSpacing.sm),
               BlocBuilder<HomeBloc, HomeState>(
                 builder: (context, state) {
                   return Text(

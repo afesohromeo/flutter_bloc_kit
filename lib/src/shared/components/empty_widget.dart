@@ -23,7 +23,7 @@ class EmptyWidget extends StatelessWidget {
             Text(
               emptyText,
               textAlign: TextAlign.center,
-              style: AppTheme.lightTextTheme.displayMedium!
+              style: AppTextTheme.light.displayMedium!
                   .copyWith(fontSize: 14, height: 2, wordSpacing: 2),
             ),
             const Gap.vertical(
@@ -33,8 +33,8 @@ class EmptyWidget extends StatelessWidget {
                 onPressed: onPressed,
                 child: Text(
                   AppLocalizations.of(parentContext ?? context)!.refresh,
-                  style: AppTheme.lightTextTheme.displayLarge!
-                      .copyWith(fontSize: 16),
+                  style:
+                      AppTextTheme.light.displayLarge!.copyWith(fontSize: 16),
                 ))
           ],
         ),

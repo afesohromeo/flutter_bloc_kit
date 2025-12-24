@@ -13,7 +13,7 @@ InputDecoration customInputDecoration(
     Color bgColor = AppColors.white1,
     BorderRadius? borderRadius}) {
   return InputDecoration(
-    // counterStyle: AppTheme.lightTextTheme.displayMedium!.copyWith(fontSize: 29),
+    // counterStyle: AppTextTheme.light.displayMedium!.copyWith(fontSize: 29),
     contentPadding: contentPadding ?? const EdgeInsets.all(12),
 
     // isCollapsed: true,
@@ -26,7 +26,7 @@ InputDecoration customInputDecoration(
     // ),
 
     hintText: hintText,
-    hintStyle: AppTheme.lightTextTheme.bodyMedium?.copyWith(
+    hintStyle: AppTextTheme.light.bodyMedium?.copyWith(
       color: AppColors.grey3,
     ),
     prefixIcon: prefixIcon,
@@ -34,12 +34,12 @@ InputDecoration customInputDecoration(
     fillColor: bgColor,
     filled: true,
     labelText: labelText,
-    labelStyle: AppTheme.lightTextTheme.displayMedium!.copyWith(
+    labelStyle: AppTextTheme.light.displayMedium!.copyWith(
       fontSize: 14,
       color: labelColor ?? AppColors.grey,
     ),
     floatingLabelAlignment: alignment,
-    floatingLabelStyle: AppTheme.lightTextTheme.displayMedium!
+    floatingLabelStyle: AppTextTheme.light.displayMedium!
         .copyWith(color: labelColor ?? AppColors.grey, fontSize: 14),
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(radius ?? 10),
@@ -63,7 +63,7 @@ InputDecoration customInputDecoration(
       borderSide: BorderSide(color: labelColor ?? AppColors.grey2, width: 1),
     ),
     errorMaxLines: 2,
-    errorStyle: AppTheme.lightTextTheme.bodyMedium!
+    errorStyle: AppTextTheme.light.bodyMedium!
         .copyWith(color: AppColors.error, fontSize: 12),
     focusedErrorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(radius ?? 10),
