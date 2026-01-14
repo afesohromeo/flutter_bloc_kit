@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc_kit/flutter_bloc_kit.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -11,11 +9,10 @@ class AppDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     // final rootContext = Navigator.of(context, rootNavigator: true).context;
 
-    final l10n = AppLocalizations.of(parentContext)!;
 
     return Drawer(
       elevation: 20,
-      backgroundColor: AppColors.white1,
+      backgroundColor: customColors.background,
       child: ListView(
         // Important: Remo
         //ve any padding from the ListView.

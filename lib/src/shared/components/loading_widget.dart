@@ -17,7 +17,7 @@ class LoadingWidget extends StatelessWidget {
             Text(
               loadingText,
               textAlign: TextAlign.center,
-              style: AppTextTheme.light.displayLarge!.copyWith(fontSize: 14),
+              style: context.textTheme.displayLarge!.copyWith(fontSize: 14),
             ),
           ])),
     );

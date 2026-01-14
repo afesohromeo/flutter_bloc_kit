@@ -29,10 +29,10 @@ packages:
     dependency: "direct main"
     description:
       name: app_theme_kit
-      sha256: "602a0b056c7e7d1624bc913867d6e500d6535658d55658a75338341bcad0b3dd"
+      sha256: "83a75436bc4dddeaee343f5bba9dc801fee44a25d7c41c8bebcdb1d303e9075a"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.8+1"
+    version: "0.0.9+1"
   archive:
     dependency: transitive
     description:

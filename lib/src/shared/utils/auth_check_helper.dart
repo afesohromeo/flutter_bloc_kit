@@ -3,7 +3,6 @@ import 'dart:developer';
 
 import 'package:flutter_bloc_kit/flutter_bloc_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 /// Helper utility for authentication checks in the checkout/purchase flow
 class AuthCheckHelper {
@@ -73,16 +72,16 @@ class AuthCheckHelper {
 
         return AlertDialog(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(Dimens.borderRadius),
+            borderRadius: BorderRadius.circular(AppSpacing.radiusSm),
           ),
           title: Row(
             children: [
-              Icon(Icons.info_outline, color: AppColors.primary),
-              Gap.horizontal(width: Dimens.spacing),
+              Icon(Icons.info_outline, color: customColors.primary),
+              Gap.horizontal(width: AppSpacing.sm),
               Expanded(
                 child: Text(
                   l10n.authenticationRequired,
-                  style: AppTextTheme.light.displayLarge?.copyWith(
+                  style: context.textTheme.displayLarge?.copyWith(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
                   ),
@@ -92,9 +91,9 @@ class AuthCheckHelper {
           ),
           content: Text(
             message,
-            style: AppTextTheme.light.bodyMedium?.copyWith(
+            style: context.textTheme.bodyMedium?.copyWith(
               fontSize: 14,
-              color: AppColors.grey1,
+              color: customColors.surface,
             ),
           ),
           actions: [
@@ -103,7 +102,7 @@ class AuthCheckHelper {
                 inkRaduis: 10,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0)),
-                buttonColor: AppColors.primary,
+                buttonColor: customColors.primary,
                 onPressed: () {
                   Navigator.of(dialogContext).pop();
                 },
@@ -112,8 +111,8 @@ class AuthCheckHelper {
                       const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                   child: Text(
                     l10n.ok,
-                    style: AppTextTheme.light.displayMedium!
-                        .copyWith(color: AppColors.white1, fontSize: 14),
+                    style: context.textTheme.displayMedium!
+                        .copyWith(color: customColors.background, fontSize: 14),
                   ),
                 )),
           ],

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc_kit/flutter_bloc_kit.dart';
-import 'package:flutter_bloc_kit/src/shared/shared.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'core.dart';
 
 // import 'theme/app_theme.dart';
 
@@ -28,6 +26,7 @@ class _ApplicationViewState extends State<ApplicationView> {
   @override
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
+     
       final double scaleFactor = MediaQuery.of(context).textScaler.scale(1);
 
       // Limit the scale between 1.0 and 1.2
@@ -50,10 +49,9 @@ class _ApplicationViewState extends State<ApplicationView> {
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
             routerConfig: _router,
-            theme: AppTheme.light,
+            theme: AppTheme.light(colors: customColors),
             locale: const Locale('fr'),
 
-            // darkTheme: AppTheme.dark,
             debugShowCheckedModeBanner: false,
           ));
     });

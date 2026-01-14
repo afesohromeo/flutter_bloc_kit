@@ -9,11 +9,12 @@ InputDecoration customInputDecoration(
     double? radius,
     String? hintText,
     EdgeInsets? contentPadding,
+    BuildContext context,
     {FloatingLabelAlignment alignment = FloatingLabelAlignment.start,
-    Color bgColor = AppColors.white1,
+    Color? bgColor,
     BorderRadius? borderRadius}) {
   return InputDecoration(
-    // counterStyle: AppTextTheme.light.displayMedium!.copyWith(fontSize: 29),
+    // counterStyle: context.textTheme.displayMedium!.copyWith(fontSize: 29),
     contentPadding: contentPadding ?? const EdgeInsets.all(12),
 
     // isCollapsed: true,
@@ -21,53 +22,58 @@ InputDecoration customInputDecoration(
     // prefixIcon: prefixIcon,
     // prefix: const Icon(
     //   Icons.email_outlined,
-    //   color: AppColors.primary,
+    //   color: customColors.primary,
     //   size: 12,
     // ),
 
     hintText: hintText,
-    hintStyle: AppTextTheme.light.bodyMedium?.copyWith(
-      color: AppColors.grey3,
+    hintStyle: context.textTheme.bodyMedium?.copyWith(
+      color: customColors.surface,
     ),
     prefixIcon: prefixIcon,
     suffixIcon: suffixIcon,
-    fillColor: bgColor,
+    fillColor: bgColor ?? customColors.background,
     filled: true,
     labelText: labelText,
-    labelStyle: AppTextTheme.light.displayMedium!.copyWith(
+    labelStyle: context.textTheme.displayMedium!.copyWith(
       fontSize: 14,
-      color: labelColor ?? AppColors.grey,
+      color: labelColor ?? customColors.surface,
     ),
     floatingLabelAlignment: alignment,
-    floatingLabelStyle: AppTextTheme.light.displayMedium!
-        .copyWith(color: labelColor ?? AppColors.grey, fontSize: 14),
+    floatingLabelStyle: context.textTheme.displayMedium!
+        .copyWith(color: labelColor ?? customColors.surface, fontSize: 14),
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(radius ?? 10),
-      borderSide: BorderSide(color: labelColor ?? AppColors.grey, width: 1),
+      borderSide:
+          BorderSide(color: labelColor ?? customColors.surface, width: 1),
     ),
     enabledBorder: OutlineInputBorder(
       borderRadius: borderRadius ?? BorderRadius.circular(radius ?? 10),
       borderSide: BorderSide(
-          color: labelColor ?? AppColors.grey.withValues(alpha: .5), width: 1),
+          color: labelColor ?? customColors.surface.withValues(alpha: .5),
+          width: 1),
     ),
     // focusColor: Color.fromARGB(255, 185, 61, 24),
     // enabledBorder: UnderlineInputBorder(
-    //   borderSide: BorderSide(color: labelColor ?? AppColors.primary),
+    //   borderSide: BorderSide(color: labelColor ?? customColors.primary),
     // ),
     focusedBorder: OutlineInputBorder(
       borderRadius: borderRadius ?? BorderRadius.circular(radius ?? 10),
-      borderSide: BorderSide(color: labelColor ?? AppColors.primary, width: 1),
+      borderSide:
+          BorderSide(color: labelColor ?? customColors.primary, width: 1),
     ),
     errorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(radius ?? 10),
-      borderSide: BorderSide(color: labelColor ?? AppColors.grey2, width: 1),
+      borderSide:
+          BorderSide(color: labelColor ?? customColors.surface, width: 1),
     ),
     errorMaxLines: 2,
-    errorStyle: AppTextTheme.light.bodyMedium!
-        .copyWith(color: AppColors.error, fontSize: 12),
+    errorStyle: context.textTheme.bodyMedium!
+        .copyWith(color: customColors.error, fontSize: 12),
     focusedErrorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(radius ?? 10),
-      borderSide: BorderSide(color: labelColor ?? AppColors.primary, width: 1),
+      borderSide:
+          BorderSide(color: labelColor ?? customColors.primary, width: 1),
     ),
   );
 }

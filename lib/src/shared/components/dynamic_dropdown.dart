@@ -30,7 +30,7 @@ class DynamicDropdown<T, S> extends StatelessWidget {
   final double borderRadius;
   final double elevation;
   final Color? shadowColor;
-  final Color dropdownColor;
+  final Color? dropdownColor;
   final EdgeInsets contentPadding;
   final double iconSize;
   final double? menuMaxHeight;
@@ -63,7 +63,7 @@ class DynamicDropdown<T, S> extends StatelessWidget {
     this.borderRadius = 30.0,
     this.elevation = 10.0,
     this.shadowColor,
-    this.dropdownColor = AppColors.cardBg,
+    this.dropdownColor,
     this.contentPadding =
         const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
     this.iconSize = 25.0,
@@ -93,9 +93,9 @@ class DynamicDropdown<T, S> extends StatelessWidget {
         isDense: isDense,
         iconSize: iconSize,
         menuMaxHeight: menuMaxHeight ?? MediaQuery.sizeOf(context).height * 0.7,
-        decoration: _buildDefaultDecoration(borderRadius),
+        decoration: _buildDefaultDecoration(borderRadius, context),
         elevation: elevation.toInt(),
-        dropdownColor: dropdownColor,
+        dropdownColor: dropdownColor ?? customColors.background,
         icon: customIcon ?? const SizedBox(),
         value: status == loadingStatus ? null : selectedValue,
         items: _buildDropdownItems(),
@@ -105,16 +105,16 @@ class DynamicDropdown<T, S> extends StatelessWidget {
   }
 
   /// Build the default input decoration
-  InputDecoration _buildDefaultDecoration(double radius) {
+  InputDecoration _buildDefaultDecoration(double radius, BuildContext context) {
     return customInputDecoration(
-      labelText,
-      null,
-      Icon(Icons.keyboard_arrow_down_rounded),
-      null,
-      radius,
-      null,
-      null,
-    );
+        labelText,
+        null,
+        Icon(Icons.keyboard_arrow_down_rounded),
+        null,
+        radius,
+        null,
+        null,
+        context);
   }
 
   /// Determine hint text based on status

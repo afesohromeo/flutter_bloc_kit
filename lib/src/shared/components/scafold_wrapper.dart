@@ -20,8 +20,8 @@ class ScaffoldWrapper extends StatelessWidget {
       required this.showBottomNav,
       required this.showFloatingButton,
       required this.hasAppbar,
-      this.bgColor = AppColors.white1,
-      this.appBarBgColor = AppColors.white1,
+      this.bgColor,
+      this.appBarBgColor,
       this.bottom,
       this.resizeToAvoidBottomInset = false,
       this.elevation,
@@ -44,8 +44,8 @@ class ScaffoldWrapper extends StatelessWidget {
   final Color? buttonColor;
   final bool? mini;
   final bool? resizeToAvoidBottomInset;
-  final Color bgColor;
-  final Color appBarBgColor;
+  final Color? bgColor;
+  final Color? appBarBgColor;
   final double? elevation;
   final double? toolBarHeight;
   final bool? showDrawer;
@@ -54,12 +54,12 @@ class ScaffoldWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     log('scalfold wrapper $showDrawer');
     return Scaffold(
-      backgroundColor: bgColor,
+      backgroundColor: bgColor ?? customColors.background,
       resizeToAvoidBottomInset: resizeToAvoidBottomInset,
       floatingActionButtonLocation: floatingActionButtonLocation,
       appBar: hasAppbar
           ? AppBar(
-              shadowColor: appBarBgColor,
+              shadowColor: appBarBgColor ?? customColors.background,
               elevation: elevation ?? 10,
               centerTitle: false,
               automaticallyImplyLeading: false,
@@ -83,17 +83,17 @@ class ScaffoldWrapper extends StatelessWidget {
                   floatingButtonpadding ?? const EdgeInsets.only(top: 65.0),
               child: FloatingActionButton(
                   mini: mini ?? true,
-                  backgroundColor:
-                      buttonColor ?? AppColors.secondary.withValues(alpha: .7),
+                  backgroundColor: buttonColor ??
+                      customColors.secondary.withValues(alpha: .7),
                   shape: CircleBorder(
                       side: BorderSide(
-                          color: buttonColor ?? AppColors.secondary)),
+                          color: buttonColor ?? customColors.secondary)),
                   onPressed: onPressed,
                   child: buttonIcon ??
-                      const Icon(
+                       Icon(
                         Icons.add,
                         size: 30,
-                        color: AppColors.white1,
+                        color: customColors.background,
                       )),
             )
           : null,

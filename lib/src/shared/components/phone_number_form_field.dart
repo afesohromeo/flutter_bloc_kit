@@ -58,7 +58,8 @@ class _PhoneNumberFormFieldState extends State<PhoneNumberFormField> {
                     borderRadius: BorderRadius.circular(50),
                   ),
                   elevation: 10.0,
-                  shadowColor: AppColors.secondary.withValues(alpha: 0.3),
+                  shadowColor:
+                      customColors.secondary.withValues(alpha: 0.3),
                   child: Stack(
                     children: [
                       IntlPhoneField(
@@ -72,7 +73,7 @@ class _PhoneNumberFormFieldState extends State<PhoneNumberFormField> {
                           //       SnackBar(
                           //         duration: const Duration(seconds: 3),
                           //         backgroundColor:
-                          //             AppColors.error.withValues(alpha: .7),
+                          //             customColors.error.withValues(alpha: .7),
                           //         content: Text(
                           //          l10n
                           //               .selectPayMethod,
@@ -87,10 +88,11 @@ class _PhoneNumberFormFieldState extends State<PhoneNumberFormField> {
                         },
                         pickerDialogStyle: PickerDialogStyle(
                           width: MediaQuery.of(context).size.width * .8,
-                          countryNameStyle: AppTextTheme.light.displayMedium!
+                          countryNameStyle: context.textTheme.displayMedium!
                               .copyWith(fontSize: 14),
-                          countryCodeStyle: AppTextTheme.light.displayMedium!
-                              .copyWith(fontSize: 14, color: AppColors.black1),
+                          countryCodeStyle: context.textTheme.displayMedium!
+                              .copyWith(
+                                  fontSize: 14, color: customColors.black1),
                           searchFieldInputDecoration: customInputDecoration(
                             l10n.searchCountry,
                             null,
@@ -98,10 +100,10 @@ class _PhoneNumberFormFieldState extends State<PhoneNumberFormField> {
                             null,
                             50,
                             null,
-                            null,
+                            null,context
                           ),
-                          listTileDivider: const Divider(
-                            color: AppColors.grey1,
+                          listTileDivider:  Divider(
+                            color: customColors.surface,
                           ),
                         ),
                         flagsButtonMargin:
@@ -110,9 +112,9 @@ class _PhoneNumberFormFieldState extends State<PhoneNumberFormField> {
                         initialValue: widget.initialValue,
                         invalidNumberMessage: l10n.validateMobile1,
                         flagsButtonPadding: const EdgeInsets.only(left: 10),
-                        style: AppTextTheme.light.displaySmall!
-                            .copyWith(color: AppColors.black1, fontSize: 14),
-                        dropdownTextStyle: AppTextTheme.light.displayMedium!
+                        style: context.textTheme.displaySmall!
+                            .copyWith(color: customColors.black1, fontSize: 14),
+                        dropdownTextStyle: context.textTheme.displayMedium!
                             .copyWith(fontSize: 14),
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly
@@ -123,8 +125,8 @@ class _PhoneNumberFormFieldState extends State<PhoneNumberFormField> {
                             begin: Alignment.topRight,
                             end: Alignment.bottomLeft,
                             colors: [
-                              AppColors.white2,
-                              AppColors.cardBg,
+                              customColors.background,
+                              customColors.background,
                             ],
                           ),
                         ),
@@ -139,7 +141,7 @@ class _PhoneNumberFormFieldState extends State<PhoneNumberFormField> {
                           null,
                           50,
                           null,
-                          null,
+                          null,context
                         ),
                         initialCountryCode: widget.initialCountryCode,
                         onChanged: (phone) {

@@ -10,7 +10,7 @@ class AdaptiveWhiteProgressIndicator extends StatelessWidget {
     return Theme(
       data: ThemeData(
         progressIndicatorTheme:
-            ProgressIndicatorThemeData(color: AppColors.white1),
+            ProgressIndicatorThemeData(color: customColors.background),
       ),
       child: CircularProgressIndicator.adaptive(),
     );

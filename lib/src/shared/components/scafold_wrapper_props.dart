@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc_kit/flutter_bloc_kit.dart';
 
 class ScaffoldWrapperProps {
   final Widget? leading;
@@ -17,8 +16,8 @@ class ScaffoldWrapperProps {
   final bool showBottomNav;
   final bool showFloatingButton;
   final bool hasAppbar;
-  final Color appBarBgColor;
-  final Color bgColor;
+  final Color? appBarBgColor;
+  final Color? bgColor;
   final double? elevation;
   final double? toolBarHeight;
   final bool? showDrawer;
@@ -39,8 +38,8 @@ class ScaffoldWrapperProps {
       this.showBottomNav = false,
       this.showFloatingButton = false,
       this.hasAppbar = true,
-      this.appBarBgColor = AppColors.white1,
-      this.bgColor = AppColors.white1,
+      this.appBarBgColor,
+      this.bgColor ,
       this.elevation,
       this.toolBarHeight,
       this.showDrawer = true});

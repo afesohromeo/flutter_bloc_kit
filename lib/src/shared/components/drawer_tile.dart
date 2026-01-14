@@ -23,22 +23,22 @@ class DrawerTile extends StatelessWidget {
         ? Column(
             children: [
               ListTile(
-                textColor: AppColors.black1,
-                iconColor: AppColors.grey1,
+                textColor: customColors.black1,
+                iconColor: customColors.surface,
                 selected: selected,
                 enabled: enabled,
-                selectedColor: AppColors.white1,
-                selectedTileColor: AppColors.primary,
+                selectedColor: customColors.background,
+                selectedTileColor: customColors.primary,
                 tileColor: Colors.transparent,
-                splashColor: AppColors.primary.withValues(alpha: .3),
+                splashColor: customColors.primary.withValues(alpha: .3),
                 title: Text(
                   title,
-                  style: AppTextTheme.light.displayMedium!.copyWith(
+                  style: context.textTheme.displayMedium!.copyWith(
                       color: selected
-                          ? AppColors.white1
+                          ? customColors.background
                           : (!enabled || onTap == null)
-                              ? AppColors.grey3
-                              : AppColors.black1),
+                              ? customColors.surface
+                              : customColors.black1),
                 ),
                 leading: iconData == null
                     ? null

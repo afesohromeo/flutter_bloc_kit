@@ -30,7 +30,7 @@ dependencies:
   flutter_native_splash: ^2.4.4
   intl_phone_field: ^3.2.0
   flutter_secure_storage: ^9.2.4
-  app_theme_kit: ^0.0.8+1
+  app_theme_kit: ^0.0.9+1
 
 dev_dependencies:
   flutter_test:

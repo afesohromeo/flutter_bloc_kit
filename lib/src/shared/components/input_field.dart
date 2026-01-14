@@ -19,7 +19,7 @@ class InputField extends StatelessWidget {
       this.prefixIcon,
       this.suffixIcon,
       this.labelColor,
-      this.bgColor = AppColors.white1,
+      this.bgColor,
       this.radius,
       this.maxlines,
       this.minlines,
@@ -47,7 +47,7 @@ class InputField extends StatelessWidget {
   final String? initialValue;
   final Icon? prefixIcon;
   final Color? labelColor;
-  final Color bgColor;
+  final Color? bgColor;
 
   final Widget? suffixIcon;
   final double? radius;
@@ -82,7 +82,7 @@ class InputField extends StatelessWidget {
               borderRadius: borderRadius ?? BorderRadius.circular(radius ?? 10),
             ),
             elevation: elevation,
-            shadowColor: AppColors.grey1.withValues(alpha: 0.2),
+            shadowColor: customColors.surface.withValues(alpha: 0.2),
             child: TextFormField(
                 focusNode: focusNode,
                 onEditingComplete: onEditingComplete,
@@ -98,8 +98,8 @@ class InputField extends StatelessWidget {
                 validator: validator,
                 keyboardType: keyboardType,
                 style: inputStyle ??
-                    AppTextTheme.light.displaySmall!.copyWith(
-                        color: labelColor ?? AppColors.black1, fontSize: 14),
+                    context.textTheme.displaySmall!.copyWith(
+                        color: labelColor ?? customColors.black1, fontSize: 14),
                 onChanged: onChanged,
                 decoration: customInputDecoration(
                     labelText,
@@ -110,12 +110,13 @@ class InputField extends StatelessWidget {
                     radius,
                     hintText,
                     contentPadding,
+                    context,
                     bgColor: bgColor)),
           ),
         ),
         // const Icon(
         //   Icons.email_rounded,
-        //   color: AppColors.primary,
+        //   color: customColors.primary,
         // ),
       ],
     );

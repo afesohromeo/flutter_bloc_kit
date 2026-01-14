@@ -22,9 +22,9 @@ class ErrorrWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(
+             Icon(
               Icons.warning_amber_rounded,
-              color: AppColors.primary,
+              color: customColors.primary,
               size: 35,
             ),
             const Gap.vertical(
@@ -32,7 +32,7 @@ class ErrorrWidget extends StatelessWidget {
             ),
             Text(
               errorMessage,
-              style: AppTextTheme.light.displayMedium!
+              style: context.textTheme.displayMedium!
                   .copyWith(fontSize: 14, height: 2, wordSpacing: 1.5),
               textAlign: TextAlign.center,
             ),
@@ -43,8 +43,7 @@ class ErrorrWidget extends StatelessWidget {
                 onPressed: onPressed,
                 child: Text(
                   refreshText,
-                  style:
-                      AppTextTheme.light.displayLarge!.copyWith(fontSize: 16),
+                  style: context.textTheme.displayLarge!.copyWith(fontSize: 16),
                 ))
           ],
         ),

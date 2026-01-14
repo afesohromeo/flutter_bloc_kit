@@ -13,7 +13,8 @@ class CustomBackButton extends StatelessWidget {
       builder: (context) {
         return IconButton(
           visualDensity: VisualDensity(vertical: -4, horizontal: -4),
-          icon: const Icon(Icons.arrow_back_ios, color: AppColors.white1),
+          icon:
+               Icon(Icons.arrow_back_ios, color: customColors.background),
           onPressed: () => context.pop(),
         );
       },

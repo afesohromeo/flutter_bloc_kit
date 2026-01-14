@@ -7,7 +7,7 @@ class PrimaryButton extends StatelessWidget {
       required this.child,
       required this.onPressed,
       this.withBg = true,
-      this.buttonColor = AppColors.primary,
+      this.buttonColor,
       this.borderColor,
       this.shape,
       this.height,
@@ -38,9 +38,9 @@ class PrimaryButton extends StatelessWidget {
           : w2, // Set the minimum width to zero
       height: 0, // Set the minimum height to zero
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-      disabledColor: AppColors.grey4,
+      disabledColor: customColors.surface,
       disabledElevation: 0,
-      disabledTextColor: AppColors.error,
+      disabledTextColor: customColors.error,
       padding: EdgeInsets.all(0),
       visualDensity: VisualDensity(vertical: -4, horizontal: -4),
 
@@ -63,12 +63,14 @@ class PrimaryButton extends StatelessWidget {
                       0.9,
                     ],
                     colors: [
-                      AppColors.primary.withValues(alpha: .9),
-                      AppColors.primary2,
+                      customColors.primary.withValues(alpha: .9),
+                      customColors.primary,
                     ],
                   )
                 : null,
-            color: onPressed != null ? buttonColor : AppColors.grey4,
+            color: onPressed != null
+                ? buttonColor ?? customColors.primary
+                : customColors.surface,
             borderRadius: BorderRadius.all(
               Radius.circular(inkRaduis ?? 20.0),
             )),

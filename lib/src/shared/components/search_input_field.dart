@@ -10,7 +10,7 @@ class SearchInputField extends StatelessWidget {
       this.initialValue,
       this.inputController,
       this.labelColor,
-      this.bgColor = AppColors.white1,
+      this.bgColor ,
       this.showSuffixIcon = true,
       this.shape});
   final void Function(String)? onChanged;
@@ -19,7 +19,7 @@ class SearchInputField extends StatelessWidget {
   final String? initialValue;
   final TextEditingController? inputController;
   final Color? labelColor;
-  final Color bgColor;
+  final Color? bgColor;
   final bool? showSuffixIcon;
   final ShapeBorder? shape;
   @override

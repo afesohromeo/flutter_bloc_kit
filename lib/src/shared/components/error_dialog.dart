@@ -41,8 +41,8 @@ class ErrorDialog extends StatelessWidget {
                       1,
                     ],
                     colors: [
-                      AppColors.error.withValues(alpha: .9),
-                      AppColors.error.withValues(alpha: .5),
+                      customColors.error.withValues(alpha: .9),
+                      customColors.error.withValues(alpha: .5),
                     ],
                   )),
               child: Container(
@@ -51,9 +51,9 @@ class ErrorDialog extends StatelessWidget {
                   shape: BoxShape.circle,
                   color: Colors.white,
                 ),
-                child: const Icon(
+                child:  Icon(
                   Icons.close_rounded,
-                  color: AppColors.error,
+                  color: customColors.error,
                   size: 75,
                 ),
               ),
@@ -63,7 +63,7 @@ class ErrorDialog extends StatelessWidget {
             ),
             Text(message,
                 textAlign: TextAlign.center,
-                style: AppTextTheme.light.bodyMedium),
+                style: context.textTheme.bodyMedium),
             const SizedBox(
               height: 20,
             ),
@@ -74,7 +74,7 @@ class ErrorDialog extends StatelessWidget {
             //     inkRaduis: 10,
             //     child: Text(
             //       AppLocalizations.of(parentContext)!.ok,
-            //       style: AppTextTheme.light.displayMedium!
+            //       style: context.textTheme.displayMedium!
             //           .copyWith(color: Colors.white, fontSize: 14),
             //     ),
             //     onPressed: () {
