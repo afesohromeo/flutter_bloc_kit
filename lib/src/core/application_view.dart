@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc_kit/flutter_bloc_kit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 // import 'theme/app_theme.dart';
 
@@ -26,7 +27,8 @@ class _ApplicationViewState extends State<ApplicationView> {
   @override
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
-     
+      FlutterNativeSplash.remove();
+
       final double scaleFactor = MediaQuery.of(context).textScaler.scale(1);
 
       // Limit the scale between 1.0 and 1.2
