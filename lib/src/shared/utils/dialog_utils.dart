@@ -35,11 +35,22 @@ class DialogUtils {
     List<void Function()> postActions = const [],
     bool shouldPopDialog = false,
   }) async {
+    // Capture actions to avoid modification during async
+    final capturedActions = List<void Function()>.from(postActions);
+
     await showSuccessErrorDialog(
       context,
       message,
       false,
       shouldPopDialog: shouldPopDialog,
     );
+    // Execute actions safely without context
+    for (var action in capturedActions) {
+      try {
+        action();
+      } catch (e, st) {
+        log('DialogUtils.handleSuccess postAction error: $e\n$st');
+      }
+    }
   }
 }

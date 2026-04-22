@@ -49,8 +49,8 @@ class _ApplicationViewState extends State<ApplicationView> {
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
             routerConfig: _router,
-            theme: AppTheme.light(colors: customColors),
-            locale: const Locale('fr'),
+            theme: AppTheme.light(colors: customColors, context: context),
+            // locale: const Locale('fr'),
 
             debugShowCheckedModeBanner: false,
           ));

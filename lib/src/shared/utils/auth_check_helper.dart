@@ -15,7 +15,7 @@ class AuthCheckHelper {
   }) async {
     Future<bool> isAuthenticated() async {
       final String? token = await SecureStorageHelper.getToken();
-      final String? client = await SecureStorageHelper.getClient();
+      final String? client = await SecureStorageHelper.getUser();
 
       final bool isAuthenticated = (token != null && token.isNotEmpty) ||
           (client != null && client.isNotEmpty);

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'src/core/core.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-
 void main() {
   final AppInitializer appInitializer = AppInitializer();
 
@@ -16,8 +15,11 @@ void main() {
 
       await appInitializer.preAppRun();
 
-      runApp(const Application());
-
+      runApp(
+        AppRestart(
+          child: const Application(),
+        ),
+      );
       appInitializer.postAppRun();
     },
     (error, stack) {},

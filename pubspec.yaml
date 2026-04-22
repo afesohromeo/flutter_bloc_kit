@@ -6,7 +6,7 @@ publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: ">=3.0.0"
+  sdk: ">=3.6.0"
 
 dependencies:
   flutter:
@@ -22,15 +22,15 @@ dependencies:
   equatable: ^2.0.5
   intl: any
   dio: ^5.4.0
-  go_router: ^14.6.2
+  go_router: ^17.0.1
   infinite_scroll_pagination: ^4.0.0
   collection: ^1.18.0
   http: ^1.2.2
-  google_fonts: ^6.1.0
+  google_fonts: ^8.0.0
   flutter_native_splash: ^2.4.4
   intl_phone_field: ^3.2.0
   flutter_secure_storage: ^9.2.4
-  app_theme_kit: ^0.0.9+1
+  app_theme_kit: ^0.1.0
 
 dev_dependencies:
   flutter_test:
