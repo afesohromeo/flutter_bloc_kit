@@ -31,6 +31,7 @@ dependencies:
   intl_phone_field: ^3.2.0
   flutter_secure_storage: ^9.2.4
   app_theme_kit: ^0.1.0
+  web: ^1.1.1
 
 dev_dependencies:
   flutter_test:
