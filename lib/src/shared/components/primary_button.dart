@@ -70,7 +70,9 @@ class PrimaryButton extends StatelessWidget {
                 : null,
             color: onPressed != null
                 ? buttonColor ?? customColors.primary
-                : customColors.surface,
+                : buttonColor?.withValues(alpha: .4),
+            border: Border.all(
+                color: borderColor ?? buttonColor ?? Colors.transparent),
             borderRadius: BorderRadius.all(
               Radius.circular(inkRaduis ?? 20.0),
             )),

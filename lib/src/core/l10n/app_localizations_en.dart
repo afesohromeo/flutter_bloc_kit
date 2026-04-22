@@ -34,4 +34,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ok => 'Close';
+
+  @override
+  String get noData => 'No data';
+
+  @override
+  String get loading => 'Loading...';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get confirm => 'Confirm';
+
+  @override
+  String get proceed => 'Proceed';
+
+  @override
+  String get search => 'Search';
+
+  @override
+  String get operationError => 'An error occurred';
 }

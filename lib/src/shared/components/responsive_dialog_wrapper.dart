@@ -23,7 +23,7 @@ class ResponsiveDialogWrapper extends StatelessWidget {
       insetPadding:
           insetPadding ?? EdgeInsets.symmetric(horizontal: 16, vertical: 24),
       shape: shape ??
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       // backgroundColor: AppTheme.light.dialogTheme.backgroundColor,
       child: ConstrainedBox(
         constraints: BoxConstraints(

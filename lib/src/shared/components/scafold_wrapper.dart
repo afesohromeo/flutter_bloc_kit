@@ -3,30 +3,38 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc_kit/flutter_bloc_kit.dart';
 
+enum DrawerMode {
+  overlay, // mobile / tablet
+  fixed, // desktop
+}
+
 class ScaffoldWrapper extends StatelessWidget {
-  const ScaffoldWrapper(
-      {super.key,
-      this.actions,
-      this.leading,
-      this.title,
-      this.floatingActionButtonLocation,
-      this.bottomNav,
-      this.onPressed,
-      this.floatingButtonpadding,
-      this.buttonIcon,
-      this.buttonColor,
-      this.mini,
-      required this.body,
-      required this.showBottomNav,
-      required this.showFloatingButton,
-      required this.hasAppbar,
-      this.bgColor,
-      this.appBarBgColor,
-      this.bottom,
-      this.resizeToAvoidBottomInset = false,
-      this.elevation,
-      this.toolBarHeight,
-      this.showDrawer = true});
+  const ScaffoldWrapper({
+    super.key,
+    this.actions,
+    this.leading,
+    this.title,
+    this.floatingActionButtonLocation,
+    this.bottomNav,
+    this.onPressed,
+    this.floatingButtonpadding,
+    this.buttonIcon,
+    this.buttonColor,
+    this.mini,
+    required this.body,
+    required this.showBottomNav,
+    required this.showFloatingButton,
+    required this.hasAppbar,
+    this.bgColor,
+    this.appBarBgColor,
+    this.bottom,
+    this.resizeToAvoidBottomInset = false,
+    this.elevation,
+    this.toolBarHeight,
+    this.showDrawer = true,
+    this.drawerMode = DrawerMode.overlay,
+    this.fixedDrawerWidth = 280,
+  });
 
   final Widget? body;
   final Widget? leading;
@@ -49,17 +57,39 @@ class ScaffoldWrapper extends StatelessWidget {
   final double? elevation;
   final double? toolBarHeight;
   final bool? showDrawer;
+  final DrawerMode drawerMode;
+  final double fixedDrawerWidth;
 
   @override
   Widget build(BuildContext context) {
     log('scalfold wrapper $showDrawer');
+    final scaffoldBody = SafeArea(
+      top: false,
+      child: body!,
+    );
+    final buildFab = Padding(
+      padding: floatingButtonpadding ?? const EdgeInsets.only(top: 65.0),
+      child: FloatingActionButton(
+          mini: mini ?? true,
+          backgroundColor:
+              buttonColor ?? customColors.secondary.withValues(alpha: .7),
+          shape: CircleBorder(
+              side: BorderSide(color: buttonColor ?? customColors.secondary)),
+          onPressed: onPressed,
+          child: buttonIcon ??
+              Icon(
+                Icons.add,
+                size: 30,
+                color: customColors.background,
+              )),
+    );
     return Scaffold(
       backgroundColor: bgColor ?? customColors.background,
       resizeToAvoidBottomInset: resizeToAvoidBottomInset,
       floatingActionButtonLocation: floatingActionButtonLocation,
       appBar: hasAppbar
           ? AppBar(
-              shadowColor: appBarBgColor ?? customColors.background,
+              shadowColor: Colors.transparent,
               elevation: elevation ?? 10,
               centerTitle: false,
               automaticallyImplyLeading: false,
@@ -76,32 +106,13 @@ class ScaffoldWrapper extends StatelessWidget {
               // title of appbar
             )
           : null,
-      body: SafeArea(top: false, child: body!),
-      floatingActionButton: showFloatingButton
-          ? Padding(
-              padding:
-                  floatingButtonpadding ?? const EdgeInsets.only(top: 65.0),
-              child: FloatingActionButton(
-                  mini: mini ?? true,
-                  backgroundColor: buttonColor ??
-                      customColors.secondary.withValues(alpha: .7),
-                  shape: CircleBorder(
-                      side: BorderSide(
-                          color: buttonColor ?? customColors.secondary)),
-                  onPressed: onPressed,
-                  child: buttonIcon ??
-                       Icon(
-                        Icons.add,
-                        size: 30,
-                        color: customColors.background,
-                      )),
-            )
-          : null,
-      drawer: showDrawer!
-          ? AppDrawer(
-              parentContext: context,
-            )
+      body: scaffoldBody,
+      floatingActionButton: showFloatingButton ? buildFab : null,
+      drawer: drawerMode == DrawerMode.overlay && showDrawer == true
+          ? AppDrawer(parentContext: context)
           : null,
     );
+    
   }
-}
+
+ }

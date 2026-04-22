@@ -8,5 +8,12 @@
     "tel": "Tel",
     "validateMobile2": "Le numéro de téléphone doit commencer par 6.",
     "authenticationRequired": "Authentification Requise",
-    "ok": "OK"
+    "ok": "OK",
+    "noData": "Aucune donnée",
+    "loading": "Chargement...",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "proceed": "Procéder",
+    "search": "Recherche",
+    "operationError": "Une erreur est survenue"
 }

@@ -11,10 +11,12 @@
     "refresh": "Refresh",
     "@refresh": {
         "description": "Button text to refresh content"
-    } ,"searchCountry": "Search country",
+    },
+    "searchCountry": "Search country",
     "@searchCountry": {
         "description": "Placeholder text for country search field"
-    },"validateMobile1": "Invalid Mobile Number",
+    },
+    "validateMobile1": "Invalid Mobile Number",
     "@validateMobile1": {
         "description": "Phone number validation text 1"
     },
@@ -22,15 +24,44 @@
     "@tel": {
         "description": "Label for telephone field"
     },
-"validateMobile2": "Phone number must start with 6.",
-"@validateMobile2": {
-    "description": "Phone number validation text 2"
-},"authenticationRequired": "Authentication Required",
-"@authenticationRequired": {
-    "description": "Dialog title when user needs to authenticate"
-},
-"ok": "Close",
-"@ok": {
-    "description": "Button text for OK action"
-}
+    "validateMobile2": "Phone number must start with 6.",
+    "@validateMobile2": {
+        "description": "Phone number validation text 2"
+    },
+    "authenticationRequired": "Authentication Required",
+    "@authenticationRequired": {
+        "description": "Dialog title when user needs to authenticate"
+    },
+    "ok": "Close",
+    "@ok": {
+        "description": "Button text for OK action"
+    },
+    "noData": "No data",
+    "@noData": {
+        "description": "No data message"
+    },
+    "loading": "Loading...",
+    "@loading": {
+        "description": "Generic loading message"
+    },
+    "cancel": "Cancel",
+    "@cancel": {
+        "description": "Button text to cancel an action"
+    },
+    "confirm": "Confirm",
+    "@confirm": {
+        "description": "Button text to confirm an action"
+    },
+    "proceed": "Proceed",
+    "@proceed": {
+        "description": "Button text to proceed with an action"
+    },
+    "search": "Search",
+    "@search": {
+        "description": "Search field placeholder"
+    },
+    "operationError": "An error occurred",
+    "@operationError": {
+        "description": "Generic operation error message"
+    }
 }

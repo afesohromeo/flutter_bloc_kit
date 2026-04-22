@@ -22,7 +22,7 @@ class ErrorrWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-             Icon(
+            Icon(
               Icons.warning_amber_rounded,
               color: customColors.primary,
               size: 35,

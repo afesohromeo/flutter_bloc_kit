@@ -39,7 +39,7 @@ class ScaffoldWrapperProps {
       this.showFloatingButton = false,
       this.hasAppbar = true,
       this.appBarBgColor,
-      this.bgColor ,
+      this.bgColor,
       this.elevation,
       this.toolBarHeight,
       this.showDrawer = true});

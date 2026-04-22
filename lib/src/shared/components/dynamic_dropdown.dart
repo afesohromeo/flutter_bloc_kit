@@ -25,6 +25,7 @@ class DynamicDropdown<T, S> extends StatelessWidget {
   // Callbacks
   final void Function(T?)? onChanged;
   final String? Function(T?)? validator;
+  final VoidCallback? onRetry;
 
   // Styling properties
   final double borderRadius;
@@ -39,6 +40,7 @@ class DynamicDropdown<T, S> extends StatelessWidget {
   final Widget? customIcon;
   final bool isDense;
   final AlignmentGeometry alignment;
+  final double? height;
 
   const DynamicDropdown({
     super.key,
@@ -58,6 +60,7 @@ class DynamicDropdown<T, S> extends StatelessWidget {
     required this.labelText,
     this.onChanged,
     this.validator,
+    this.onRetry,
 
     // Optional styling with defaults
     this.borderRadius = 30.0,
@@ -73,6 +76,7 @@ class DynamicDropdown<T, S> extends StatelessWidget {
     this.customIcon,
     this.isDense = true,
     this.alignment = AlignmentDirectional.topStart,
+    this.height = 37,
   });
 
   @override
@@ -89,18 +93,38 @@ class DynamicDropdown<T, S> extends StatelessWidget {
         validator: validator,
         itemHeight: itemHeight,
         alignment: alignment,
-        borderRadius: BorderRadius.circular(borderRadius),
-        isDense: isDense,
+        borderRadius: BorderRadius.circular(
+          borderRadius,
+        ),
+        isDense: true,
         iconSize: iconSize,
         menuMaxHeight: menuMaxHeight ?? MediaQuery.sizeOf(context).height * 0.7,
         decoration: _buildDefaultDecoration(borderRadius, context),
         elevation: elevation.toInt(),
-        dropdownColor: dropdownColor ?? customColors.background,
-        icon: customIcon ?? const SizedBox(),
-        value: status == loadingStatus ? null : selectedValue,
-        items: _buildDropdownItems(),
+        dropdownColor: dropdownColor ?? customColors.secondary,
+        icon: customIcon ?? _buildIcon(),
+        initialValue: status == loadingStatus ? null : selectedValue,
+        items: _buildDropdownItems(context),
         onChanged: status == loadingStatus ? null : onChanged,
       ),
+    );
+  }
+
+  Widget _buildIcon() {
+    final bool showRetry =
+        status == failureStatus || (status == successStatus && items.isEmpty);
+
+    if (showRetry) {
+      return IconButton(
+        icon: Icon(Icons.refresh_rounded, color: Colors.red, size: iconSize),
+        onPressed: onRetry,
+      );
+    }
+
+    return Icon(
+      Icons.keyboard_arrow_down_rounded,
+      size: iconSize,
+      color: customColors.black1,
     );
   }
 
@@ -109,11 +133,14 @@ class DynamicDropdown<T, S> extends StatelessWidget {
     return customInputDecoration(
         labelText,
         null,
-        Icon(Icons.keyboard_arrow_down_rounded),
-        null,
+        Icon(
+          Icons.keyboard_arrow_down_rounded,
+          color: customColors.black1,
+        ),
+        customColors.black1.withValues(alpha: .8),
         radius,
         null,
-        null,
+        const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         context);
   }
 
@@ -134,19 +161,21 @@ class DynamicDropdown<T, S> extends StatelessWidget {
   }
 
   /// Build dropdown items based on status
-  List<DropdownMenuItem<T>> _buildDropdownItems() {
+  List<DropdownMenuItem<T>> _buildDropdownItems(BuildContext context) {
     if (status == loadingStatus) {
       return [
         DropdownMenuItem<T>(
           child: Row(
             children: [
               SizedBox(
-                width: 25,
-                height: 25,
-                child: CircularProgressIndicator.adaptive(),
+                width: 14,
+                height: 14,
+                child: CircularProgressIndicator.adaptive(
+                  strokeWidth: 2,
+                ),
               ),
               const SizedBox(width: 10),
-              Text(loadingText),
+              Flexible(child: Text(loadingText)),
             ],
           ),
         ),
@@ -158,6 +187,10 @@ class DynamicDropdown<T, S> extends StatelessWidget {
               value: item,
               child: Text(
                 getDisplayText(item),
+                style: context.textTheme.displaySmall!.copyWith(
+                    color: customColors.black1.withValues(alpha: .8),
+                    fontWeight: FontWeight.w800,
+                    fontSize: 14),
                 overflow: TextOverflow.ellipsis,
               ),
             ))

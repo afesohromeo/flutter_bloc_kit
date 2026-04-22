@@ -10,7 +10,7 @@ class SearchInputField extends StatelessWidget {
       this.initialValue,
       this.inputController,
       this.labelColor,
-      this.bgColor ,
+      this.bgColor,
       this.showSuffixIcon = true,
       this.shape});
   final void Function(String)? onChanged;
@@ -29,14 +29,17 @@ class SearchInputField extends StatelessWidget {
           ? null
           : MediaQuery.sizeOf(context).width * .4,
       child: InputField(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(
+          10,
+        ),
+
         labelColor: labelColor,
         bgColor: bgColor,
         controller: inputController,
         padding: padding ?? EdgeInsets.zero,
         validator: null,
         radius: 10,
-        contentPadding: EdgeInsets.symmetric(vertical: 1, horizontal: 12),
+        contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 14),
 
         // hintText: 'Recherche',
         initialValue: initialValue,

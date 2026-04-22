@@ -32,9 +32,13 @@ class InputField extends StatelessWidget {
       this.onEditingComplete,
       this.elevation = 0,
       this.focusNode,
-      this.borderRadius});
+      this.borderRadius,
+      this.height = 35,
+      this.visualDensity,
+      this.autovalidateMode = AutovalidateMode.disabled});
 
   final List<TextInputFormatter>? inputFormatters;
+  final double? height;
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
   final TextStyle? style;
@@ -65,60 +69,57 @@ class InputField extends StatelessWidget {
   final double elevation;
   final FocusNode? focusNode;
   final BorderRadius? borderRadius;
+  final VisualDensity? visualDensity;
+  final AutovalidateMode autovalidateMode;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: AlignmentDirectional.centerStart,
-      children: [
-        Padding(
-          padding: padding ??
-              const EdgeInsets.symmetric(
-                horizontal: 12.0,
-              ),
-          child: Material(
-            color: bgColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: borderRadius ?? BorderRadius.circular(radius ?? 10),
-            ),
-            elevation: elevation,
-            shadowColor: customColors.surface.withValues(alpha: 0.2),
-            child: TextFormField(
-                focusNode: focusNode,
-                onEditingComplete: onEditingComplete,
-                enabled: enabled,
-                onTap: onTap,
-                readOnly: readOnly!,
-                maxLines: maxlines ?? 1,
-                initialValue: initialValue,
-                controller: controller,
-                obscureText: obscureText,
-                enableSuggestions: enableSuggestions,
-                inputFormatters: inputFormatters,
-                validator: validator,
-                keyboardType: keyboardType,
-                style: inputStyle ??
-                    context.textTheme.displaySmall!.copyWith(
-                        color: labelColor ?? customColors.black1, fontSize: 14),
-                onChanged: onChanged,
-                decoration: customInputDecoration(
-                    labelText,
-                    prefixIcon,
-                    borderRadius: borderRadius,
-                    suffixIcon,
-                    labelColor,
-                    radius,
-                    hintText,
-                    contentPadding,
-                    context,
-                    bgColor: bgColor)),
-          ),
-        ),
-        // const Icon(
-        //   Icons.email_rounded,
-        //   color: customColors.primary,
-        // ),
-      ],
+    return Material(
+      color: bgColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: borderRadius ?? BorderRadius.circular(radius ?? 10),
+      ),
+      elevation: elevation,
+      shadowColor: customColors.surface.withValues(alpha: 0.2),
+      child: TextFormField(
+          autovalidateMode: autovalidateMode,
+          focusNode: focusNode,
+          onEditingComplete: onEditingComplete,
+          enabled: enabled,
+          onTap: onTap,
+          readOnly: readOnly!,
+          maxLines: maxlines ?? 1,
+          initialValue: initialValue,
+          controller: controller,
+          obscureText: obscureText,
+          enableSuggestions: enableSuggestions,
+          inputFormatters: inputFormatters,
+          validator: validator,
+          keyboardType: keyboardType,
+          style: inputStyle ??
+              context.textTheme.displaySmall!.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: labelColor ?? customColors.black1,
+                  fontSize: 14),
+          onChanged: (value) {
+            final error = validator?.call(value);
+
+            if (error == null) {
+              onChanged?.call(value); // ✅ only valid input passes
+            }
+          },
+          decoration: customInputDecoration(
+              visualDensity: visualDensity,
+              labelText,
+              prefixIcon,
+              borderRadius: borderRadius,
+              suffixIcon,
+              labelColor,
+              radius,
+              hintText,
+              contentPadding,
+              context,
+              bgColor: bgColor)),
     );
   }
 }

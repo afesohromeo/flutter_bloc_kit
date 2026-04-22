@@ -18,6 +18,9 @@ class PhoneNumberFormField extends StatefulWidget {
     this.initialCountryCode,
     this.enabled = true,
     required this.parentContext,
+    this.elevation = 0,
+    this.radius = 10,
+    this.isRequired = false,
   });
 
   final TextEditingController? phoneNumberController;
@@ -27,6 +30,9 @@ class PhoneNumberFormField extends StatefulWidget {
   final String? initialValue;
   final bool enabled;
   final BuildContext parentContext;
+  final double elevation;
+  final double radius;
+  final bool isRequired;
 
   @override
   State<PhoneNumberFormField> createState() => _PhoneNumberFormFieldState();
@@ -55,11 +61,10 @@ class _PhoneNumberFormFieldState extends State<PhoneNumberFormField> {
               children: [
                 Material(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
+                    borderRadius: BorderRadius.circular(widget.radius),
                   ),
-                  elevation: 10.0,
-                  shadowColor:
-                      customColors.secondary.withValues(alpha: 0.3),
+                  elevation: widget.elevation,
+                  shadowColor: customColors.surface.withValues(alpha: 0.2),
                   child: Stack(
                     children: [
                       IntlPhoneField(
@@ -94,24 +99,25 @@ class _PhoneNumberFormFieldState extends State<PhoneNumberFormField> {
                               .copyWith(
                                   fontSize: 14, color: customColors.black1),
                           searchFieldInputDecoration: customInputDecoration(
-                            l10n.searchCountry,
-                            null,
-                            const Icon(Icons.search_rounded),
-                            null,
-                            50,
-                            null,
-                            null,context
-                          ),
-                          listTileDivider:  Divider(
+                              l10n.searchCountry,
+                              null,
+                              const Icon(Icons.search_rounded),
+                              customColors.black1.withValues(alpha: .8),
+                              widget.radius,
+                              null,
+                              null,
+                              context),
+                          listTileDivider: Divider(
                             color: customColors.surface,
                           ),
                         ),
                         flagsButtonMargin:
-                            const EdgeInsets.fromLTRB(.7, 0, 8, 0),
+                            const EdgeInsets.fromLTRB(12, 0, 0, 0),
                         controller: widget.phoneNumberController,
                         initialValue: widget.initialValue,
                         invalidNumberMessage: l10n.validateMobile1,
-                        flagsButtonPadding: const EdgeInsets.only(left: 10),
+                        flagsButtonPadding:
+                            const EdgeInsets.fromLTRB(8, 0, 0, 0),
                         style: context.textTheme.displaySmall!
                             .copyWith(color: customColors.black1, fontSize: 14),
                         dropdownTextStyle: context.textTheme.displayMedium!
@@ -120,7 +126,7 @@ class _PhoneNumberFormFieldState extends State<PhoneNumberFormField> {
                           FilteringTextInputFormatter.digitsOnly
                         ],
                         dropdownDecoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
+                          borderRadius: BorderRadius.circular(widget.radius),
                           gradient: LinearGradient(
                             begin: Alignment.topRight,
                             end: Alignment.bottomLeft,
@@ -135,14 +141,14 @@ class _PhoneNumberFormFieldState extends State<PhoneNumberFormField> {
                         dropdownIconPosition: IconPosition.trailing,
                         autovalidateMode: AutovalidateMode.disabled,
                         decoration: customInputDecoration(
-                          l10n.tel,
-                          null,
-                          null,
-                          null,
-                          50,
-                          null,
-                          null,context
-                        ),
+                            l10n.tel,
+                            null,
+                            null,
+                            customColors.black1.withValues(alpha: .8),
+                            widget.radius,
+                            null,
+                            null,
+                            context),
                         initialCountryCode: widget.initialCountryCode,
                         onChanged: (phone) {
                           if (_validateAsUserTypes) {
@@ -156,23 +162,19 @@ class _PhoneNumberFormFieldState extends State<PhoneNumberFormField> {
                         },
                       ),
                       // Overlay to disable dropdown functionality
-                      Positioned(
-                        left: 0,
-                        top: 0,
-                        bottom: 0,
-                        width:
-                            120, // Adjust based on the country selector width
-                        child: GestureDetector(
-                            behavior: HitTestBehavior.opaque,
-                            onTap: null,
-                            child: IgnorePointer(
-                              ignoring:
-                                  true, // Blocks interaction with the country selector
-                              child: Container(
-                                color: Colors.transparent, // Invisible overlay
+                      Positioned.fill(
+                        child: Row(
+                          children: [
+                            AbsorbPointer(
+                              absorbing: true,
+                              child: SizedBox(
+                                width: 120, // adjust slightly if needed
                               ),
-                            )),
-                      )
+                            ),
+                            const Expanded(child: SizedBox()),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -187,20 +189,22 @@ class _PhoneNumberFormFieldState extends State<PhoneNumberFormField> {
               ],
             );
           },
-          validator: (value) {
-            log('submit $value'); // Always validate during submission
-            final error = _validatePhoneNumber(
-                value ?? widget.phoneNumberController?.text, l10n);
+          validator: widget.isRequired
+              ? (value) {
+                  log('submit $value'); // Always validate during submission
+                  final error = _validatePhoneNumber(
+                      value ?? widget.phoneNumberController?.text, l10n);
 
-            if (error != null) {
-              // Enable dynamic validation for subsequent typing
-              setState(() {
-                _validateAsUserTypes = true;
-              });
-            }
+                  if (error != null) {
+                    // Enable dynamic validation for subsequent typing
+                    setState(() {
+                      _validateAsUserTypes = true;
+                    });
+                  }
 
-            return error;
-          },
+                  return error;
+                }
+              : null,
         );
       },
     );
@@ -219,55 +223,12 @@ class _PhoneNumberFormFieldState extends State<PhoneNumberFormField> {
       return error;
     }
 
-    // Assuming `selectedPaymentMode` is a variable that holds the current payment mode
-    // Replace this with actual logic to get the payment mode
-
     String? validationError;
-
-    // switch (widget.selectedPaymentMode!.code!) {
-    //   case 'MTN':
-    //     {
-    //       validationError = _validateMtnNumber(value);
-    //       break;
-    //     }
-    //   case 'ORANGE':
-    //     {
-    //       validationError = _validateOrangeNumber(value);
-    //       break;
-    //     }
-
-    //   default:
-    //     {
-    //       validationError =l10n.invalidPaymentMode;
-    //       break;
-    //     }
-    // }
 
     // Set error and return if validation fails
     _errorNotifier.value = validationError;
     return validationError;
   }
-
-// MTN-specific validation
-  // String? _validateMtnNumber(String value) {
-  //   final mtnRegex = RegExp(r'^(67\d{7}|65[0-4]\d{6}|68[0-4]\d{6})$');
-
-  //   if (!mtnRegex.hasMatch(value)) {
-  //     returnl10n.invalidMtnNumber;
-  //   }
-  //   return null;
-  // }
-
-// Orange-specific validation
-  // String? _validateOrangeNumber(String value) {
-  //   final orangeRegex =
-  //       RegExp(r'^(69\d{7}|64\d{7}|65[5-9]\d{6}|68[5-9]\d{6})$');
-
-  //   if (!orangeRegex.hasMatch(value)) {
-  //     returnl10n.invalidOrangeNumber;
-  //   }
-  //   return null;
-  // }
 }
 
 typedef OnPhoneNumberChanged = void Function(PhoneNumber?);

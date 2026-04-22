@@ -19,6 +19,7 @@ class ResponsiveScaffoldWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveLayout(
       mobile: (context, _) => ScaffoldWrapper(
+        drawerMode: DrawerMode.overlay,
         showDrawer: props.showDrawer,
         body: mobileBody,
         leading: props.leading,
@@ -42,6 +43,7 @@ class ResponsiveScaffoldWrapper extends StatelessWidget {
         toolBarHeight: props.toolBarHeight,
       ),
       tablet: (context, _) => ScaffoldWrapper(
+        drawerMode: DrawerMode.overlay,
         showDrawer: props.showDrawer,
         body: tabletBody ?? mobileBody,
         leading: props.leading,
@@ -64,28 +66,51 @@ class ResponsiveScaffoldWrapper extends StatelessWidget {
         elevation: props.elevation,
         toolBarHeight: props.toolBarHeight,
       ),
-      desktop: (context, _) => ScaffoldWrapper(
-        showDrawer: props.showDrawer,
-        body: desktopBody ?? tabletBody ?? mobileBody,
-        leading: props.leading,
-        title: props.title,
-        bottom: props.bottom,
-        actions: props.actions,
-        floatingActionButtonLocation: props.floatingActionButtonLocation,
-        bottomNav: props.bottomNav,
-        onPressed: props.onPressed,
-        floatingButtonpadding: props.floatingButtonPadding,
-        buttonIcon: props.buttonIcon,
-        buttonColor: props.buttonColor,
-        mini: props.mini,
-        resizeToAvoidBottomInset: props.resizeToAvoidBottomInset,
-        showBottomNav: props.showBottomNav,
-        showFloatingButton: props.showFloatingButton,
-        hasAppbar: props.hasAppbar,
-        appBarBgColor: props.appBarBgColor,
-        bgColor: props.bgColor,
-        elevation: props.elevation,
-        toolBarHeight: props.toolBarHeight,
+      desktop: (context, _) => Row(
+        children: [
+          if (props.showDrawer!)
+            SizedBox(
+              width: 280,
+              child: AppDrawer(
+                parentContext: context,
+                // isFixed: true,
+              ),
+            ),
+          Expanded(
+            child: Container(
+              color: customColors.background,
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: props.showDrawer! ? 10 : 0),
+                child: ScaffoldWrapper(
+                  drawerMode: DrawerMode.fixed,
+                  showDrawer: false,
+                  body: desktopBody ?? tabletBody ?? mobileBody,
+                  leading: props.leading,
+                  title: props.title,
+                  bottom: props.bottom,
+                  actions: props.actions,
+                  floatingActionButtonLocation:
+                      props.floatingActionButtonLocation,
+                  bottomNav: props.bottomNav,
+                  onPressed: props.onPressed,
+                  floatingButtonpadding: props.floatingButtonPadding,
+                  buttonIcon: props.buttonIcon,
+                  buttonColor: props.buttonColor,
+                  mini: props.mini,
+                  resizeToAvoidBottomInset: props.resizeToAvoidBottomInset,
+                  showBottomNav: props.showBottomNav,
+                  showFloatingButton: props.showFloatingButton,
+                  hasAppbar: props.hasAppbar,
+                  appBarBgColor: props.appBarBgColor,
+                  bgColor: props.bgColor,
+                  elevation: props.elevation,
+                  toolBarHeight: props.toolBarHeight,
+                ),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

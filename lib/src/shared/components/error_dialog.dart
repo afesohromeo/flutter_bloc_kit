@@ -51,7 +51,7 @@ class ErrorDialog extends StatelessWidget {
                   shape: BoxShape.circle,
                   color: Colors.white,
                 ),
-                child:  Icon(
+                child: Icon(
                   Icons.close_rounded,
                   color: customColors.error,
                   size: 75,
@@ -63,7 +63,7 @@ class ErrorDialog extends StatelessWidget {
             ),
             Text(message,
                 textAlign: TextAlign.center,
-                style: context.textTheme.bodyMedium),
+                style: context.textTheme.displayMedium),
             const SizedBox(
               height: 20,
             ),

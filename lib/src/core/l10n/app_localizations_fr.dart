@@ -34,4 +34,25 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get ok => 'OK';
+
+  @override
+  String get noData => 'Aucune donnée';
+
+  @override
+  String get loading => 'Chargement...';
+
+  @override
+  String get cancel => 'Annuler';
+
+  @override
+  String get confirm => 'Confirmer';
+
+  @override
+  String get proceed => 'Procéder';
+
+  @override
+  String get search => 'Recherche';
+
+  @override
+  String get operationError => 'Une erreur est survenue';
 }
