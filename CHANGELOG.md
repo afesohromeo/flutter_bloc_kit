@@ -11,6 +11,7 @@ The kit becomes the single source of truth for new apps: code, engineering stand
 - `Validators`, `debounceSequential`, real connectivity check (`NetworkConnectivity`), `GoRouterRefreshStream`, crash-reporting hook `AppInitializer.recordError`.
 - Components: `ShimmerSkeleton` / `SkeletonBox`, `MeasureSize`, `AppBottomNavBar` / `ScaffoldWithNav` / `NavItem`; `SearchInputField` focus, editing-complete and tappable suffix; `InputField.autofillHints`.
 - Tests (74) with `bloc_test`, `mocktail` and helpers in `test/helpers/`.
+- Web platform (`web/`): the kit already contained web-specific code and desktop layouts.
 - `CLAUDE.md` template, `.claude/settings.json`, `.claude/SKILLS.md`; `make format`, `make analyze`, `make test`, `make check`.
 
 ### Changed

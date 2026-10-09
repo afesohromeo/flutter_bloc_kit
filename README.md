@@ -2,7 +2,7 @@
 
 A starting point for Flutter apps: **Clean Architecture + flutter_bloc + Freezed**, with engineering standards, a working reference feature, tests and agent setup included.
 
-**v2.0.0** · Flutter ≥ 3.44 · Dart ≥ 3.13 · Android, iOS (web/desktop: see below)
+**v2.0.0** · Flutter ≥ 3.44 · Dart ≥ 3.13 · Android, iOS, web
 
 ---
 
@@ -42,7 +42,7 @@ A starting point for Flutter apps: **Clean Architecture + flutter_bloc + Freezed
 
 **Serverpod backend?** Follow `_standards/14_serverpod.md`: Serverpod's standard layout, with this kit as the `*_flutter` package.
 
-**Web or desktop?** The kit ships `android/` and `ios/`. Add others with `flutter create . --platforms web` (or `windows`, `macos`, `linux`).
+**Desktop?** The kit ships `android/`, `ios/` and `web/`. Add desktop with `flutter create . --platforms windows` (or `macos`, `linux`). An app that won't run on web can delete `web/`.
 
 ---
 
@@ -86,3 +86,9 @@ doc/                          # plans and specs
 The rules every change follows are in [`_standards/`](_standards/README.md): architecture, BLoC patterns, naming, API layer, models, UI, routing, i18n, pagination, Serverpod, testing, and the RULE-001 to RULE-046 checklist. When a project improves a generic rule, copy it back here.
 
 See [`CHANGELOG.md`](CHANGELOG.md) for what changed in v2.
+
+---
+
+## Credits
+
+This kit started from [stevenosse/flutter_boilerplate](https://github.com/stevenosse/flutter_boilerplate) by [@stevenosse](https://github.com/stevenosse).

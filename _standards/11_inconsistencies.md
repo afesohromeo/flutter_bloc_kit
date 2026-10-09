@@ -20,6 +20,7 @@ Known gaps in the kit itself. Don't fix them opportunistically during unrelated 
 | Dates always formatted in French | Follow the app language (`Intl.defaultLocale`) |
 | `make i18n` called `intl_utils`, which isn't installed | `flutter gen-l10n` |
 | Android build no longer worked with Flutter 3.47 (Gradle 8.10) | Gradle 9.3.1, AGP 9.1.1, Kotlin 2.3.21, Java 17 |
+| No `web/` platform folder although the kit contains web code | `web/` added |
 | Repositories couldn't be mocked (M-004) | API providers injected through the constructor; `mocktail` mocks concrete classes |
 
 ---
@@ -36,9 +37,6 @@ Known gaps in the kit itself. Don't fix them opportunistically during unrelated 
 
 ### K-002: `InputField.onChanged` only reports valid input
 `onChanged` is skipped when the `validator` returns an error. Surprising for fields that must react to every keystroke; documented in 08. Consider an explicit option.
-
-### K-003: No web platform folder
-The kit has `android/` and `ios/` only, although it contains web-specific code (`file_downloader_web.dart`, `internet_probe_web.dart`) and responsive desktop layouts. Run `flutter create . --platforms web` in apps that need web.
 
 ### K-004: `app_theme_kit` issues (separate package)
 Found in Plotwatch: the text theme colours body text with the secondary colour, and the font is downloaded at runtime (`google_fonts`). Fix in the `app_theme_kit` repository.
