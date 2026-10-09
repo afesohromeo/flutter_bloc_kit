@@ -35,8 +35,6 @@ class ErrorDialog extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               gradient: LinearGradient(
-                // begin: Alignment.topLeft,
-                // end: Alignment.bottomRight,
                 stops: const [0.8, 1],
                 colors: [
                   customColors.error.withValues(alpha: .9),
@@ -46,9 +44,9 @@ class ErrorDialog extends StatelessWidget {
             ),
             child: Container(
               padding: const EdgeInsets.all(5),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.white,
+                color: customColors.background,
               ),
               child: Icon(
                 Icons.close_rounded,
@@ -64,21 +62,6 @@ class ErrorDialog extends StatelessWidget {
             style: context.textTheme.displayMedium,
           ),
           const SizedBox(height: 20),
-          // PrimaryButton(
-          //     height: 55,
-          //     shape: RoundedRectangleBorder(
-          //         borderRadius: BorderRadius.circular(10.0)),
-          //     inkRaduis: 10,
-          //     child: Text(
-          //       AppLocalizations.of(parentContext)!.ok,
-          //       style: context.textTheme.displayMedium!
-          //           .copyWith(color: Colors.white, fontSize: 14),
-          //     ),
-          //     onPressed: () {
-          //       context.read<CheckoutBloc>().add(CheckoutEvent.updateStatus(
-          //           status: CheckoutStatus.initial));
-          //       context.pop();
-          //     }),
         ],
       ),
     );

@@ -1,6 +1,6 @@
 # Kit refresh plan (v2)
 
-> **Status:** Approved 2026-10-08
+> **Status:** Approved 2026-10-08 · Phases 1–3 done 2026-10-09 on `refresh/v2` (not pushed; awaiting the developer's review). See `CHANGELOG.md` for the result and `_standards/11_inconsistencies.md` for what's left.
 > **Branch:** `refresh/v2` (local commits per phase; pushed only after the developer's review)
 > **Goal:** make this kit the single source of truth for new Flutter projects: app skeleton + engineering standards + agent setup. Bring in the improvements made since April 2026 in PlusLocate, SmartDrive and Plotwatch.
 

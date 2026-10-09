@@ -181,7 +181,8 @@ Future<void> _onFetchMyFeatures(
     // STEP 5a: Specific exception
     emit(state.copyWith(
       myFeatureStatus: GenericStatus.failure,
-      myFeatureListErrorMessage: e.toString(),
+      myFeatureListErrorMessage:
+          e.message ?? LocalizationService.localization.errorLoadingMyFeatures,
     ));
   } catch (e) {
     // STEP 5b: Generic catch-all
@@ -229,7 +230,8 @@ Future<void> _onCreateMyFeature(
   } on HttpException400 catch (e) {
     emit(state.copyWith(
       myFeatureActionStatus: GenericStatus.failure,
-      myFeatureActionErrorMessage: e.toString(),
+      myFeatureActionErrorMessage:
+          e.message ?? LocalizationService.localization.errorCreatingMyFeature,
     ));
   } catch (e) {
     log('Error creating my feature: $e');

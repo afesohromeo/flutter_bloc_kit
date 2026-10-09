@@ -76,7 +76,7 @@ Handlers MUST catch `HttpException400` explicitly before the generic `catch (e)`
 
 ```dart
 } on HttpException400 catch (e) {
-  emit(state.copyWith(xyzStatus: GenericStatus.failure, errorMessage: e.toString()));
+  emit(state.copyWith(xyzStatus: GenericStatus.failure, errorMessage: e.message ?? l10n.errorXyz)); // server message, else a specific key
 } catch (e) {
   log('Error: $e');
   emit(state.copyWith(xyzStatus: GenericStatus.failure, ...));

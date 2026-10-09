@@ -34,8 +34,6 @@ class Congratulations extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               gradient: LinearGradient(
-                // begin: Alignment.topLeft,
-                // end: Alignment.bottomRight,
                 stops: const [0.8, 1],
                 colors: [
                   customColors.success.withValues(alpha: .9),
@@ -45,9 +43,9 @@ class Congratulations extends StatelessWidget {
             ),
             child: Container(
               padding: const EdgeInsets.all(5),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.white,
+                color: customColors.background,
               ),
               child: Icon(
                 Icons.check_rounded,
@@ -64,29 +62,6 @@ class Congratulations extends StatelessWidget {
           ),
 
           const SizedBox(height: 20),
-          // for (Widget button in buttons) ...[
-          //   button,
-          //   const SizedBox(
-          //     height: 20,
-          //   ),
-          // ]
-          // PrimaryButton(
-          //     height: 55,
-          //     shape: RoundedRectangleBorder(
-          //         borderRadius: BorderRadius.circular(10.0)),
-          //     inkRaduis: 10,
-          //     child: Text(
-          //       'Fermer',
-          //       style: context.textTheme.displayMedium!
-          //           .copyWith(color: Colors.white, fontSize: 16),
-          //     ),
-          //     onPressed: () {
-          //       context.pop();
-          //     }),
-
-          // const SizedBox(
-          //   height: 30,
-          // ),
         ],
       ),
     );

@@ -1,252 +1,247 @@
 # Shared Components Reference
 
-**Location:** `lib/src/shared/components/`
+**Location:** `lib/src/shared/components/` (widgets) and `lib/src/shared/utils/` (helpers). Everything is exported by the app barrel.
 
-Always prefer shared components over building custom equivalents.
+Always use these before building a custom equivalent. When a component needs a new option, add it here (with a test) rather than copying the widget.
+
+---
+
+## Page Structure
+
+### `ResponsiveScaffoldWrapper` ⭐ (every page, RULE-043)
+```dart
+ResponsiveScaffoldWrapper(
+  props: ScaffoldWrapperProps(
+    title: Text(l10n.itemsTitle, style: context.textTheme.titleLarge),
+    leading: const CustomBackButton(),   // or a menu button that opens the drawer
+    showDrawer: false,                   // default true
+    appBarBgColor: customColors.background,
+    elevation: 0,
+    actions: [...],
+    hasAppbar: true,
+    showFloatingButton: false, onPressed: ..., buttonIcon: ...,
+    showBottomNav: false, bottomNav: ...,
+    resizeToAvoidBottomInset: true,
+  ),
+  mobileBody: _body(),
+  tabletBody: _body(),    // optional, defaults to mobileBody
+  desktopBody: _body(),   // optional, defaults to tabletBody/mobileBody
+)
+```
+The drawer is an overlay on mobile/tablet and a fixed 280 px sidebar on desktop. `ScaffoldWrapper` is its building block; pages never use it directly.
+
+### `AppDrawer` / `DrawerTile`
+`AppDrawer` lists the top-level destinations (one `DrawerTile` each) and highlights the current route. Edit `app_drawer.dart` when you add a destination.
+```dart
+DrawerTile(title: l10n.itemsTitle, iconData: Icons.list_alt_outlined,
+    selected: currentRoute == itemsRouteName, onTap: () => open(itemsRouteName), isVisible: true)
+```
+
+### `ScaffoldWithNav` / `AppBottomNavBar` / `NavItem` (optional bottom tabs)
+For apps with persistent tabs (`StatefulShellRoute.indexedStack`, see 07):
+```dart
+ScaffoldWithNav(
+  navigationShell: shell,
+  items: const [
+    NavItem(icon: Icons.map_outlined, activeIcon: Icons.map, label: '...'),
+  ],
+)
+```
+
+### `CustomBackButton`
+App-bar back button (`context.pop()`), for pages nested under another route.
+
+### `ResponsiveDialogWrapper`
+```dart
+ResponsiveDialogWrapper(maxDialogWidth: 500, child: MyDialogContent())
+```
+
+### `ResponsiveLayout`
+```dart
+ResponsiveLayout.isMobile(context)   // shortest side < 600 or width ≤ 800
+ResponsiveLayout.isTablet(context)   // 600 ≤ shortest side < 1100
+ResponsiveLayout.isDesktop(context)  // shortest side ≥ 1100
+```
 
 ---
 
 ## Buttons
 
 ### `PrimaryButton`
-Main action button with gradient fill and responsive width.
-
 ```dart
 PrimaryButton(
-  onPressed: _onSubmit,          // null = disabled state
-  child: Text(l10n.save),
-  height: 40,                    // optional
-  width: 120,                    // optional — mobile width
-  w2: 160,                       // optional — desktop width
-  withBg: true,                  // default: true (gradient bg)
-  buttonColor: customColors.error, // override color
+  onPressed: _onSubmit,          // null = disabled
+  height: 48,
+  width: 260,                    // mobile width
+  w2: 320,                       // optional: wider screens
+  withBg: true,                  // gradient fill (default)
+  buttonColor: customColors.error,
+  child: Text(l10n.save, style: context.textTheme.titleMedium?.copyWith(color: customColors.background)),
 )
 ```
 
 ---
 
-## Text Inputs
+## Form Fields
 
 ### `InputField`
-Standard elevated text field.
-
 ```dart
 InputField(
-  controller: _nameController,
-  labelText: l10n.name,
-  validator: (v) => v == null || v.isEmpty ? l10n.requiredField : null,
-  keyboardType: TextInputType.text,
+  controller: _emailController,
+  labelText: l10n.labelEmail,
+  validator: (value) => Validators.email(value, l10n),
+  keyboardType: TextInputType.emailAddress,
+  autofillHints: const [AutofillHints.email],   // RULE-042
   obscureText: false,
-  readOnly: false,
-  enabled: true,
-  maxlines: 1,
-  prefixIcon: Icon(Icons.person),
   suffixIcon: IconButton(...),
-  hintText: l10n.enterName,
 )
 ```
+Note: `onChanged` only receives values that pass `validator`.
 
 ### `SearchInputField`
-Pre-styled search box, pass `onChanged` for debouncing at the page level.
-
 ```dart
 SearchInputField(
-  onChanged: _onSearchChanged,
-  labelText: l10n.search,
+  onChanged: _onSearchChanged,     // debounce 500 ms in the page (06) or the BLoC (02)
+  labelText: l10n.itemsSearchHint,
+  focusNode: _focusNode,           // optional
+  onEditingComplete: _search,      // optional: keyboard "done"
+  onSuffixPressed: _search,        // optional: makes the search icon a button
+)
+```
+
+### `PhoneNumberFormField`
+International phone input (`intl_phone_field`), validated for the selected country.
+```dart
+PhoneNumberFormField(parentContext: context, initialCountryCode: 'CM',
+    phoneNumberController: _phone, isRequired: true, onChanged: (number) => ...)
+```
+
+### `DatePickerField` / `TimePickerField`
+```dart
+DatePickerField(labelText: l10n.startDate, value: _start, onChanged: (date) => ..., withTime: false)
+TimePickerField(labelText: l10n.time, value: _time, onChanged: (time) => ..., use24HourFormat: true)
+```
+Use `formatDateForApi(date)` when sending a date to the API.
+
+### `SearchableDropdownField<T>`
+Bottom-sheet picker with search, for lists loaded from the API:
+```dart
+SearchableDropdownField<Country>(
+  items: countries, selectedValue: _country, itemToString: (c) => c.name,
+  onChanged: (c) => ..., labelText: l10n.country,
+  isLoading: state.countriesStatus == GenericStatus.loading,
+  isFailure: state.countriesStatus == GenericStatus.failure,
+  onRetry: () => bloc.add(const ProfileEvent.fetchCountries()),
+)
+```
+
+### `DynamicDropdown<T>`
+`DropdownButtonFormField` with loading/failure/empty states driven by a status value.
+
+### `MultiSelectField<T>`
+```dart
+MultiSelectField<String>(items: options, selectedValues: _selected,
+    onChanged: (values) => ..., getDisplayText: (v) => v, labelText: l10n.permissions)
+```
+
+---
+
+## Lists
+
+### `CustomPaginatedList<T>` / `CustomPaginatedGridList<T>`
+Infinite-scroll list/grid around a `PagingController` (13). See `ItemsPage` for the full wiring.
+```dart
+CustomPaginatedList<Item>(
+  pagingController: _pagingController,
+  seperator: const Gap.vertical(height: 8),
+  pagedChildBuilderDelegate: PagedChildBuilderDelegate<Item>(itemBuilder: ...),
 )
 ```
 
 ---
 
-## Dropdowns
+## Feedback & States
 
-### `SelectField`
-Styled `DropdownButtonFormField`. **Always include `isExpanded: true`** (already baked in).
+| Situation | Component |
+|-----------|-----------|
+| First load | `ShimmerSkeleton` + `SkeletonBox` (or `LoadingWidget(loadingText: l10n.loading)`) |
+| Empty list | `EmptyWidget(emptyText: l10n.itemsEmptyState, onPressed: refresh)` |
+| Failed load | `ErrorStateWidget(errorMessage: ..., onPressed: retry)` (button text defaults to "Try again") |
+| Action in a dialog | `ModalProgressHUD(inAsyncCall: state.flowStep == GenericFlowStep.creatingItem, child: ...)` (package `modal_progress_hud_nsn`) |
+| Result of an action | `DialogUtils.handleSuccess` / `handleFailure` (shows `Congratulations` / `ErrorDialog`) |
+| Small spinner on a coloured button | `AdaptiveWhiteProgressIndicator` |
 
+### `ShimmerSkeleton` / `SkeletonBox`
 ```dart
-SelectField<Department>(
-  value: _selectedDepartment,
-  items: departments.map((d) =>
-    DropdownMenuItem(value: d, child: Text(d.deptName ?? ''))
-  ).toList(),
-  onChanged: (d) => setState(() => _selectedDepartment = d),
-  labelText: l10n.department,
-  validator: (v) => v == null ? l10n.requiredField : null,
+ShimmerSkeleton(
+  child: Column(children: [
+    const SkeletonBox(height: 56, radius: 12),
+    const SkeletonBox.circle(size: 40),
+  ]),
 )
 ```
+Stays still when the system asks for reduced animations.
 
-### `DynamicDropdown`
-Paginated + searchable dropdown for large datasets.
-
+### `DialogUtils`
 ```dart
-DynamicDropdown<Employe>(
-  labelText: l10n.employee,
-  fetchItems: (page, search) async =>
-      await employeRepository.fetchEmployes(page, keyword: search),
-  itemLabel: (e) => e.fullName,
-  onSelected: (e) => setState(() => _selectedEmployee = e),
-  initialValue: widget.item?.employe,
-)
+await DialogUtils.handleSuccess(context, l10n.itemCreated,
+    postActions: [() => bloc.add(const MyFeatureEvent.resetFlowStep())],
+    shouldPopDialog: true);   // closes the calling dialog first
+
+await DialogUtils.handleFailure(context, state.myFeatureActionErrorMessage ?? l10n.errorSavingMyFeature,
+    postActions: [() => bloc.add(const MyFeatureEvent.resetFlowStep())]);
 ```
-
-### `MultiSelectField`
-Multi-select with chips.
-
-```dart
-MultiSelectField<String>(
-  items: options,
-  selectedItems: _selected,
-  onChanged: (values) => setState(() => _selected = values),
-  labelText: l10n.permissions,
-)
-```
-
----
-
-## Date Picker
-
-### `DatePickerField`
-Date picker that outputs `DateTime?`.
-
-```dart
-DatePickerField(
-  labelText: l10n.startDate,
-  initialValue: _startDate,
-  onChanged: (date) => setState(() => _startDate = date),
-  firstDate: DateTime(2020),
-  lastDate: DateTime(2030),
-)
-```
-
-Use `formatDateForApi(_startDate)` when sending to API.
-
----
-
-## File Upload
-
-### `AttachmentUploadWidget`
-File picker integrated with `FileUploadBloc`.
-
-```dart
-AttachmentUploadWidget(
-  onFileSelected: (bytes, fileName) {
-    setState(() {
-      _fileBytes = bytes;
-      _fileName = fileName;
-    });
-  },
-  allowedExtensions: ['pdf', 'jpg', 'png'],
-)
-```
-
----
-
-## Feedback & Loading
-
-### `LoadingWidget`
-Centered circular progress indicator. Use when full list/page is loading.
-
-```dart
-const LoadingWidget()
-```
-
-### `EmptyWidget`
-Placeholder when list is empty.
-
-```dart
-const EmptyWidget()
-```
-
-### `ModalProgressHUD`
-Full-screen loading overlay inside dialogs.
-
-```dart
-ModalProgressHUD(
-  inAsyncCall: state.flowStep == GenericFlowStep.creatingItem,
-  child: AlertDialog(...),
-)
-```
-
-### `DialogUtils.handleSuccess` / `DialogUtils.handleFailure`
-Standard success/error feedback after CRUD operations.
-
-```dart
-await DialogUtils.handleSuccess(
-  context,
-  l10n.createSuccess,
-  postActions: [
-    () => bloc.add(const MyFeatureEvent.resetFlowStep()),
-    () => bloc.add(const MyFeatureEvent.refreshMyFeatures()),
-  ],
-  shouldPopDialog: true,   // closes the calling dialog
-);
-
-await DialogUtils.handleFailure(
-  context,
-  state.myFeatureActionErrorMessage ?? l10n.operationError,
-  postActions: [
-    () => bloc.add(const MyFeatureEvent.resetFlowStep()),
-  ],
-  shouldPopDialog: false,  // keep dialog open so user can retry
-);
-```
+Success dialogs close after 3 s, error dialogs after 10 s. Never use SnackBars (RULE-039).
 
 ---
 
 ## Layout Helpers
 
 ### `Gap`
-Shorthand for `SizedBox(height: n)` or `SizedBox(width: n)`.
-
 ```dart
-const Gap(12)    // vertical gap
-Gap.horizontal(8)  // horizontal gap (check actual API)
+const Gap.vertical(height: 12)          // h2: optional height on wider screens (default ×1.8)
+const Gap.horizontal(width: 8)          // w2: same for width
+const Gap.verticalSliver(height: 12)    // inside CustomScrollView
+const Gap.horizontalSliver(width: 8)
 ```
 
-### `ResponsiveLayout`
-Layout breakpoint helper.
+### `AppDivider`
+A thin divider in `customColors.surface`.
 
+### `MeasureSize`
+Reports its child's size after layout (e.g. to size a bottom sheet to its content):
 ```dart
-if (ResponsiveLayout.isMobile(context)) { ... }
-if (ResponsiveLayout.isTablet(context)) { ... }
-if (ResponsiveLayout.isDesktop(context)) { ... }
-```
-
-### `ResponsiveDialogWrapper`
-Wraps a dialog content to adapt sizing for mobile vs desktop.
-
-```dart
-ResponsiveDialogWrapper(child: MyDialogContent())
+MeasureSize(onChange: (size) => setState(() => _height = size.height), child: ...)
 ```
 
 ---
 
-## Extensions
+## Utilities (`shared/utils/`)
 
-### `context.localization`
-```dart
-// Instead of AppLocalizations.of(context)!
-final l10n = context.localization;
-```
+| Helper | Use |
+|--------|-----|
+| `Validators` | `email`, `password`, `confirmPassword`, `fullName`, `required`: localized messages (12) |
+| `debounceSequential(duration)` | Event transformer for search-as-you-type in a BLoC (02) |
+| `NetworkConnectivity.instance` | `isOnline()`, `onConnectivityChanged` (interface + real internet check; web-safe) |
+| `SecureStorageHelper` | `saveToken` / `getToken` / `deleteToken`, `saveUser` / `getUser`, `getFlag` / `setFlag`, `clearAll` |
+| `LocalizationService.localization` | `AppLocalizations` for code without a `BuildContext` |
+| `formatDate`, `formatDateForApi`, `convertJsonDate`, `formatPrice`, `convertToDouble` | Dates and numbers (in the app's language) |
+| `downloadFile(bytes, name)` | Save a file (browser download on web, Downloads folder on desktop) |
+| `GenericStatus`, `GenericFlowStep` | BLoC status enums (02) |
 
-### `context.theme`, `context.colorScheme`, `context.textTheme`
+---
+
+## Extensions (`shared/extensions/`)
+
 ```dart
-final color = context.colorScheme.primary;
-final style = context.textTheme.bodyMedium;
+context.textTheme / context.colorScheme / context.theme / context.brightness
+context.mediaQuery / context.screenSize
+context.localization          // same as LocalizationService.localization
+widgets.divide(separator: const Gap.vertical(height: 8))   // Iterable<Widget>
 ```
 
 ---
 
-## Global Colors
+## Colours
 
-```dart
-// From constant.dart — use everywhere
-customColors.primary     // Green #16750C
-customColors.secondary   // Teal #13708E
-customColors.background  // Light grey #F5F5F5
-customColors.surface     // White
-customColors.error       // Red accent
-customColors.success     // Green #2BD119
-customColors.warning     // Amber #F9A912
-customColors.cardBg      // Light blue #E2F4FA
-```
+`customColors` (defined in `shared/utils/constant.dart`, type `MyAppColors`): `primary`, `secondary`, `background`, `surface`, `error`, `success`, `warning`, `black1`. Replace the values with the app's brand when a project starts; never use `Colors.xxx` in pages or components (RULE-038).

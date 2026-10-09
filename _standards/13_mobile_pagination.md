@@ -87,6 +87,7 @@ Future<void> _onFetchMyItems(
     _FetchMyItems event, Emitter<MyFeatureState> emit) async {
   final l10n = LocalizationService.localization;
   final parentId = state.selectedParent?.id;
+  final pageSize = event.size ?? _kFeaturePageSize;
   if (parentId == null) return;
 
   // STEP 1: Emit loading/filtering — ALWAYS reset the refresh controller to
@@ -107,7 +108,7 @@ Future<void> _onFetchMyItems(
       event.pageKey,
       keyword: event.searchTerm,
       statut: event.statutFilter?.toStringValue(),
-      size: event.size ?? _kFeaturePageSize,
+      size: pageSize,
     );
 
     if (result == null) {
@@ -125,12 +126,12 @@ Future<void> _onFetchMyItems(
     emit(state.copyWith(
       myItemsListStatus: GenericStatus.success,
       paginatedMyItems: newItems,
-      maxMyItems: newItems.length < result.pagination.size!,
+      maxMyItems: newItems.length < (result.pagination.size ?? pageSize),
       myItemsPageKey: event.pageKey,
       myItems: event.pageKey == 0 ? newItems : [...state.myItems, ...newItems],
     ));
   } on HttpException400 catch (e) {
-    emit(state.copyWith(myItemsListStatus: GenericStatus.failure, myItemsListError: e.toString()));
+    emit(state.copyWith(myItemsListStatus: GenericStatus.failure, myItemsListError: e.message ?? l10n.myItemsListError));
   } on HttpException401 catch (_) {
     emit(state.copyWith(myItemsListStatus: GenericStatus.failure, myItemsListError: l10n.errorUnauthorized));
   } on NetworkException catch (_) {
