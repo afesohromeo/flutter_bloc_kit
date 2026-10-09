@@ -1,30 +1,19 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-
-import 'src/core/core.dart';
+import 'package:flutter_bloc_kit/flutter_bloc_kit.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() {
-  final AppInitializer appInitializer = AppInitializer();
+  final appInitializer = AppInitializer();
 
-  runZonedGuarded(
-    () async {
-      WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-      FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  runZonedGuarded(() async {
+    final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+    FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-      await appInitializer.preAppRun();
+    await appInitializer.preAppRun();
 
-      runApp(
-        AppRestart(
-          child: const Application(),
-        ),
-      );
-      appInitializer.postAppRun();
-    },
-    (error, stack) {
-      // Add your error tracking here (Firebase, Sentry, custom logging, etc.)
-      debugPrintStack(stackTrace: stack);
-    },
-  );
+    runApp(const AppRestart(child: Application()));
+    await appInitializer.postAppRun();
+  }, appInitializer.recordError);
 }

@@ -59,8 +59,10 @@ class MultiSelectField<T> extends StatelessWidget {
                     null,
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                     context,
-                    visualDensity:
-                        VisualDensity(vertical: -2.7, horizontal: -4),
+                    visualDensity: VisualDensity(
+                      vertical: -2.7,
+                      horizontal: -4,
+                    ),
                   ),
                   isEmpty: !hasSelection,
                   child: hasSelection
@@ -107,12 +109,15 @@ class MultiSelectField<T> extends StatelessWidget {
         builder: (context, setDialogState) {
           return AlertDialog(
             backgroundColor: customColors.surface,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
             title: Text(
               dialogTitle ?? labelText,
-              style: context.textTheme.displayMedium
-                  ?.copyWith(color: customColors.black1, fontSize: 14),
+              style: context.textTheme.displayMedium?.copyWith(
+                color: customColors.black1,
+                fontSize: 14,
+              ),
             ),
             content: SizedBox(
               width: 280,

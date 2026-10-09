@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter_bloc_kit/flutter_bloc_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -91,8 +89,9 @@ class _SearchableDropdownFieldState<T>
       if (!mounted) return;
 
       final selectedValue = widget.selectedValue;
-      _controller.text =
-          selectedValue == null ? '' : widget.itemToString(selectedValue);
+      _controller.text = selectedValue == null
+          ? ''
+          : widget.itemToString(selectedValue);
     });
   }
 
@@ -111,7 +110,6 @@ class _SearchableDropdownFieldState<T>
 
   List<T> get _filteredItems {
     final search = _searchController.text.toLowerCase();
-    log('filteringg $search ,, ');
 
     return widget.items.where((item) {
       if (search.isEmpty) return true;
@@ -122,78 +120,84 @@ class _SearchableDropdownFieldState<T>
   }
 
   Future<T?> _openSelectionDialog(
-      T? selectedValue, AppLocalizations l10n) async {
+    T? selectedValue,
+    AppLocalizations l10n,
+  ) async {
     if (!widget.enabled || widget.isLoading || widget.isFailure) return null;
 
     final chosen = await showModalBottomSheet<T>(
-        context: context,
-        isScrollControlled: true,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(14)),
-        ),
-        builder: (context) {
-          return StatefulBuilder(
-            builder: (context, setModalState) {
-              return Padding(
-                padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom,
-                  top: 12,
-                  left: 16,
-                  right: 16,
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SearchInputField(
-                      inputController: _searchController,
-                      onChanged: (_) {
-                        setModalState(() {}); // 🔥 THIS is the fix
-                      },
-                      labelText: l10n.search,
-                      showSuffixIcon: false,
-                      bgColor: customColors.surface,
-                      labelColor: customColors.black1.withValues(alpha: .7),
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(14)),
+      ),
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setModalState) {
+            return Padding(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+                top: 12,
+                left: 16,
+                right: 16,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SearchInputField(
+                    inputController: _searchController,
+                    onChanged: (_) {
+                      setModalState(() {}); // 🔥 THIS is the fix
+                    },
+                    labelText: l10n.search,
+                    showSuffixIcon: false,
+                    bgColor: customColors.surface,
+                    labelColor: customColors.black1.withValues(alpha: .7),
+                  ),
+                  const SizedBox(height: 8),
+                  if (_filteredItems.isEmpty)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 24),
+                      child: Text(widget.noItemsText ?? l10n.noData),
+                    )
+                  else
+                    Flexible(
+                      child: ListView.separated(
+                        shrinkWrap: true,
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: _filteredItems.length,
+                        separatorBuilder: (_, _) => const Divider(height: 1),
+                        itemBuilder: (context, index) {
+                          final item = _filteredItems[index];
+                          return ListTile(
+                            title:
+                                widget.itemBuilder?.call(context, item) ??
+                                Text(
+                                  widget.itemToString(item),
+                                  style: context.textTheme.displaySmall!
+                                      .copyWith(
+                                        color: customColors.black1.withValues(
+                                          alpha: .8,
+                                        ),
+                                        fontWeight: FontWeight.w800,
+                                        fontSize: 14,
+                                      ),
+                                ),
+                            selected: item == selectedValue,
+                            onTap: () {
+                              context.pop(item);
+                            },
+                          );
+                        },
+                      ),
                     ),
-                    const SizedBox(height: 8),
-                    if (_filteredItems.isEmpty)
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 24),
-                        child: Text(widget.noItemsText ?? l10n.noData),
-                      )
-                    else
-                      Flexible(
-                        child: ListView.separated(
-                          shrinkWrap: true,
-                          physics: const BouncingScrollPhysics(),
-                          itemCount: _filteredItems.length,
-                          separatorBuilder: (_, __) => const Divider(height: 1),
-                          itemBuilder: (context, index) {
-                            final item = _filteredItems[index];
-                            return ListTile(
-                              title: widget.itemBuilder?.call(context, item) ??
-                                  Text(
-                                    widget.itemToString(item),
-                                    style: context.textTheme.displaySmall!
-                                        .copyWith(
-                                            color: customColors.black1
-                                                .withValues(alpha: .8),
-                                            fontWeight: FontWeight.w800,
-                                            fontSize: 14),
-                                  ),
-                              selected: item == selectedValue,
-                              onTap: () {
-                                context.pop(item);
-                              },
-                            );
-                          },
-                        ),
-                      )
-                  ],
-                ),
-              );
-            },
-          );
-        });
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
 
     return chosen;
   }
@@ -230,25 +234,25 @@ class _SearchableDropdownFieldState<T>
               strokeWidth: 2,
             )
           : widget.isFailure
-              ? IconButton(
-                  icon:
-                      Icon(Icons.refresh_rounded, color: Colors.red, size: 20),
-                  onPressed: widget.onRetry,
-                )
-              : hasFilled
-                  ? GestureDetector(
-                      behavior: HitTestBehavior.opaque,
-                      onTap: _clearField,
-                      child: Icon(
-                        Icons.close,
-                        size: 20,
-                        color: customColors.black1.withValues(alpha: .8),
-                      ),
-                    )
-                  : Icon(
-                      Icons.keyboard_arrow_down_rounded,
-                      color: customColors.black1,
-                    ),
+          ? IconButton(
+              icon: Icon(
+                Icons.refresh_rounded,
+                color: customColors.error,
+                size: 20,
+              ),
+              onPressed: widget.onRetry,
+            )
+          : hasFilled
+          ? GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: _clearField,
+              child: Icon(
+                Icons.close,
+                size: 20,
+                color: customColors.black1.withValues(alpha: .8),
+              ),
+            )
+          : Icon(Icons.keyboard_arrow_down_rounded, color: customColors.black1),
     );
   }
 
@@ -258,7 +262,7 @@ class _SearchableDropdownFieldState<T>
     }
 
     if (widget.isFailure) {
-      return widget.failureText ?? l10n.operationError;
+      return widget.failureText ?? l10n.errorLoadingOptions;
     } else {
       return widget.labelText ?? '';
     }

@@ -1,1 +1,2 @@
-//Barrel file
+export 'item.dart';
+export 'shared/shared.dart';

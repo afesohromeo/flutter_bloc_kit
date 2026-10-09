@@ -1,48 +1,14 @@
 {
     "@@locale": "en",
-    "count": "Count",
-    "@count": {
-        "description": "counter count"
-    },
-    "appTitle": "Flutter bloc kit",
+
+    "appTitle": "Flutter BLoC Kit",
     "@appTitle": {
-        "description": "counter count"
+        "description": "Application name, shown by the OS (task switcher, browser tab)"
     },
-    "refresh": "Refresh",
-    "@refresh": {
-        "description": "Button text to refresh content"
-    },
-    "searchCountry": "Search country",
-    "@searchCountry": {
-        "description": "Placeholder text for country search field"
-    },
-    "validateMobile1": "Invalid Mobile Number",
-    "@validateMobile1": {
-        "description": "Phone number validation text 1"
-    },
-    "tel": "Tel",
-    "@tel": {
-        "description": "Label for telephone field"
-    },
-    "validateMobile2": "Phone number must start with 6.",
-    "@validateMobile2": {
-        "description": "Phone number validation text 2"
-    },
-    "authenticationRequired": "Authentication Required",
-    "@authenticationRequired": {
-        "description": "Dialog title when user needs to authenticate"
-    },
-    "ok": "Close",
+
+    "ok": "OK",
     "@ok": {
-        "description": "Button text for OK action"
-    },
-    "noData": "No data",
-    "@noData": {
-        "description": "No data message"
-    },
-    "loading": "Loading...",
-    "@loading": {
-        "description": "Generic loading message"
+        "description": "Button that closes a dialog"
     },
     "cancel": "Cancel",
     "@cancel": {
@@ -56,12 +22,145 @@
     "@proceed": {
         "description": "Button text to proceed with an action"
     },
+    "refresh": "Refresh",
+    "@refresh": {
+        "description": "Button text to reload content"
+    },
+    "retry": "Try again",
+    "@retry": {
+        "description": "Button text to retry after an error"
+    },
     "search": "Search",
     "@search": {
         "description": "Search field placeholder"
     },
-    "operationError": "An error occurred",
-    "@operationError": {
-        "description": "Generic operation error message"
+    "loading": "Loading...",
+    "@loading": {
+        "description": "Generic loading message"
+    },
+    "noData": "No data",
+    "@noData": {
+        "description": "Shown when a list or page has nothing to display"
+    },
+    "openMenu": "Open menu",
+    "@openMenu": {
+        "description": "Tooltip of the button that opens the navigation drawer"
+    },
+
+    "tel": "Tel",
+    "@tel": {
+        "description": "Label for telephone field"
+    },
+    "searchCountry": "Search country",
+    "@searchCountry": {
+        "description": "Placeholder text for country search field"
+    },
+    "validateMobile1": "Invalid mobile number",
+    "@validateMobile1": {
+        "description": "Phone number validation: number not valid for the selected country"
+    },
+
+    "validateRequired": "This field is required",
+    "@validateRequired": {
+        "description": "Validation: a required field is empty"
+    },
+    "validateEmailRequired": "Enter your email address",
+    "@validateEmailRequired": {
+        "description": "Validation: email field is empty"
+    },
+    "validateEmailInvalid": "Enter a valid email address",
+    "@validateEmailInvalid": {
+        "description": "Validation: email has an invalid format"
+    },
+    "validatePasswordRequired": "Enter your password",
+    "@validatePasswordRequired": {
+        "description": "Validation: password field is empty"
+    },
+    "validatePasswordSpaces": "The password can't start or end with a space",
+    "@validatePasswordSpaces": {
+        "description": "Validation: password has leading or trailing spaces"
+    },
+    "validatePasswordTooShort": "Use at least {minLength} characters",
+    "@validatePasswordTooShort": {
+        "description": "Validation: password shorter than the minimum length",
+        "placeholders": {
+            "minLength": {
+                "type": "int",
+                "example": "8"
+            }
+        }
+    },
+    "validateConfirmPasswordRequired": "Enter the password again",
+    "@validateConfirmPasswordRequired": {
+        "description": "Validation: confirm-password field is empty"
+    },
+    "validatePasswordMismatch": "The passwords don't match",
+    "@validatePasswordMismatch": {
+        "description": "Validation: confirm-password differs from the password"
+    },
+    "validateNameRequired": "Enter your name",
+    "@validateNameRequired": {
+        "description": "Validation: name field is empty"
+    },
+    "validateNameTooLong": "Use at most {maxLength} characters",
+    "@validateNameTooLong": {
+        "description": "Validation: name longer than the maximum length",
+        "placeholders": {
+            "maxLength": {
+                "type": "int",
+                "example": "100"
+            }
+        }
+    },
+
+    "errorUnauthorized": "Your session has ended. Please sign in again.",
+    "@errorUnauthorized": {
+        "description": "Error: the server answered 401 (not signed in or session expired)"
+    },
+    "networkError": "Can't reach the server. Check your connection and try again.",
+    "@networkError": {
+        "description": "Error: no connection, timeout or server unavailable"
+    },
+    "errorLoadingOptions": "The options couldn't be loaded.",
+    "@errorLoadingOptions": {
+        "description": "Dropdown: loading its list of options failed"
+    },
+
+    "homeTitle": "Home",
+    "@homeTitle": {
+        "description": "Title of the home page and its drawer entry"
+    },
+    "homeWelcome": "Your app starts here.",
+    "@homeWelcome": {
+        "description": "Welcome text on the kit's placeholder home page"
+    },
+    "homeOpenItems": "See the example list",
+    "@homeOpenItems": {
+        "description": "Button on the home page that opens the reference list feature"
+    },
+
+    "itemsTitle": "Items",
+    "@itemsTitle": {
+        "description": "Title of the reference list page and its drawer entry"
+    },
+    "itemsSearchHint": "Search items",
+    "@itemsSearchHint": {
+        "description": "Search field label on the items page"
+    },
+    "itemsEmptyState": "There are no items yet.",
+    "@itemsEmptyState": {
+        "description": "Items page: the list is empty"
+    },
+    "itemsSearchEmptyState": "No items match your search.",
+    "@itemsSearchEmptyState": {
+        "description": "Items page: a search returned nothing"
+    },
+    "errorLoadingItems": "The items couldn't be loaded.",
+    "@errorLoadingItems": {
+        "description": "Items page: loading a page of items failed"
+    },
+    "itemsDemoNotice": "Demo data. Set BASE_URL to load items from your API.",
+    "@itemsDemoNotice": {
+        "description": "Items page banner when the app runs without a backend URL"
     }
 }

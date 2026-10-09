@@ -2,88 +2,72 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc_kit/flutter_bloc_kit.dart';
 import 'package:intl/intl.dart';
 
-bool isStandalone = false;
-GlobalKey<NavigatorState>? rootNavKey;
+/// The app's colour palette: replace these values with the app's brand.
+/// Pages and components use `customColors`, never `Colors.xxx`
+/// (_standards/06, RULE-038).
+final customColors = MyAppColors(
+  primary: Colors.blue,
+  secondary: Colors.orange,
+  background: Colors.white,
+  surface: Colors.grey,
+  error: Colors.redAccent,
+  success: Colors.green,
+  warning: Colors.yellow,
+  black1: const Color(0xFF000000),
+);
 
-const String defaultAddress = '';
-const String fakeToken =
-    'eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJiMDY5ZjA2ZC1hOGQ4LTRjMGQtOGY2My0xNWNhNmU0Yzg3MGIiLCJzdWIiOiJwYXVsMjEiLCJzY29wZXMiOltdLCJpYXQiOjE3NDQ3OTMyMDAsImV4cCI6NjkyODc5MzIwMCwidGVuYW50SWQiOiJwYXVsMjEiLCJsYW5ndWUiOiJGUiIsInVzZXJOYW1lIjoicGF1bDIxIiwidXNlcklkIjoiMiIsImVtYWlsIjoiamlvemFuZ3RoZW9waGFuZXBhdWwyM0BnbWFpbC5jb20ifQ.03X-XYaL4nn0uCfS_KxhAjlbXE6eexZiw4cyiBNnBeTd_RmApMgHE3QRB4aHcoRkk2kVq4ezOhRQtSn-JuLoSw';
-const String fakeTenant = '';
- final  customColors = MyAppColors(
-    primary: Colors.blue,
-    secondary: Colors.orange,
-    background: Colors.white,
-    surface: Colors.grey,
-    error: Colors.redAccent,
-    success: Colors.green,
-    warning: Colors.yellow,
-    black1: Color(0xFF000000));
+/// `yyyy-MM-dd`, the format most APIs expect for dates in query parameters.
 String? formatDateForApi(DateTime? dateTime) {
-  return dateTime == null
-      ? null
-      : DateFormat('yyyy-MM-dd', 'fr_FR').format(dateTime);
+  return dateTime == null ? null : DateFormat('yyyy-MM-dd').format(dateTime);
 }
 
-DateTime? convertJsonDate(value) {
-  if (value == null || value.toString().isEmpty || value.toString() == 'null') {
-    return null;
-  }
+/// Parses a date from an API value: ISO 8601, `dd/MM/yyyy HH:mm:ss`, or a
+/// Unix timestamp in seconds (10 digits) or milliseconds (13 digits).
+DateTime? convertJsonDate(Object? value) {
+  final str = value?.toString() ?? '';
+  if (str.isEmpty || str == 'null') return null;
 
-  final str = value.toString();
-
-  // 1. Try ISO 8601 parsing
   final isoDate = DateTime.tryParse(str);
   if (isoDate != null) return isoDate;
 
-  // 2. Try custom format (dd/MM/yyyy HH:mm:ss)
   try {
-    return DateFormat('dd/MM/yyyy HH:mm:ss').parse(str);
-  } catch (_) {
-    // ignore and continue
+    return DateFormat('dd/MM/yyyy HH:mm:ss').parseStrict(str);
+  } on FormatException {
+    // Not that format either: try a timestamp.
   }
 
-  // 3. Try Unix timestamp (seconds or milliseconds)
-  try {
-    final num ts = num.parse(str);
+  final timestamp = int.tryParse(str);
+  if (timestamp != null) {
     if (str.length == 10) {
-      // seconds since epoch
-      return DateTime.fromMillisecondsSinceEpoch(ts.toInt() * 1000);
-    } else if (str.length == 13) {
-      // milliseconds since epoch
-      return DateTime.fromMillisecondsSinceEpoch(ts.toInt());
+      return DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
     }
-  } catch (_) {
-    // not a number
+    if (str.length == 13) return DateTime.fromMillisecondsSinceEpoch(timestamp);
   }
-
-  // 4. If all parsing fails
   return null;
 }
 
-double? convertToDouble(value, {bool canBeNull = false}) {
-  double? doubleValue = value == null || value == ''
-      ? canBeNull
-          ? null
-          : 0.0
-      : (value is int)
-          ? value.toDouble()
-          : value;
-  return doubleValue;
+double? convertToDouble(Object? value, {bool canBeNull = false}) {
+  if (value == null || value == '') return canBeNull ? null : 0.0;
+  if (value is num) return value.toDouble();
+  return double.tryParse(value.toString()) ?? (canBeNull ? null : 0.0);
 }
 
+/// `1,234.5 EUR` in the app's language; empty when [price] is null.
 String formatPrice(double? price, String currency) {
-  if (price == null) {
-    return 'N/A';
-  }
+  if (price == null) return '';
   return '${NumberFormat('#,###.#').format(price)} $currency';
 }
 
-String formatDate(DateTime? date,
-    {bool withTime = false, bool withDay = false}) {
+/// A date in the app's language (`Intl.defaultLocale`, set by
+/// `ApplicationView`): `3 Oct 2026`, with [withDay] `Sat 3 Oct 2026`, with
+/// [withTime] `3 Oct 2026 - 14:05`.
+String formatDate(
+  DateTime? date, {
+  bool withTime = false,
+  bool withDay = false,
+}) {
   if (date == null) return '';
-  return withTime
-      ? DateFormat('d MMM yyyy - HH:mm', 'fr_FR').format(date)
-      : withDay
-          ? DateFormat('EEE d MMM yyyy', 'fr_FR').format(date)
-          : DateFormat('d MMM yyyy', 'fr_FR').format(date);
+  if (withTime) return DateFormat('d MMM yyyy - HH:mm').format(date);
+  if (withDay) return DateFormat('EEE d MMM yyyy').format(date);
+  return DateFormat('d MMM yyyy').format(date);
 }

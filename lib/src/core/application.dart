@@ -1,39 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_kit/src/features/features.dart';
+import 'package:flutter_bloc_kit/flutter_bloc_kit.dart';
 import 'package:provider/provider.dart';
 
-import 'core.dart';
-
+/// Provides the app-wide dependencies: the router and the repositories.
+///
+/// App-wide BLoCs (e.g. an `AuthenticationBloc`) go in a `MultiBlocProvider`
+/// around [ApplicationView]; page BLoCs are created by their route
+/// (see `RouteManager`).
 class Application extends StatelessWidget {
-  const Application({
-    super.key,
-  });
+  const Application({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
-        providers: [
-          //Define all repositories used by the app here. Example
-          //RepositoryProvider(create: (context) => AuthenticationRepository()),
-          Provider<RouteManager>(
-              lazy: true, create: (context) => RouteManager())
-        ],
-        child: MultiBlocProvider(providers: [
-          //Define all bloc used by the app here. Example
-          // BlocProvider(
-          //     create: (context) => ProfileBloc(
-          //           userRepository: context.read<UserRepository>(),
-          //         )..add(const ProfileLoaded())),
-          // BlocProvider(
-          //     create: (context) => AppointmentBloc(
-          //           userRepository: context.read<UserRepository>(),
-          //         )..add(const AppointmentInitialized())),
-
-          BlocProvider(
-            create: (_) => HomeBloc(),
-            child: this,
-          ),
-        ], child: ApplicationView()));
+      providers: [
+        Provider<RouteManager>(create: (_) => RouteManager()),
+        RepositoryProvider<ItemRepository>(create: (_) => ItemRepository()),
+      ],
+      child: const ApplicationView(),
+    );
   }
 }

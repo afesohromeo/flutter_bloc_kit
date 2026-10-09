@@ -67,8 +67,10 @@ class DynamicDropdown<T, S> extends StatelessWidget {
     this.elevation = 10.0,
     this.shadowColor,
     this.dropdownColor,
-    this.contentPadding =
-        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+    this.contentPadding = const EdgeInsets.symmetric(
+      horizontal: 12,
+      vertical: 8,
+    ),
     this.iconSize = 25.0,
     this.menuMaxHeight,
     this.itemHeight = kMinInteractiveDimension,
@@ -93,9 +95,7 @@ class DynamicDropdown<T, S> extends StatelessWidget {
         validator: validator,
         itemHeight: itemHeight,
         alignment: alignment,
-        borderRadius: BorderRadius.circular(
-          borderRadius,
-        ),
+        borderRadius: BorderRadius.circular(borderRadius),
         isDense: true,
         iconSize: iconSize,
         menuMaxHeight: menuMaxHeight ?? MediaQuery.sizeOf(context).height * 0.7,
@@ -131,17 +131,15 @@ class DynamicDropdown<T, S> extends StatelessWidget {
   /// Build the default input decoration
   InputDecoration _buildDefaultDecoration(double radius, BuildContext context) {
     return customInputDecoration(
-        labelText,
-        null,
-        Icon(
-          Icons.keyboard_arrow_down_rounded,
-          color: customColors.black1,
-        ),
-        customColors.black1.withValues(alpha: .8),
-        radius,
-        null,
-        const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-        context);
+      labelText,
+      null,
+      Icon(Icons.keyboard_arrow_down_rounded, color: customColors.black1),
+      customColors.black1.withValues(alpha: .8),
+      radius,
+      null,
+      const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      context,
+    );
   }
 
   /// Determine hint text based on status
@@ -170,9 +168,7 @@ class DynamicDropdown<T, S> extends StatelessWidget {
               SizedBox(
                 width: 14,
                 height: 14,
-                child: CircularProgressIndicator.adaptive(
-                  strokeWidth: 2,
-                ),
+                child: CircularProgressIndicator.adaptive(strokeWidth: 2),
               ),
               const SizedBox(width: 10),
               Flexible(child: Text(loadingText)),
@@ -183,17 +179,20 @@ class DynamicDropdown<T, S> extends StatelessWidget {
     }
 
     return items
-        .map((item) => DropdownMenuItem<T>(
-              value: item,
-              child: Text(
-                getDisplayText(item),
-                style: context.textTheme.displaySmall!.copyWith(
-                    color: customColors.black1.withValues(alpha: .8),
-                    fontWeight: FontWeight.w800,
-                    fontSize: 14),
-                overflow: TextOverflow.ellipsis,
+        .map(
+          (item) => DropdownMenuItem<T>(
+            value: item,
+            child: Text(
+              getDisplayText(item),
+              style: context.textTheme.displaySmall!.copyWith(
+                color: customColors.black1.withValues(alpha: .8),
+                fontWeight: FontWeight.w800,
+                fontSize: 14,
               ),
-            ))
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        )
         .toList();
   }
 }

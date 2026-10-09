@@ -9,8 +9,9 @@ class AdaptiveWhiteProgressIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Theme(
       data: ThemeData(
-        progressIndicatorTheme:
-            ProgressIndicatorThemeData(color: customColors.background),
+        progressIndicatorTheme: ProgressIndicatorThemeData(
+          color: customColors.background,
+        ),
       ),
       child: CircularProgressIndicator.adaptive(),
     );

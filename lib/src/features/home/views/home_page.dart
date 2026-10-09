@@ -1,42 +1,67 @@
-import 'package:app_theme_kit/app_theme_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_kit/src/core/core.dart';
-import 'package:flutter_bloc_kit/src/features/features.dart';
-import 'package:flutter_bloc_kit/src/shared/components/gap.dart';
-import 'package:flutter_bloc_kit/src/shared/extensions/context_extensions.dart';
+import 'package:flutter_bloc_kit/flutter_bloc_kit.dart';
+import 'package:go_router/go_router.dart';
 
+/// Placeholder home page: replace it with your app's first screen.
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
+  static const openItemsButtonKey = Key('homePage.openItems');
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: FractionallySizedBox(
-          widthFactor: 1,
+    final l10n = AppLocalizations.of(context)!;
+
+    return ResponsiveScaffoldWrapper(
+      props: ScaffoldWrapperProps(
+        appBarBgColor: customColors.background,
+        elevation: 0,
+        leading: ResponsiveLayout.isDesktop(context)
+            ? null
+            : Builder(
+                builder: (context) => IconButton(
+                  tooltip: l10n.openMenu,
+                  icon: Icon(Icons.menu, color: customColors.black1),
+                  onPressed: () => Scaffold.of(context).openDrawer(),
+                ),
+              ),
+        title: Text(
+          l10n.homeTitle,
+          style: context.textTheme.titleLarge?.copyWith(
+            color: customColors.black1,
+          ),
+        ),
+      ),
+      mobileBody: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(24),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                AppLocalizations.of(context)!.count,
-                style: context.textTheme.bodyLarge,
+                l10n.homeWelcome,
+                textAlign: TextAlign.center,
+                style: context.textTheme.headlineSmall?.copyWith(
+                  color: customColors.black1,
+                ),
               ),
-              const Gap.vertical(height: AppSpacing.sm),
-              BlocBuilder<HomeBloc, HomeState>(
-                builder: (context, state) {
-                  return Text(
-                    '${state.value}',
-                    style: context.textTheme.headlineLarge,
-                  );
-                },
-              )
+              const Gap.vertical(height: 24),
+              PrimaryButton(
+                key: openItemsButtonKey,
+                height: 48,
+                width: 260,
+                onPressed: () => context.goNamed(itemsRouteName),
+                child: Text(
+                  l10n.homeOpenItems,
+                  style: context.textTheme.titleMedium?.copyWith(
+                    color: customColors.background,
+                  ),
+                ),
+              ),
             ],
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => context.read<HomeBloc>().add(HomeEvent.increment()),
-          child: const Icon(Icons.add),
-        ));
+      ),
+    );
   }
 }

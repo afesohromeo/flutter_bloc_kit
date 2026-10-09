@@ -3,13 +3,26 @@ include: package:flutter_lints/flutter.yaml
 linter:
   rules:
     avoid_print: true
-    prefer_single_quotes: true 
+    prefer_single_quotes: true
     use_super_parameters: true
     always_declare_return_types: true
     avoid_annotating_with_dynamic: true
+    # The standards inject dependencies as `ItemsBloc({required ItemRepository
+    # repository}) : _repository = repository` (_standards/02); the lint would
+    # turn that into a private named initializing formal.
+    prefer_initializing_formals: false
 
-analyzer: 
-  exclude: ["**.freezed.dart", "**.g.dart"]
+analyzer:
+  exclude:
+    - "**.freezed.dart"
+    - "**.g.dart"
+    - build/**
+    - android/**
+    - ios/**
+    - web/**
+    - windows/**
+    - macos/**
+    - linux/**
 
-  errors: 
+  errors:
     invalid_annotation_target: ignore

@@ -10,8 +10,10 @@ class LoadingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: SingleChildScrollView(
-          physics: const NeverScrollableScrollPhysics(),
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        physics: const NeverScrollableScrollPhysics(),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
             const CircularProgressIndicator.adaptive(),
             const Gap.vertical(height: 10),
             Text(
@@ -19,7 +21,9 @@ class LoadingWidget extends StatelessWidget {
               textAlign: TextAlign.center,
               style: context.textTheme.displayLarge!.copyWith(fontSize: 14),
             ),
-          ])),
+          ],
+        ),
+      ),
     );
   }
 }

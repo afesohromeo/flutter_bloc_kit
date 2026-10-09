@@ -1,5 +1,6 @@
 import 'dart:js_interop';
 import 'dart:typed_data';
+
 import 'package:web/web.dart' as web;
 
 void downloadFile(Uint8List bytes, String fileName) {

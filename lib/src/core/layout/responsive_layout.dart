@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 typedef ResponsiveWidgetBuilder = Widget Function(BuildContext, Widget?);
@@ -9,12 +7,13 @@ class ResponsiveLayout extends StatelessWidget {
   final ResponsiveWidgetBuilder tablet;
   final ResponsiveWidgetBuilder desktop;
 
-  const ResponsiveLayout(
-      {super.key,
-      required this.mobile,
-      required this.tablet,
-      required this.desktop,
-      this.child});
+  const ResponsiveLayout({
+    super.key,
+    required this.mobile,
+    required this.tablet,
+    required this.desktop,
+    this.child,
+  });
 
   static bool isMobile(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -41,10 +40,8 @@ class ResponsiveLayout extends StatelessWidget {
         final shortestSide = MediaQuery.of(context).size.shortestSide;
 
         if (shortestSide < 600 || maxWidth <= 800) {
-          log('building mobile $shortestSide ${shortestSide < 600 || maxWidth <= 800}');
           return mobile(context, child?.call());
         } else if (shortestSide < 1100 || (maxWidth > 800 && maxWidth < 1100)) {
-          log('building tablet $shortestSide');
           return tablet(context, child?.call());
         } else {
           return desktop(context, child?.call());

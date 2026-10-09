@@ -1,1 +1,1 @@
-//Barrel file
+export 'item_repository.dart';

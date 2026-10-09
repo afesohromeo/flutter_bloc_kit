@@ -23,18 +23,20 @@ class EmptyWidget extends StatelessWidget {
             Text(
               emptyText,
               textAlign: TextAlign.center,
-              style: context.textTheme.displayMedium!
-                  .copyWith(fontSize: 14, height: 2, wordSpacing: 2),
+              style: context.textTheme.displayMedium!.copyWith(
+                fontSize: 14,
+                height: 2,
+                wordSpacing: 2,
+              ),
             ),
-            const Gap.vertical(
-              height: 15,
-            ),
+            const Gap.vertical(height: 15),
             TextButton(
-                onPressed: onPressed,
-                child: Text(
-                  AppLocalizations.of(parentContext ?? context)!.refresh,
-                  style: context.textTheme.displayLarge!.copyWith(fontSize: 16),
-                ))
+              onPressed: onPressed,
+              child: Text(
+                AppLocalizations.of(parentContext ?? context)!.refresh,
+                style: context.textTheme.displayLarge!.copyWith(fontSize: 16),
+              ),
+            ),
           ],
         ),
       ),

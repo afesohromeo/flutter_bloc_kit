@@ -63,7 +63,7 @@ import 'app_localizations_fr.dart';
 /// property.
 abstract class AppLocalizations {
   AppLocalizations(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -86,83 +86,29 @@ abstract class AppLocalizations {
   /// of delegates is preferred or required.
   static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
       <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
-    Locale('fr')
+    Locale('fr'),
   ];
 
-  /// counter count
+  /// Application name, shown by the OS (task switcher, browser tab)
   ///
   /// In en, this message translates to:
-  /// **'Count'**
-  String get count;
-
-  /// counter count
-  ///
-  /// In en, this message translates to:
-  /// **'Flutter bloc kit'**
+  /// **'Flutter BLoC Kit'**
   String get appTitle;
 
-  /// Button text to refresh content
+  /// Button that closes a dialog
   ///
   /// In en, this message translates to:
-  /// **'Refresh'**
-  String get refresh;
-
-  /// Placeholder text for country search field
-  ///
-  /// In en, this message translates to:
-  /// **'Search country'**
-  String get searchCountry;
-
-  /// Phone number validation text 1
-  ///
-  /// In en, this message translates to:
-  /// **'Invalid Mobile Number'**
-  String get validateMobile1;
-
-  /// Label for telephone field
-  ///
-  /// In en, this message translates to:
-  /// **'Tel'**
-  String get tel;
-
-  /// Phone number validation text 2
-  ///
-  /// In en, this message translates to:
-  /// **'Phone number must start with 6.'**
-  String get validateMobile2;
-
-  /// Dialog title when user needs to authenticate
-  ///
-  /// In en, this message translates to:
-  /// **'Authentication Required'**
-  String get authenticationRequired;
-
-  /// Button text for OK action
-  ///
-  /// In en, this message translates to:
-  /// **'Close'**
+  /// **'OK'**
   String get ok;
-
-  /// No data message
-  ///
-  /// In en, this message translates to:
-  /// **'No data'**
-  String get noData;
-
-  /// Generic loading message
-  ///
-  /// In en, this message translates to:
-  /// **'Loading...'**
-  String get loading;
 
   /// Button text to cancel an action
   ///
@@ -182,17 +128,191 @@ abstract class AppLocalizations {
   /// **'Proceed'**
   String get proceed;
 
+  /// Button text to reload content
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh'**
+  String get refresh;
+
+  /// Button text to retry after an error
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get retry;
+
   /// Search field placeholder
   ///
   /// In en, this message translates to:
   /// **'Search'**
   String get search;
 
-  /// Generic operation error message
+  /// Generic loading message
   ///
   /// In en, this message translates to:
-  /// **'An error occurred'**
-  String get operationError;
+  /// **'Loading...'**
+  String get loading;
+
+  /// Shown when a list or page has nothing to display
+  ///
+  /// In en, this message translates to:
+  /// **'No data'**
+  String get noData;
+
+  /// Tooltip of the button that opens the navigation drawer
+  ///
+  /// In en, this message translates to:
+  /// **'Open menu'**
+  String get openMenu;
+
+  /// Label for telephone field
+  ///
+  /// In en, this message translates to:
+  /// **'Tel'**
+  String get tel;
+
+  /// Placeholder text for country search field
+  ///
+  /// In en, this message translates to:
+  /// **'Search country'**
+  String get searchCountry;
+
+  /// Phone number validation: number not valid for the selected country
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid mobile number'**
+  String get validateMobile1;
+
+  /// Validation: a required field is empty
+  ///
+  /// In en, this message translates to:
+  /// **'This field is required'**
+  String get validateRequired;
+
+  /// Validation: email field is empty
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email address'**
+  String get validateEmailRequired;
+
+  /// Validation: email has an invalid format
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid email address'**
+  String get validateEmailInvalid;
+
+  /// Validation: password field is empty
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your password'**
+  String get validatePasswordRequired;
+
+  /// Validation: password has leading or trailing spaces
+  ///
+  /// In en, this message translates to:
+  /// **'The password can\'t start or end with a space'**
+  String get validatePasswordSpaces;
+
+  /// Validation: password shorter than the minimum length
+  ///
+  /// In en, this message translates to:
+  /// **'Use at least {minLength} characters'**
+  String validatePasswordTooShort(int minLength);
+
+  /// Validation: confirm-password field is empty
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the password again'**
+  String get validateConfirmPasswordRequired;
+
+  /// Validation: confirm-password differs from the password
+  ///
+  /// In en, this message translates to:
+  /// **'The passwords don\'t match'**
+  String get validatePasswordMismatch;
+
+  /// Validation: name field is empty
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your name'**
+  String get validateNameRequired;
+
+  /// Validation: name longer than the maximum length
+  ///
+  /// In en, this message translates to:
+  /// **'Use at most {maxLength} characters'**
+  String validateNameTooLong(int maxLength);
+
+  /// Error: the server answered 401 (not signed in or session expired)
+  ///
+  /// In en, this message translates to:
+  /// **'Your session has ended. Please sign in again.'**
+  String get errorUnauthorized;
+
+  /// Error: no connection, timeout or server unavailable
+  ///
+  /// In en, this message translates to:
+  /// **'Can\'t reach the server. Check your connection and try again.'**
+  String get networkError;
+
+  /// Dropdown: loading its list of options failed
+  ///
+  /// In en, this message translates to:
+  /// **'The options couldn\'t be loaded.'**
+  String get errorLoadingOptions;
+
+  /// Title of the home page and its drawer entry
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get homeTitle;
+
+  /// Welcome text on the kit's placeholder home page
+  ///
+  /// In en, this message translates to:
+  /// **'Your app starts here.'**
+  String get homeWelcome;
+
+  /// Button on the home page that opens the reference list feature
+  ///
+  /// In en, this message translates to:
+  /// **'See the example list'**
+  String get homeOpenItems;
+
+  /// Title of the reference list page and its drawer entry
+  ///
+  /// In en, this message translates to:
+  /// **'Items'**
+  String get itemsTitle;
+
+  /// Search field label on the items page
+  ///
+  /// In en, this message translates to:
+  /// **'Search items'**
+  String get itemsSearchHint;
+
+  /// Items page: the list is empty
+  ///
+  /// In en, this message translates to:
+  /// **'There are no items yet.'**
+  String get itemsEmptyState;
+
+  /// Items page: a search returned nothing
+  ///
+  /// In en, this message translates to:
+  /// **'No items match your search.'**
+  String get itemsSearchEmptyState;
+
+  /// Items page: loading a page of items failed
+  ///
+  /// In en, this message translates to:
+  /// **'The items couldn\'t be loaded.'**
+  String get errorLoadingItems;
+
+  /// Items page banner when the app runs without a backend URL
+  ///
+  /// In en, this message translates to:
+  /// **'Demo data. Set BASE_URL to load items from your API.'**
+  String get itemsDemoNotice;
 }
 
 class _AppLocalizationsDelegate
@@ -222,8 +342,9 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   }
 
   throw FlutterError(
-      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.',
+  );
 }

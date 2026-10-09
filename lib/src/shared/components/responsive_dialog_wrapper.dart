@@ -22,7 +22,8 @@ class ResponsiveDialogWrapper extends StatelessWidget {
     return Dialog(
       insetPadding:
           insetPadding ?? EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-      shape: shape ??
+      shape:
+          shape ??
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       // backgroundColor: AppTheme.light.dialogTheme.backgroundColor,
       child: ConstrainedBox(

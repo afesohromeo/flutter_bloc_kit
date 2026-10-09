@@ -36,17 +36,14 @@ class VGap extends Gap {
 
   @override
   Widget build(BuildContext context) => SizedBox(
-      height: ResponsiveLayout.isMobile(context)
-          ? height
-          : h2 ?? (height + (height * .8)));
+    height: ResponsiveLayout.isMobile(context)
+        ? height
+        : h2 ?? (height + (height * .8)),
+  );
 }
 
 class _VGapSliver extends StatelessWidget implements VGap {
-  const _VGapSliver({
-    super.key,
-    required this.height,
-    this.h2,
-  });
+  const _VGapSliver({super.key, required this.height, this.h2});
 
   @override
   final double height;
@@ -55,10 +52,12 @@ class _VGapSliver extends StatelessWidget implements VGap {
 
   @override
   Widget build(BuildContext context) => SliverToBoxAdapter(
-      child: SizedBox(
-          height: ResponsiveLayout.isMobile(context)
-              ? height
-              : h2 ?? (height + (height * .8))));
+    child: SizedBox(
+      height: ResponsiveLayout.isMobile(context)
+          ? height
+          : h2 ?? (height + (height * .8)),
+    ),
+  );
 }
 
 class _HGap extends Gap {
@@ -69,9 +68,10 @@ class _HGap extends Gap {
 
   @override
   Widget build(BuildContext context) => SizedBox(
-      width: ResponsiveLayout.isMobile(context)
-          ? width
-          : w2 ?? (width + (width * .8)));
+    width: ResponsiveLayout.isMobile(context)
+        ? width
+        : w2 ?? (width + (width * .8)),
+  );
 }
 
 class _HGapSliver extends StatelessWidget implements _HGap {
@@ -84,8 +84,10 @@ class _HGapSliver extends StatelessWidget implements _HGap {
 
   @override
   Widget build(BuildContext context) => SliverToBoxAdapter(
-      child: SizedBox(
-          width: ResponsiveLayout.isMobile(context)
-              ? width
-              : w2 ?? (width + (width * .8))));
+    child: SizedBox(
+      width: ResponsiveLayout.isMobile(context)
+          ? width
+          : w2 ?? (width + (width * .8)),
+    ),
+  );
 }

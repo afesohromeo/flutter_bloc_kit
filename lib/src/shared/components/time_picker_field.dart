@@ -68,15 +68,16 @@ class _TimePickerFieldState extends State<TimePickerField> {
   }
 
   Future<TimeOfDay?> _selectTime(
-      BuildContext context, TimeOfDay? initialTime) async {
+    BuildContext context,
+    TimeOfDay? initialTime,
+  ) async {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
       initialTime: initialTime ?? TimeOfDay.now(),
       builder: (context, child) {
         return MediaQuery(
-          data: MediaQuery.of(context).copyWith(
-            alwaysUse24HourFormat: widget.use24HourFormat,
-          ),
+          data: MediaQuery.of(context)
+              .copyWith(alwaysUse24HourFormat: widget.use24HourFormat),
           child: child!,
         );
       },
@@ -100,10 +101,7 @@ class _TimePickerFieldState extends State<TimePickerField> {
     return InputField(
       readOnly: true,
       onTap: () async {
-        final time = await _selectTime(
-          context,
-          widget.value,
-        );
+        final time = await _selectTime(context, widget.value);
 
         widget.onChanged(time);
       },
@@ -128,10 +126,7 @@ class _TimePickerFieldState extends State<TimePickerField> {
                 color: customColors.black1.withValues(alpha: .8),
               ),
             )
-          : const Icon(
-              Icons.access_time,
-              size: 20,
-            ),
+          : const Icon(Icons.access_time, size: 20),
     );
   }
 }

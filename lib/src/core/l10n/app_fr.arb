@@ -1,19 +1,46 @@
 {
     "@@locale": "fr",
-    "count": "Count",
-    "appTitle": "Flutter bloc kit",
-    "refresh": "Rafraîchir",
-    "searchCountry": "Rechercher un pays",
-    "validateMobile1": "Numéro de téléphone invalide",
-    "tel": "Tel",
-    "validateMobile2": "Le numéro de téléphone doit commencer par 6.",
-    "authenticationRequired": "Authentification Requise",
+
+    "appTitle": "Flutter BLoC Kit",
+
     "ok": "OK",
-    "noData": "Aucune donnée",
-    "loading": "Chargement...",
     "cancel": "Annuler",
     "confirm": "Confirmer",
-    "proceed": "Procéder",
-    "search": "Recherche",
-    "operationError": "Une erreur est survenue"
+    "proceed": "Continuer",
+    "refresh": "Actualiser",
+    "retry": "Réessayer",
+    "search": "Rechercher",
+    "loading": "Chargement...",
+    "noData": "Aucune donnée",
+    "openMenu": "Ouvrir le menu",
+
+    "tel": "Tél.",
+    "searchCountry": "Rechercher un pays",
+    "validateMobile1": "Numéro de téléphone invalide",
+
+    "validateRequired": "Ce champ est obligatoire",
+    "validateEmailRequired": "Saisissez votre adresse e-mail",
+    "validateEmailInvalid": "Saisissez une adresse e-mail valide",
+    "validatePasswordRequired": "Saisissez votre mot de passe",
+    "validatePasswordSpaces": "Le mot de passe ne peut pas commencer ni finir par une espace",
+    "validatePasswordTooShort": "Utilisez au moins {minLength} caractères",
+    "validateConfirmPasswordRequired": "Saisissez à nouveau le mot de passe",
+    "validatePasswordMismatch": "Les mots de passe ne correspondent pas",
+    "validateNameRequired": "Saisissez votre nom",
+    "validateNameTooLong": "Utilisez au plus {maxLength} caractères",
+
+    "errorUnauthorized": "Votre session a expiré. Veuillez vous reconnecter.",
+    "networkError": "Impossible de joindre le serveur. Vérifiez votre connexion et réessayez.",
+    "errorLoadingOptions": "Les options n'ont pas pu être chargées.",
+
+    "homeTitle": "Accueil",
+    "homeWelcome": "Votre application commence ici.",
+    "homeOpenItems": "Voir la liste d'exemple",
+
+    "itemsTitle": "Éléments",
+    "itemsSearchHint": "Rechercher des éléments",
+    "itemsEmptyState": "Il n'y a encore aucun élément.",
+    "itemsSearchEmptyState": "Aucun élément ne correspond à votre recherche.",
+    "errorLoadingItems": "Les éléments n'ont pas pu être chargés.",
+    "itemsDemoNotice": "Données de démonstration. Définissez BASE_URL pour charger les éléments depuis votre API."
 }
