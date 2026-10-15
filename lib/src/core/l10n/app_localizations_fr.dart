@@ -127,4 +127,30 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get itemsDemoNotice =>
       'Données de démonstration. Définissez BASE_URL pour charger les éléments depuis votre API.';
+
+  @override
+  String get showPassword => 'Afficher le mot de passe';
+
+  @override
+  String get hidePassword => 'Masquer le mot de passe';
+
+  @override
+  String get sortAction => 'Trier';
+
+  @override
+  String get moreActions => 'Plus d\'actions';
+
+  @override
+  String get breadcrumbLabel => 'Où vous êtes';
+
+  @override
+  String get validateAmountInvalid => 'Saisissez un montant, par ex. 1500000';
+
+  @override
+  String labelColon(String label) {
+    return '$label :';
+  }
+
+  @override
+  String get back => 'Retour';
 }

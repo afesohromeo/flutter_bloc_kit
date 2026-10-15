@@ -6,7 +6,7 @@ The step-by-step procedure for implementing a feature. Follow every step in orde
 
 ## Before You Start
 
-1. Read `README.md` (quick reference) and `09_normalization_rules.md` (RULE-001 to RULE-046).
+1. Read `README.md` (quick reference) and `09_normalization_rules.md` (RULE-001 to RULE-051).
 2. **Present a plan and wait for the developer's approval** before writing code; save the approved plan in `doc/`.
 3. Read the **reference implementation** and copy its shape. In the kit it is the `items` feature:
 
@@ -81,6 +81,8 @@ See [04_api_repository.md](04_api_repository.md).
 - Lists: `PagingController` + `CustomPaginatedList`; first load `ShimmerSkeleton`, empty `EmptyWidget`, error `ErrorStateWidget`
 - Actions: dialogs with `ModalProgressHUD` driven by `flowStep`; results through `DialogUtils` (never SnackBars)
 - Text from `l10n`, colours from `customColors`, styles from `context.textTheme`
+- Pages with child routes that show server data: wrap in `ReloadOnReturn` (07)
+- Form pages: `AuthFormLayout` or `ContentLayout`; submit with `SubmitButton`; password fields with `PasswordVisibilityButton`
 - Keys for widgets the tests need: `static const searchFieldKey = Key('itemsPage.searchField');`
 - Export the page from the feature barrel; export the feature barrel from `features/features.dart`
 
@@ -117,7 +119,7 @@ Add every new key to `app_en.arb` (with `@key` description) and `app_fr.arb`, th
 ---
 
 ## Step 8: Check
-`make check` (format, analyze, test) must pass. Then report what changed and what was verified.
+`make check` (format, analyze, test) must pass. For UI work, render the new screens with the screenshot harness (15) and compare them with the approved mockups (RULE-049), in every language. Then report what changed and what was verified.
 
 ---
 

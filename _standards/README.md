@@ -27,7 +27,8 @@ They started as a forensic analysis of a large production codebase (426+ Dart fi
 | [12_internationalization.md](12_internationalization.md) | **No hardcoded text**, ARB workflow, usage patterns ⭐ |
 | [13_mobile_pagination.md](13_mobile_pagination.md) | **Infinite-scroll pagination (PagingController)**: the default for lists ⭐ |
 | [14_serverpod.md](14_serverpod.md) | Using the kit with a **Serverpod** backend instead of a REST API |
-| [15_testing.md](15_testing.md) | Test layout, helpers, BLoC/repository/widget tests |
+| [15_testing.md](15_testing.md) | Test layout, helpers, BLoC/repository/widget tests, end-to-end test, screenshot harness, agent-driven checks |
+| [16_release_checklist.md](16_release_checklist.md) | Before a public release: privacy policy, account deletion, data safety, signing and keys, store listing |
 
 ---
 
@@ -47,10 +48,12 @@ They started as a forensic analysis of a large production codebase (426+ Dart fi
 - Status enum: **`GenericStatus`** (initial / loading / filtering / success / failure)
 - Flow tracking: **`GenericFlowStep`** (none / creatingItem / updatingItem / deletingItem)
 - Tests: **`bloc_test` + `mocktail`**, helpers in `test/helpers/` (15)
+- Money: **`int` minor units** + currency code, `formatMoney` / `parseMoney` (08)
+- Pages with child routes: **`ReloadOnReturn`** (07)
 
 ---
 
 ## Maintaining these standards
 - **Generic rules live here, in the kit.** A project copies this folder when it starts.
-- **Project-specific additions** go into the project's copy as **new numbered files** (e.g. `16_offline_sync.md`), not as edits scattered through 01–15.
+- **Project-specific additions** go into the project's copy as **new numbered files** (e.g. `17_offline_sync.md`), not as edits scattered through 01–16.
 - **After each project**, copy generic improvements back into the kit.

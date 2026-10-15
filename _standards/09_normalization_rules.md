@@ -302,3 +302,18 @@ Every new BLoC has `bloc_test` tests, every repository has unit tests with a moc
 **RULE-046: Code generation is run by the developer**
 Agents don't run `build_runner` or `flutter gen-l10n` unless the developer asks; they say which command to run (`make codegen`, `make i18n`) and wait.
 
+
+**RULE-047: Labels and counts in every language**
+A label before its value uses `l10n.labelColon(label)`, never `':'` in code (French puts a no-break space before the colon). Every text with a number uses an ICU plural (12).
+
+**RULE-048: Reload the page underneath**
+A page that shows server data and has child routes is wrapped in `ReloadOnReturn`, so it reloads when the user comes back from a child page (07).
+
+**RULE-049: UI follows the approved design**
+When mockups were approved (canvas, Stitch, Figma), screens match them. Check new screens with the screenshot harness (15) at phone, tablet and desktop sizes, in every language, before asking for review.
+
+**RULE-050: Money is integer minor units**
+Amounts are `int` minor units plus an ISO 4217 currency code, never `double`. Shown with `formatMoney`, typed with `MoneyField`, read with `parseMoney` (08).
+
+**RULE-051: Serverpod work split (Serverpod apps)**
+The developer runs `serverpod start` and the state-changing Serverpod MCP tools (migrations, hot reload); an agent runs only the test suites and the read-only log tools. Generated code is never edited (14).

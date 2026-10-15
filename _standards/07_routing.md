@@ -122,6 +122,20 @@ String? _redirect(BuildContext context, GoRouterState state) {
 - `context.goNamed(itemDetailRouteName, pathParameters: {...})` then builds the whole stack, so Android Back and the app bar back button go **up one level**, not out of the app.
 - Pages that are reached from several places and must return to the caller use `context.pushNamed(...)` instead.
 
+### Reloading the page underneath (`ReloadOnReturn`)
+With nested routes, the page under a detail page **stays alive**. When the user comes back to it (Back, or `goNamed` to its address), it still shows what it loaded before, e.g. a list that doesn't show the item just edited. Wrap such pages in `ReloadOnReturn` and reload from there:
+
+```dart
+ReloadOnReturn(
+  onReturn: () => context.read<ProjectBloc>().add(const ProjectEvent.refresh()),
+  child: ResponsiveScaffoldWrapper(...),
+)
+```
+
+- It follows the **address**, not the route stack: closing a dialog, menu or sheet on the page does **not** reload it (that raced with the action the dialog had just confirmed).
+- It isn't called when the page is first shown, and it also fires when the page was built underneath a page opened directly (e.g. from a notification).
+- Use it on every page that shows server data and has child routes (RULE-048).
+
 ---
 
 ## Bottom Navigation (optional)

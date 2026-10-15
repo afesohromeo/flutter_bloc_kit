@@ -53,3 +53,7 @@ toFrench.txt
 .claude/skills/
 .claude/knowledge/
 .claude/settings.local.json
+
+# Screenshot harness output (regenerate with: flutter test --update-goldens tool/screenshots/)
+tool/screenshots/out/
+/android/build/

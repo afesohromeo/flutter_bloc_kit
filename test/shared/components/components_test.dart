@@ -183,4 +183,27 @@ void main() {
       expect(reported, const Size(40, 30));
     });
   });
+
+  // Found by the screenshot harness: the icon was drawn in the background
+  // colour, invisible on the default (light) app bar.
+  group('Given CustomBackButton', () {
+    testWidgets('then its icon uses the text colour by default', (
+      tester,
+    ) async {
+      await tester.pumpApp(const Scaffold(body: CustomBackButton()));
+
+      final icon = tester.widget<Icon>(find.byIcon(Icons.arrow_back_ios));
+      expect(icon.color, customColors.black1);
+      expect(find.byTooltip(l10n.back), findsOneWidget);
+    });
+
+    testWidgets('when a colour is given then the icon uses it', (tester) async {
+      await tester.pumpApp(
+        Scaffold(body: CustomBackButton(color: customColors.background)),
+      );
+
+      final icon = tester.widget<Icon>(find.byIcon(Icons.arrow_back_ios));
+      expect(icon.color, customColors.background);
+    });
+  });
 }

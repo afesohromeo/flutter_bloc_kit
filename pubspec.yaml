@@ -3,7 +3,7 @@ description: A boilerplate for Flutter Projects using BLoC Architecture
 
 publish_to: "none"
 
-version: 2.0.0+1
+version: 2.1.0+1
 
 environment:
   sdk: ">=3.13.0 <4.0.0"
@@ -40,6 +40,8 @@ dependencies:
 
 dev_dependencies:
   flutter_test:
+    sdk: flutter
+  flutter_driver: # lib/driver.dart: lets an agent drive the running app
     sdk: flutter
 
   bloc_test: ^10.0.0

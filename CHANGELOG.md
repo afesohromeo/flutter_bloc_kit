@@ -1,5 +1,23 @@
 # Changelog
 
+## 2.1.0 (2026-10)
+
+What Plotwatch added to the standards, the agent setup and the shared components, made generic. Plan: [`doc/kit-v2.1-plan.md`](doc/kit-v2.1-plan.md).
+
+### Added
+- Components: `SubmitButton`, `PasswordVisibilityButton`, `showConfirmDialog`, `ReloadOnReturn`, `FilterChips` / `FilterPill` / `PickerPill` / `FilterChoice`, `SortButton`, `AppBarMenu` / `AppBarMenuItem`, `Breadcrumb` / `BreadcrumbItem`, `ContentLayout`, `SegmentedPanels` / `SegmentedSwitch`, `AuthFormLayout`, `OneLineText`, `IgnoreIntrinsicHeight`, `MoneyField`.
+- Money in integer minor units: `formatMoney`, `formatMoneyShort`, `formatMoneyInput`, `parseMoney`, `currencyDigits`, `currencySymbol`.
+- `data/device/` with `ClipboardProvider` (platform APIs behind mockable classes).
+- l10n keys `labelColon` (French space before the colon), `back`, `showPassword`, `hidePassword`, `sortAction`, `moreActions`, `breadcrumbLabel`, `validateAmountInvalid`.
+- `lib/driver.dart`: Flutter driver entry point so an agent can drive the running app through the Dart MCP server.
+- Screenshot harness (`tool/screenshots/`): renders screens on phone, tablet and desktop, in English or French, with real fonts.
+- Test helpers `test/helpers/field_helpers.dart`; 134 tests.
+- `_standards/16_release_checklist.md`; RULE-047 to RULE-051; new sections in 07 (`ReloadOnReturn`), 08 (the components above), 12 (`labelColon`, ICU plurals, the French pass), 14 (Serverpod skills and MCP, who runs what, `client.auth.restore()`, server URL, deployment, Google sign-in and account linking, two pitfalls) and 15 (end-to-end test, screenshot harness, agent-driven checks).
+- `CLAUDE.md`: UI follows the approved design, batching long test runs, the driver, the release checklist. `.claude/SKILLS.md`: skill sources and the Serverpod MCP.
+
+### Fixed
+- `CustomBackButton` drew its icon in the background colour, invisible on a light app bar; it now uses the text colour, takes `color:` and has a "Back" tooltip.
+
 ## 2.0.0 (2026-10)
 
 The kit becomes the single source of truth for new apps: code, engineering standards and agent setup, refreshed with what PlusLocate, SmartDrive and Plotwatch learned since April 2026. Plan: [`doc/kit-refresh-plan.md`](doc/kit-refresh-plan.md).

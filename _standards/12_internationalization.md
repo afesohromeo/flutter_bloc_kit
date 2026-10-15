@@ -328,6 +328,40 @@ Text(l10n.userCreatedMessage(userName))
 
 ---
 
+## Labels Before Values: `labelColon`
+
+French puts a (no-break) space before a colon: "Dates prévues : 3 oct." Never write `':'` in code; use the `labelColon` key:
+
+```dart
+Text('${l10n.labelColon(l10n.plannedDates)} ${formatDate(date)}')
+```
+
+`app_en.arb`: `"labelColon": "{label}:"` · `app_fr.arb`: `"labelColon": "{label} :"` (no-break space, so the colon never wraps onto its own line).
+
+---
+
+## Counts: ICU Plurals
+
+Every text with a number uses an ICU plural, never `count == 1 ? … : …` in code:
+
+```json
+"stageCount": "{count, plural, =0{No stages yet} =1{1 stage} other{{count} stages}}",
+"@stageCount": {"placeholders": {"count": {"type": "int"}}}
+```
+
+French has its own rules (0 and 1 are singular: "0 étape", "1 étape approuvée"), which the plural forms in `app_fr.arb` handle.
+
+---
+
+## The French Pass
+
+Before a release, check every screen added since the last pass **in French**:
+1. Every key exists in `app_fr.arb` (`toFrench.txt` is empty after `make i18n`), with the same placeholders.
+2. Render the screens in French with the screenshot harness (15): `flutter test --update-goldens --dart-define=LOCALE=fr tool/screenshots/`. French text is about 20% longer: look for overflow stripes, buttons that shrink or wrap badly, chips that don't fit.
+3. Fix layouts (wrap instead of shrink, `OneLineText` for amounts), and translations that read like English.
+
+---
+
 ## Debugging & Troubleshooting
 
 ### ❌ String not appearing after `make i18n`?

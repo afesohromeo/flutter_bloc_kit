@@ -2,7 +2,7 @@
 
 > **Applies to:** apps whose backend is **Serverpod** (Dart full stack) instead of a REST API.
 > **Precedence:** where this file contradicts 01–13, **this file wins** for Serverpod apps. Everything not mentioned here applies unchanged: BLoC patterns, naming, barrels, `ResponsiveScaffoldWrapper`, routing, i18n, pagination UI, UI rules, tests.
-> **Verified against Serverpod 4.0.3** (October 2026, Plotwatch). Re-check the summary in §7 when Serverpod releases a new major version.
+> **Verified against Serverpod 4.0.3** (October 2026, Plotwatch). Re-check §7 and §9 when Serverpod releases a new major version.
 
 ---
 
@@ -37,7 +37,34 @@ The generated app is a single `main.dart` calling an example endpoint (no archit
 5. The developer runs `make codegen` and `make i18n`.
 
 ### 0.4 Agent tooling
-`serverpod create` adds its own agent skills and MCP config, and its root `.gitignore` ignores the **whole** `.claude/` folder. Narrow that rule so `CLAUDE.md` and `.claude/settings.json` are committed.
+- `serverpod create --ide claude` installs **28 Serverpod and Relic skills** in `.claude/skills/` (`serverpod-*`, `relic-*`) from Serverpod's skills registry. Use `serverpod-overview` once per session, then the matching `serverpod-*` skill per feature area. **These standards still win** over them (layer folders instead of feature folders; no hand-edited migrations).
+- Its root `.gitignore` ignores the **whole** `.claude/` folder. Narrow it to the generated parts so `CLAUDE.md` and `.claude/settings.json` are committed:
+  ```gitignore
+  .claude/skills/
+  .claude/knowledge/
+  .claude/settings.local.json
+  .mcp.json
+  ```
+- **The `serverpod` MCP server** (a bridge to a running `serverpod start`): register it in the local, gitignored `.mcp.json`, loaded through `"enableAllProjectMcpServers": true` in `.claude/settings.json`. On Windows `serverpod` is a `.bat`, and VS Code keeps the PATH it started with, so call it by full path:
+  ```json
+  { "mcpServers": { "serverpod": { "command": "cmd",
+      "args": ["/c", "C:\\Users\\<you>\\AppData\\Local\\Dart\\install\\bin\\serverpod.bat",
+               "mcp-server", "--server-dir", "my_app_server"] } } }
+  ```
+
+### 0.5 Who runs what (developer and agent)
+- **The developer runs `serverpod start`**: it generates code, runs the server and the Flutter app, and hot-reloads on file changes. **An agent never starts the server.**
+- **The agent runs only the test suites** (`dart test` in the server package, `flutter test` in the app). Every other command is written as a "You run:" step for the developer.
+- **`serverpod` MCP tools** only work while `serverpod start` runs; if one says the server isn't running, stop and ask the developer to start it.
+  - The agent may use the read-only ones: `tail_server_logs`, `tail_flutter_logs`, `get_flutter_app_dtd`.
+  - Tools that change state (`create_migration`, `apply_migrations`, `create_repair_migration`, `hot_reload`, `hot_restart`, `spawn_flutter_app`) are the developer's, unless the developer asks.
+- **Never edit generated code:** `my_app_server/lib/src/generated/` and the whole `my_app_client` package are rewritten by the generator. Change the `.spy.yaml` models, the endpoints or `lib/server.dart` instead.
+- **Checklist after a change:**
+  1. `dart analyze` and `dart format` (developer)
+  2. a migration if a model with a `table` changed (developer)
+  3. `hot_restart` if the change needs it (developer)
+  4. tests (agent)
+  5. the agent reads `tail_server_logs` / `tail_flutter_logs`
 
 ---
 
@@ -181,13 +208,16 @@ class ItemApiProvider {
   }
 }
 ```
-- `data/api/config/api_provider.dart` holds the single `Client`:
+- `data/api/config/api_provider.dart` holds the single `Client`, created in `AppInitializer.preAppRun()`:
   ```dart
-  client = Client(serverUrl)
+  final client = Client(await getServerUrl())   // serverpod_flutter
     ..connectivityMonitor = FlutterConnectivityMonitor()
     ..authSessionManager = FlutterAuthSessionManager();
-  unawaited(client.auth.initialize());
+  await client.auth.restore();              // saved session, before the first frame
+  unawaited(client.auth.initialize());      // validated with the server in the background
   ```
+  Restoring before the first frame lets the router guard know at once whether the user is signed in (no flash of the sign-in page).
+- **Server URL and public keys:** `getServerUrl()` reads `--dart-define=SERVER_URL=...`, else `assets/config.json` (`"apiUrl"`), else localhost. For the web app, the server serves its own `config.json`, so one build works on every environment. Public client IDs (Google sign-in, web map keys) go in the same file or a `--dart-define`, never in code. Release builds: `flutter build apk --release --dart-define=SERVER_URL=https://<project>.api.serverpod.space/`.
 - **Authentication:** the `serverpod_auth_idp` module (email identity provider + JWT with refresh), as set up by the Serverpod 4 template. The legacy `serverpod_auth` module is not used.
 - **File uploads:** the server returns an upload description, the app uploads the bytes, the server verifies.
   - Server: `session.storage.createUploadDescription(storageId: …, path: …)`, then `session.storage.verifyUpload(storageId: …, path: …)`.
@@ -331,6 +361,9 @@ lib/src/
 
 ## 6. Deployment
 Serverpod Cloud hosts the server, database and file storage. The web build of the Flutter app can be served by the server's web app (`--webapp`).
+- `scloud deploy` (in the server package) runs `serverpod generate` and `serverpod run flutter_build` first, which builds the web app into `web/app`. On Windows, `flutter build web --output` doesn't work, so the build script copies with `xcopy`.
+- Passwords and secrets live on Cloud (`scloud password set <name> ...`) and in the local `config/passwords.yaml`, never in the repository.
+- Static pages the stores and OAuth need (`privacy.html`, `auth.html`) go in the Flutter app's `web/` folder, so they work on `flutter run`, the server-served build and Cloud alike (16).
 
 ---
 
@@ -344,3 +377,29 @@ Serverpod Cloud hosts the server, database and file storage. The web build of th
 | The embedded PostgreSQL (dev and test) keeps running after `dart test` or after closing the `serverpod start` terminal; the next start then fails | Stop the leftover `postgres` processes before starting again |
 | `dart install serverpod_cli` installs to a folder that isn't on PATH on Windows | Add `%LOCALAPPDATA%\Dart\install\bin` to PATH; restart VS Code so it sees the new PATH |
 | `serverpod create` on Windows prints "Updating Flutter app MacOS entitlements. failed." | Harmless; ignore |
+| `FileUploader.upload` / `uploadByteData` **wait forever** when the connection fails (no timeout, the error is swallowed). Seen when a development upload URL pointed at `localhost:8080` from the Android emulator, where `localhost` is the emulator itself | Wrap uploads in `.timeout(...)` and show an error; on the emulator, the PC is `10.0.2.2` |
+| The Google identity provider finds users by Google account ID only: a first Google sign-in with the email of an existing password account creates a **second user** | Link by verified email (§9) |
+
+---
+
+## 8. Agent checks with the Serverpod MCP
+While the developer runs `serverpod start`, the agent reads `tail_server_logs` and `tail_flutter_logs` after each change, and can drive the running app through the Flutter driver entry point (`lib/driver.dart`, see 15).
+
+---
+
+## 9. Google sign-in (serverpod_auth_idp)
+**Developer, in the Google Cloud console (Google Auth Platform):**
+1. Branding (app name, authorized domains incl. `serverpod.space`), data access (`userinfo.email`, `userinfo.profile`), audience: Testing with test users.
+2. Clients: a **Web application** client (needed on every platform: its ID and secret), an **Android** client (package name + debug SHA-1, later the release SHA-1), an **iOS** client (bundle ID, `.plist`).
+3. Web client: authorized JavaScript origins = the web app's address; redirect URIs = `https://<web app>/auth.html` and `http://localhost:8083/auth.html` for `flutter run`.
+4. Before external testers or reviewers sign in: **Audience › Publish app** (otherwise only test users can).
+
+**Server:** `googleClientSecret` in `config/passwords.yaml` (and `scloud password set googleClientSecret --from-file ...`); `GoogleIdpConfigFromPasswords()` in the identity provider builders; `class GoogleIdpEndpoint extends GoogleIdpBaseEndpoint {}`. Google is on only where the secret is set.
+
+**App:** `client.auth.initializeGoogleSignIn(...)` after `client.auth.initialize()`: on web with `clientId` and `redirectUri: '${Uri.base.origin}/auth.html'`; on phones with `serverClientId` (the web client ID). The ID comes from `config.json`; without it, hide the Google button.
+
+**One account per email (decide it up front):** Serverpod leaves linking to the app. The approach that worked in Plotwatch:
+- Google sign-in with a **verified** email that a password account already has → link the Google login to that user (`linkGoogleAuthentication`, in `GoogleIdpEndpoint` before the module's login). Never link an unverified email.
+- Email sign-up with an email a Google user already has → refuse with its own error code ("This email is used with Google. Use Continue with Google.").
+- Test all four cases on the server: linked, new user, unverified not linked, returning Google user.
+

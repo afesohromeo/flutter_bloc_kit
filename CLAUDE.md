@@ -7,7 +7,7 @@ This is a Flutter app built from **flutter_bloc_kit** (Clean Architecture + flut
 ---
 
 ## Engineering standards (binding)
-All code follows [`_standards/`](_standards/README.md). Start with `README.md` and `10_ai_agent_guide.md`; check `09_normalization_rules.md` (RULE-001 to RULE-046) before proposing code.
+All code follows [`_standards/`](_standards/README.md). Start with `README.md` and `10_ai_agent_guide.md`; check `09_normalization_rules.md` (RULE-001 to RULE-051) before proposing code.
 
 **Precedence when guidance conflicts:** `_standards/` **>** project docs in `doc/` **>** agent skills **>** generic best practices. Project-specific additions are new numbered files in `_standards/` (e.g. `16_...md`); Serverpod apps also follow `14_serverpod.md`.
 
@@ -21,6 +21,10 @@ The kit's reference feature is `items` (`lib/src/features/items/` and its tests)
 - **Code generation is run by the developer** (RULE-046): say "run `make codegen`" / "run `make i18n`" and wait.
 - **Evidence before claims.** Run `make check` (format, analyze, test) and read the output before saying something works.
 - **No hardcoded text**, one ARB key per error case; colours from `customColors`; imports through the app barrel.
+- **UI follows the approved design.** When mockups were approved, screens match them (RULE-049): render new screens with the screenshot harness (`tool/screenshots/`, `_standards/15`) and compare before asking for review.
+- **Long test runs:** when the developer asks, implement a batch of fixes with their tests and run the suites once at the end instead of after every change.
+- **Checking the running app:** `flutter run --target lib/driver.dart` lets an agent drive the app through the Dart MCP server (`_standards/15`).
+- **Before a release:** `_standards/16_release_checklist.md`.
 
 ---
 
@@ -30,6 +34,7 @@ The kit's reference feature is `items` (`lib/src/features/items/` and its tests)
 | `make codegen` | Freezed and asset code generation |
 | `make i18n` | Localizations from `lib/src/core/l10n/*.arb` |
 | `make check` | Format, analyze, test |
+| `flutter test --update-goldens tool/screenshots/` | Screenshots of the screens (add `--dart-define=LOCALE=fr` for French) |
 | `flutter run --dart-define=BASE_URL=https://api.example.com` | Run against an API (without it, the `items` demo uses local data) |
 
 ---

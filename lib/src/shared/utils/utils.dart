@@ -5,6 +5,7 @@ export 'event_transformers.dart';
 export 'file_downloader.dart';
 export 'internet_probe.dart';
 export 'localization_service.dart';
+export 'money.dart';
 export 'network_connectivity.dart';
 export 'secure_storage_helper.dart';
 export 'status.dart';

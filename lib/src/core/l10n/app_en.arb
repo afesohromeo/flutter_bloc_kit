@@ -1,11 +1,9 @@
 {
     "@@locale": "en",
-
     "appTitle": "Flutter BLoC Kit",
     "@appTitle": {
         "description": "Application name, shown by the OS (task switcher, browser tab)"
     },
-
     "ok": "OK",
     "@ok": {
         "description": "Button that closes a dialog"
@@ -46,7 +44,6 @@
     "@openMenu": {
         "description": "Tooltip of the button that opens the navigation drawer"
     },
-
     "tel": "Tel",
     "@tel": {
         "description": "Label for telephone field"
@@ -59,7 +56,6 @@
     "@validateMobile1": {
         "description": "Phone number validation: number not valid for the selected country"
     },
-
     "validateRequired": "This field is required",
     "@validateRequired": {
         "description": "Validation: a required field is empty"
@@ -112,7 +108,6 @@
             }
         }
     },
-
     "errorUnauthorized": "Your session has ended. Please sign in again.",
     "@errorUnauthorized": {
         "description": "Error: the server answered 401 (not signed in or session expired)"
@@ -125,7 +120,6 @@
     "@errorLoadingOptions": {
         "description": "Dropdown: loading its list of options failed"
     },
-
     "homeTitle": "Home",
     "@homeTitle": {
         "description": "Title of the home page and its drawer entry"
@@ -138,7 +132,6 @@
     "@homeOpenItems": {
         "description": "Button on the home page that opens the reference list feature"
     },
-
     "itemsTitle": "Items",
     "@itemsTitle": {
         "description": "Title of the reference list page and its drawer entry"
@@ -162,5 +155,43 @@
     "itemsDemoNotice": "Demo data. Set BASE_URL to load items from your API.",
     "@itemsDemoNotice": {
         "description": "Items page banner when the app runs without a backend URL"
+    },
+    "showPassword": "Show password",
+    "@showPassword": {
+        "description": "Tooltip of the eye button when the password is hidden"
+    },
+    "hidePassword": "Hide password",
+    "@hidePassword": {
+        "description": "Tooltip of the eye button when the password is visible"
+    },
+    "sortAction": "Sort",
+    "@sortAction": {
+        "description": "Tooltip of the button that changes a list's order"
+    },
+    "moreActions": "More actions",
+    "@moreActions": {
+        "description": "Tooltip of the ⋮ menu in an app bar"
+    },
+    "breadcrumbLabel": "Where you are",
+    "@breadcrumbLabel": {
+        "description": "Screen reader label of the breadcrumb trail"
+    },
+    "validateAmountInvalid": "Enter an amount, e.g. 1500000",
+    "@validateAmountInvalid": {
+        "description": "Validation: the text in a money field is not a valid amount"
+    },
+    "labelColon": "{label}:",
+    "@labelColon": {
+        "description": "A label before its value. Use it instead of writing \":\" in code: French puts a no-break space before the colon.",
+        "placeholders": {
+            "label": {
+                "type": "String",
+                "example": "Planned dates"
+            }
+        }
+    },
+    "back": "Back",
+    "@back": {
+        "description": "Tooltip of the app bar's back button"
     }
 }

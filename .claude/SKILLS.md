@@ -5,9 +5,9 @@ The kit's `CLAUDE.md` refers to agent skills in `.claude/skills/`. They are **th
 | Folder | Skills | Source |
 |--------|--------|--------|
 | `.claude/skills/superpowers/` | brainstorming, writing-plans, executing-plans, subagent-driven-development, test-driven-development, systematic-debugging, verification-before-completion, requesting/receiving-code-review, using-git-worktrees, finishing-a-development-branch, dispatching-parallel-agents, writing-skills, using-superpowers | [obra/superpowers](https://github.com/obra/superpowers) |
-| `.claude/skills/flutter/` | Flutter architecture, responsive layout, layout fixes, widget/integration tests, widget previews, JSON, routing, localization, http | Flutter agent skill set (copied from an earlier project; record the exact source here when known) |
-| `.claude/skills/stitch/` | stitch-design, taste-design, design-md, enhance-prompt, stitch-loop, react-components, shadcn-ui, remotion | Google Stitch skill set (same note) |
-| `.claude/skills/serverpod-*`, `relic-*` | Serverpod and Relic skills | Added by `serverpod create` in Serverpod projects |
+| `.claude/skills/flutter/` | Flutter architecture, responsive layout, layout fixes, widget/integration tests, widget previews, JSON, routing, localization, http | [flutter/skills](https://github.com/flutter/skills) (Flutter team) |
+| `.claude/skills/stitch/` | stitch-design, taste-design, design-md, enhance-prompt, stitch-loop, react-components, shadcn-ui, remotion | [google-labs-code/stitch-skills](https://github.com/google-labs-code/stitch-skills) |
+| `.claude/skills/serverpod-*`, `relic-*` | 28 Serverpod and Relic skills (start with `serverpod-overview`) | Installed by `serverpod create --ide claude` in Serverpod projects (`_standards/14` §0.4) |
 
 ## Setup in a new project
 1. Copy the skills folders from the latest project (or reinstall them from their sources) into `.claude/skills/`.
@@ -16,6 +16,7 @@ The kit's `CLAUDE.md` refers to agent skills in `.claude/skills/`. They are **th
    - **dart:** on Windows `dart` is a `.bat`, so register it through `cmd`:
      `claude mcp add-json dart '{"type":"stdio","command":"cmd","args":["/c","dart","mcp-server"]}' --scope local`
    - **stitch:** `claude mcp add-json stitch '{"type":"http","url":"https://stitch.googleapis.com/mcp","headers":{"X-Goog-Api-Key":"<key>"}}' --scope local` (never commit the key)
+   - **serverpod** (Serverpod projects only): in the gitignored `.mcp.json`, by full path to `serverpod.bat` on Windows; see `_standards/14` §0.4. Its tools work only while the developer runs `serverpod start`.
 4. Check with `claude mcp list`.
 
 ## Precedence

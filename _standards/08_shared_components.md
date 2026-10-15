@@ -49,7 +49,48 @@ ScaffoldWithNav(
 ```
 
 ### `CustomBackButton`
-App-bar back button (`context.pop()`), for pages nested under another route.
+App-bar back button (`context.pop()`, tooltip "Back"), for pages nested under another route. The icon uses the text colour; pass `color:` on a dark app bar.
+
+### `AppBarMenu` / `AppBarMenuItem`
+A page's app-bar actions: one action shows as its own icon button; two or more go behind a ⋮ menu. Destructive entries are drawn in the error colour.
+```dart
+actions: [
+  AppBarMenu(items: [
+    AppBarMenuItem(label: l10n.edit, icon: Icons.edit_outlined, onTap: _edit),
+    AppBarMenuItem(label: l10n.delete, icon: Icons.delete_outline, destructive: true, onTap: _delete),
+  ]),
+],
+```
+
+### `Breadcrumb` / `BreadcrumbItem`
+Where the page sits ("Projects › House › Stages › Walls"); every part but the last opens its page. When the line is too long, the middle folds into "…", keeping the first and the last two.
+```dart
+Breadcrumb(items: [
+  BreadcrumbItem(l10n.projects, onTap: () => context.goNamed(projectsRouteName)),
+  BreadcrumbItem(project.name, onTap: ...),
+  BreadcrumbItem(stage.name),   // current page: no onTap
+])
+```
+
+### `ContentLayout`
+The scrolling body of a page: padded, centred, at most `maxWidth` (1200) wide, with pull-to-refresh when `onRefresh` is given. From `twoColumnsFrom` (840 px) it shows `main` and `side` as two columns; narrower, `side` goes below `main`, or behind a segmented switch when `sideLabels` are given.
+```dart
+ContentLayout(
+  onRefresh: () async => bloc.add(const ProjectEvent.refresh()),
+  main: [summaryCard, stagesCard],
+  side: [activityCard, membersCard],
+  sideLabels: [l10n.activity, l10n.members],
+)
+```
+
+### `SegmentedPanels` / `SegmentedSwitch`
+Secondary content one panel at a time behind a segmented switch (hidden panels stay alive). `SegmentedSwitch` is the switch alone, for pages that show the chosen panel themselves.
+
+### `AuthFormLayout`
+Body of form pages (welcome, sign-in, sign-up, password reset): title, optional subtitle, centred, scrollable, at most 420 px wide.
+
+### `ReloadOnReturn`
+Reloads a page when the user comes back to it from a child route (not when a dialog closes). See 07.
 
 ### `ResponsiveDialogWrapper`
 ```dart
@@ -66,6 +107,25 @@ ResponsiveLayout.isDesktop(context)  // shortest side ≥ 1100
 ---
 
 ## Buttons
+
+### `SubmitButton`
+Full-width `PrimaryButton` for forms; while `isLoading` it shows a spinner and ignores taps; `onPressed: null` disables it.
+```dart
+SubmitButton(label: l10n.save, isLoading: state.flowStep == GenericFlowStep.creatingItem, onPressed: _submit)
+```
+
+### `PasswordVisibilityButton`
+The eye button at the end of a password field (RULE-042). The icon shows the **current** state (open eye = visible, crossed eye = hidden); the tooltip says what a tap does. The state lives in the BLoC.
+```dart
+InputField(
+  obscureText: !state.isPasswordVisible,
+  suffixIcon: PasswordVisibilityButton(
+    isVisible: state.isPasswordVisible,
+    onPressed: () => bloc.add(const SignInEvent.togglePasswordVisibility()),
+  ),
+  ...
+)
+```
 
 ### `PrimaryButton`
 ```dart
@@ -135,6 +195,12 @@ SearchableDropdownField<Country>(
 )
 ```
 
+### `MoneyField`
+An amount in a currency, typed in the app language; shows the currency symbol and validates with `parseMoney` (empty = no amount). Read the value with `parseMoney(controller.text, currencyCode)`, in **minor units**.
+```dart
+MoneyField(controller: _amount, currencyCode: 'XAF', labelText: l10n.amount)
+```
+
 ### `DynamicDropdown<T>`
 `DropdownButtonFormField` with loading/failure/empty states driven by a status value.
 
@@ -160,6 +226,22 @@ CustomPaginatedList<Item>(
 
 ---
 
+## Filters and Sorting
+
+### `FilterChips<T>` / `FilterPill` / `PickerPill<T>` / `FilterChoice<T>`
+A row of filter pills, one chosen at a time, scrolling sideways when it doesn't fit; `PickerPill` opens a menu of choices ("All stages ▾"). Filters run **on the server** (13): selecting a pill dispatches the list's `refresh` event.
+```dart
+FilterChips<ItemStatus?>(
+  keyPrefix: 'items.filter',
+  choices: [FilterChoice(null, l10n.all), FilterChoice(ItemStatus.active, l10n.active)],
+  selected: _status,
+  onSelected: (status) { setState(() => _status = status); bloc.add(const ItemsEvent.refreshItems()); },
+)
+```
+
+### `SortButton<T>`
+An icon that opens the ways a list can be ordered, the current one checked.
+
 ## Feedback & States
 
 | Situation | Component |
@@ -181,6 +263,14 @@ ShimmerSkeleton(
 )
 ```
 Stays still when the system asks for reduced animations.
+
+### `showConfirmDialog`
+Asks before a destructive action; returns `true` when the user confirms.
+```dart
+if (await showConfirmDialog(context, title: l10n.removeMemberTitle, message: l10n.removeMemberMessage, confirmLabel: l10n.remove)) {
+  bloc.add(MembersEvent.remove(member));
+}
+```
 
 ### `DialogUtils`
 ```dart
@@ -205,6 +295,12 @@ const Gap.verticalSliver(height: 12)    // inside CustomScrollView
 const Gap.horizontalSliver(width: 8)
 ```
 
+### `OneLineText`
+Text on one line, shrunk to fit rather than wrapped (amounts like "20,650,000 FCFA" in narrow cards).
+
+### `IgnoreIntrinsicHeight`
+Inside an `IntrinsicHeight` row, lets a child (e.g. a portrait photo) fill the height the other children set instead of setting it.
+
 ### `AppDivider`
 A thin divider in `customColors.surface`.
 
@@ -228,6 +324,7 @@ MeasureSize(onChange: (size) => setState(() => _height = size.height), child: ..
 | `formatDate`, `formatDateForApi`, `convertJsonDate`, `formatPrice`, `convertToDouble` | Dates and numbers (in the app's language) |
 | `downloadFile(bytes, name)` | Save a file (browser download on web, Downloads folder on desktop) |
 | `GenericStatus`, `GenericFlowStep` | BLoC status enums (02) |
+| `formatMoney`, `formatMoneyShort`, `formatMoneyInput`, `parseMoney`, `currencyDigits`, `currencySymbol` | Money as **integer minor units** + ISO 4217 code: `formatMoney(1500000, 'XAF')` → "1,500,000 FCFA" (XAF has no minor units), `formatMoney(125050, 'EUR')` → "€1,250.50"; `formatMoneyShort` → "12.5 M FCFA"; `parseMoney` reads typed text back (null when invalid) |
 
 ---
 
@@ -245,3 +342,16 @@ widgets.divide(separator: const Gap.vertical(height: 8))   // Iterable<Widget>
 ## Colours
 
 `customColors` (defined in `shared/utils/constant.dart`, type `MyAppColors`): `primary`, `secondary`, `background`, `surface`, `error`, `success`, `warning`, `black1`. Replace the values with the app's brand when a project starts; never use `Colors.xxx` in pages or components (RULE-038).
+
+---
+
+## Device Providers (`data/device/`)
+
+Platform APIs sit behind small classes, injected into repositories or BLoCs, so tests can mock them (15). The kit ships one example:
+
+| Provider | Use |
+|----------|-----|
+| `ClipboardProvider` | `copyText(text)` |
+
+Add others the same way when the app needs them (share sheet with `share_plus`, location with `geolocator`, camera, device info), each with its mock in `test/helpers/mocks.dart`.
+

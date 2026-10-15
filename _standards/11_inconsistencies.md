@@ -15,7 +15,8 @@ Known gaps in the kit itself. Don't fix them opportunistically during unrelated 
 | API layer described by the standards but missing from the kit | `ApiProvider`, `DioInterceptor`, `ApiErrorHandler`, `PaginatedList<T>` |
 | Connectivity check always returned `true` | Real check (interface + internet probe), web-safe |
 | Validators commented out | `Validators` (static, localized) |
-| Empty test folder | Helpers + 74 tests |
+| Empty test folder | Helpers + tests (134 in v2.1) |
+| `CustomBackButton` icon drawn in the background colour (invisible on a light app bar) | Text colour by default, `color:` parameter (found by the screenshot harness, v2.1) |
 | `ScaffoldWrapper` never showed its bottom navigation bar | Fixed, with a regression test |
 | Dates always formatted in French | Follow the app language (`Intl.defaultLocale`) |
 | `make i18n` called `intl_utils`, which isn't installed | `flutter gen-l10n` |
@@ -40,6 +41,9 @@ Known gaps in the kit itself. Don't fix them opportunistically during unrelated 
 
 ### K-004: `app_theme_kit` issues (separate package)
 Found in Plotwatch: the text theme colours body text with the secondary colour, and the font is downloaded at runtime (`google_fonts`). Fix in the `app_theme_kit` repository.
+
+### K-006: Input labels and borders in the error colour at rest
+`customInputDecoration` falls back to `customColors.error` when no `labelColor` is given, so an untouched field (e.g. `SearchInputField`) looks like an error (visible in the screenshot harness). A design decision for the developer: use a neutral colour at rest and keep the error colour for real errors.
 
 ### K-005: `GenericFlowStep` has no "loading details" step
 Removed in v2 because nothing used it; add it back (in 02 too) if a detail page needs its own flow step.

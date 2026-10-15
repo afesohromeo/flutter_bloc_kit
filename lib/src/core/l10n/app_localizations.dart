@@ -313,6 +313,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Demo data. Set BASE_URL to load items from your API.'**
   String get itemsDemoNotice;
+
+  /// Tooltip of the eye button when the password is hidden
+  ///
+  /// In en, this message translates to:
+  /// **'Show password'**
+  String get showPassword;
+
+  /// Tooltip of the eye button when the password is visible
+  ///
+  /// In en, this message translates to:
+  /// **'Hide password'**
+  String get hidePassword;
+
+  /// Tooltip of the button that changes a list's order
+  ///
+  /// In en, this message translates to:
+  /// **'Sort'**
+  String get sortAction;
+
+  /// Tooltip of the ⋮ menu in an app bar
+  ///
+  /// In en, this message translates to:
+  /// **'More actions'**
+  String get moreActions;
+
+  /// Screen reader label of the breadcrumb trail
+  ///
+  /// In en, this message translates to:
+  /// **'Where you are'**
+  String get breadcrumbLabel;
+
+  /// Validation: the text in a money field is not a valid amount
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an amount, e.g. 1500000'**
+  String get validateAmountInvalid;
+
+  /// A label before its value. Use it instead of writing ":" in code: French puts a no-break space before the colon.
+  ///
+  /// In en, this message translates to:
+  /// **'{label}:'**
+  String labelColon(String label);
+
+  /// Tooltip of the app bar's back button
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get back;
 }
 
 class _AppLocalizationsDelegate

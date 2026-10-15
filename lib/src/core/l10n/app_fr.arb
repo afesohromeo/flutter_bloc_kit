@@ -1,8 +1,6 @@
 {
     "@@locale": "fr",
-
     "appTitle": "Flutter BLoC Kit",
-
     "ok": "OK",
     "cancel": "Annuler",
     "confirm": "Confirmer",
@@ -13,11 +11,9 @@
     "loading": "Chargement...",
     "noData": "Aucune donnée",
     "openMenu": "Ouvrir le menu",
-
     "tel": "Tél.",
     "searchCountry": "Rechercher un pays",
     "validateMobile1": "Numéro de téléphone invalide",
-
     "validateRequired": "Ce champ est obligatoire",
     "validateEmailRequired": "Saisissez votre adresse e-mail",
     "validateEmailInvalid": "Saisissez une adresse e-mail valide",
@@ -28,19 +24,24 @@
     "validatePasswordMismatch": "Les mots de passe ne correspondent pas",
     "validateNameRequired": "Saisissez votre nom",
     "validateNameTooLong": "Utilisez au plus {maxLength} caractères",
-
     "errorUnauthorized": "Votre session a expiré. Veuillez vous reconnecter.",
     "networkError": "Impossible de joindre le serveur. Vérifiez votre connexion et réessayez.",
     "errorLoadingOptions": "Les options n'ont pas pu être chargées.",
-
     "homeTitle": "Accueil",
     "homeWelcome": "Votre application commence ici.",
     "homeOpenItems": "Voir la liste d'exemple",
-
     "itemsTitle": "Éléments",
     "itemsSearchHint": "Rechercher des éléments",
     "itemsEmptyState": "Il n'y a encore aucun élément.",
     "itemsSearchEmptyState": "Aucun élément ne correspond à votre recherche.",
     "errorLoadingItems": "Les éléments n'ont pas pu être chargés.",
-    "itemsDemoNotice": "Données de démonstration. Définissez BASE_URL pour charger les éléments depuis votre API."
+    "itemsDemoNotice": "Données de démonstration. Définissez BASE_URL pour charger les éléments depuis votre API.",
+    "showPassword": "Afficher le mot de passe",
+    "hidePassword": "Masquer le mot de passe",
+    "sortAction": "Trier",
+    "moreActions": "Plus d'actions",
+    "breadcrumbLabel": "Où vous êtes",
+    "validateAmountInvalid": "Saisissez un montant, par ex. 1500000",
+    "labelColon": "{label} :",
+    "back": "Retour"
 }

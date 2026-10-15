@@ -124,4 +124,30 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get itemsDemoNotice =>
       'Demo data. Set BASE_URL to load items from your API.';
+
+  @override
+  String get showPassword => 'Show password';
+
+  @override
+  String get hidePassword => 'Hide password';
+
+  @override
+  String get sortAction => 'Sort';
+
+  @override
+  String get moreActions => 'More actions';
+
+  @override
+  String get breadcrumbLabel => 'Where you are';
+
+  @override
+  String get validateAmountInvalid => 'Enter an amount, e.g. 1500000';
+
+  @override
+  String labelColon(String label) {
+    return '$label:';
+  }
+
+  @override
+  String get back => 'Back';
 }

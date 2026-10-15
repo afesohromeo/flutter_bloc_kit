@@ -2,7 +2,7 @@
 
 A starting point for Flutter apps: **Clean Architecture + flutter_bloc + Freezed**, with engineering standards, a working reference feature, tests and agent setup included.
 
-**v2.0.0** · Flutter ≥ 3.44 · Dart ≥ 3.13 · Android, iOS, web
+**v2.1.0** · Flutter ≥ 3.44 · Dart ≥ 3.13 · Android, iOS, web
 
 ---
 
@@ -14,11 +14,11 @@ A starting point for Flutter apps: **Clean Architecture + flutter_bloc + Freezed
 | API layer | `ApiProvider` (Dio, base URL from `--dart-define`), interceptor (token, language, debug logs, 401 callback), typed exceptions, `AppApiResponse`, `PaginatedList<T>` |
 | Reference feature | `items`: searchable infinite-scroll list with loading skeleton, empty and error states. Runs on demo data until you set `BASE_URL`. |
 | Routing | GoRouter, named and nested routes, drawer, optional bottom-navigation shell |
-| UI | `ResponsiveScaffoldWrapper` (mobile/tablet/desktop), form fields, dropdowns, pickers, dialogs, skeletons, `app_theme_kit` theme |
+| UI | `ResponsiveScaffoldWrapper` (mobile/tablet/desktop), form fields (incl. money and password), dropdowns, pickers, dialogs, filters and sorting, breadcrumb, app-bar menu, content layouts, skeletons, `app_theme_kit` theme |
 | Localization | English + French (ARB), no hardcoded text |
-| Utilities | Validators, secure storage, connectivity check, debounced BLoC events, date/number formatting, file download |
+| Utilities | Validators, money in minor units, secure storage, connectivity check, debounced BLoC events, date/number formatting, file download, clipboard |
 | Errors | One `recordError` hook for all uncaught errors (plug in Crashlytics or Sentry) |
-| Tests | `bloc_test` + `mocktail`, test helpers, 74 tests |
+| Tests | `bloc_test` + `mocktail`, test helpers, 134 tests, screenshot harness (`tool/screenshots/`), Flutter driver entry point for agent checks |
 | Standards | `_standards/`: binding rules for developers and AI agents |
 | Agent setup | `CLAUDE.md` template, `.claude/settings.json`, skills setup guide |
 
@@ -83,7 +83,7 @@ doc/                          # plans and specs
 
 ## Standards
 
-The rules every change follows are in [`_standards/`](_standards/README.md): architecture, BLoC patterns, naming, API layer, models, UI, routing, i18n, pagination, Serverpod, testing, and the RULE-001 to RULE-046 checklist. When a project improves a generic rule, copy it back here.
+The rules every change follows are in [`_standards/`](_standards/README.md): architecture, BLoC patterns, naming, API layer, models, UI, routing, i18n, pagination, Serverpod, testing, release, and the RULE-001 to RULE-051 checklist. When a project improves a generic rule, copy it back here.
 
 See [`CHANGELOG.md`](CHANGELOG.md) for what changed in v2.
 
