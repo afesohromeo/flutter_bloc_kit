@@ -1,6 +1,6 @@
 # Flutter BLoC Kit
 
-A starting point for Flutter apps: **Clean Architecture + flutter_bloc + Freezed**, with engineering standards, a working reference feature, tests and agent setup included.
+A starting point for Flutter apps: **layered architecture inspired by Clean Architecture** (UI → BLoC → repository → data source, UI and BLoCs organised by feature) with **flutter_bloc + Freezed**, plus engineering standards, a working reference feature, tests and agent setup included.
 
 **v2.1.1** · Flutter ≥ 3.44 · Dart ≥ 3.13 · Android, iOS, web
 

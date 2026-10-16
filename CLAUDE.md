@@ -2,7 +2,7 @@
 
 > **New project from the kit?** Replace this header with the app's name and one sentence about what it does, and point to its `doc/` folder. Keep the rest.
 
-This is a Flutter app built from **flutter_bloc_kit** (Clean Architecture + flutter_bloc + Freezed).
+This is a Flutter app built from **flutter_bloc_kit** (layered architecture inspired by Clean Architecture, UI and BLoCs by feature; flutter_bloc + Freezed). See `_standards/01`.
 
 ---
 

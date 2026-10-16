@@ -34,7 +34,7 @@ They started as a forensic analysis of a large production codebase (426+ Dart fi
 
 ## Quick Reference
 
-- Architecture: **Clean Architecture + flutter_bloc + Freezed**
+- Architecture: **layered, inspired by Clean Architecture** (concrete repositories, no interfaces), UI and BLoCs by feature; **flutter_bloc + Freezed** (01)
 - State management: **BLoC** (never Riverpod, Provider-for-state, etc.; `provider` is only used for dependency injection)
 - Models, events, states: **`@freezed` + `sealed class`** (Freezed 3+; `when`/`map` no longer exist, use `switch`)
 - HTTP: **Dio** via `ApiProvider().dio` (REST apps) or the generated Serverpod client (see 14)

@@ -2,7 +2,20 @@
 
 ## Overview
 
-Every app built from the kit uses **Clean Architecture + flutter_bloc** with a strict 4-layer separation.
+Every app built from the kit uses a **layered architecture inspired by Clean Architecture**, with flutter_bloc and 4 layers (UI → BLoC → repository → API provider), and **UI and BLoCs organised by feature**.
+
+### What kind of architecture this is (say it precisely)
+
+Two separate questions, often confused:
+
+| Question | Answer in the kit |
+|----------|-------------------|
+| **Which code may depend on which?** (Clean Architecture) | Dependencies point one way: UI → BLoC → repository → API provider. UI never calls a repository, BLoCs never call each other, API providers hold no logic. Every dependency is injected through constructors, so tests replace it with a mock. |
+| **How are the folders arranged?** (feature-first vs layer-first) | **Hybrid**, as the Flutter team's architecture guide recommends: `features/{feature}/` holds that feature's BLoC and pages (feature-first); `data/` and `domain/` are shared layers (layer-first), because models and repositories serve several features. |
+
+**Deliberate simplification:** strict Clean Architecture puts abstract repository interfaces in the domain and their implementations in the data layer (dependency inversion), so the domain depends on nothing. The kit's repositories are **concrete classes** that call the API providers directly: the domain layer depends on the data layer. This saves an interface per repository when there is only ever one implementation, and tests still mock the API provider through the repository's constructor. Add an interface when a repository really has two implementations (e.g. remote and offline).
+
+In one sentence (README, CV, interviews): *"Layered architecture inspired by Clean Architecture: UI → BLoC → repository → data source, dependencies injected for testing, with UI and BLoCs organised by feature."*
 
 ---
 
