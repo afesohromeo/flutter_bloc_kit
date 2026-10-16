@@ -77,6 +77,34 @@ void main() {
     testWidgets('when the user cancels then it returns false', (tester) async {
       expect(await openAndChoose(tester, l10n.cancel), isFalse);
     });
+
+    testWidgets('when a cancel label is given then the dismiss button uses it '
+        'and returns false', (tester) async {
+      bool? result;
+      await tester.pumpApp(
+        Scaffold(
+          body: Builder(
+            builder: (context) => TextButton(
+              onPressed: () async => result = await showConfirmDialog(
+                context,
+                title: 'Cancel order #12?',
+                message: 'This cannot be undone.',
+                confirmLabel: 'Cancel order',
+                cancelLabel: 'Keep order',
+              ),
+              child: const Text('open'),
+            ),
+          ),
+        ),
+      );
+      await tester.tap(find.text('open'));
+      await tester.pumpAndSettle();
+
+      expect(find.text(l10n.cancel), findsNothing);
+      await tester.tap(find.text('Keep order'));
+      await tester.pumpAndSettle();
+      expect(result, isFalse);
+    });
   });
 
   group('Given OneLineText', () {

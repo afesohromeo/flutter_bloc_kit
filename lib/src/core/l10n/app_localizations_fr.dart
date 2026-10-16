@@ -125,6 +125,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get errorLoadingItems => 'Les éléments n\'ont pas pu être chargés.';
 
   @override
+  String get errorItemsGone => 'Ces éléments ne sont plus disponibles.';
+
+  @override
   String get itemsDemoNotice =>
       'Données de démonstration. Définissez BASE_URL pour charger les éléments depuis votre API.';
 

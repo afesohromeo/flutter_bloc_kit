@@ -265,7 +265,7 @@ ShimmerSkeleton(
 Stays still when the system asks for reduced animations.
 
 ### `showConfirmDialog`
-Asks before a destructive action; returns `true` when the user confirms.
+Asks before a destructive action; returns `true` when the user confirms. Pass `cancelLabel` when "Cancel" would be ambiguous next to the action ("Keep order" beside "Cancel order").
 ```dart
 if (await showConfirmDialog(context, title: l10n.removeMemberTitle, message: l10n.removeMemberMessage, confirmLabel: l10n.remove)) {
   bloc.add(MembersEvent.remove(member));

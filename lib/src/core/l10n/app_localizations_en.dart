@@ -122,6 +122,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorLoadingItems => 'The items couldn\'t be loaded.';
 
   @override
+  String get errorItemsGone => 'These items are no longer available.';
+
+  @override
   String get itemsDemoNotice =>
       'Demo data. Set BASE_URL to load items from your API.';
 

@@ -7,6 +7,7 @@ The kit's `CLAUDE.md` refers to agent skills in `.claude/skills/`. They are **th
 | `.claude/skills/superpowers/` | brainstorming, writing-plans, executing-plans, subagent-driven-development, test-driven-development, systematic-debugging, verification-before-completion, requesting/receiving-code-review, using-git-worktrees, finishing-a-development-branch, dispatching-parallel-agents, writing-skills, using-superpowers | [obra/superpowers](https://github.com/obra/superpowers) |
 | `.claude/skills/flutter/` | Flutter architecture, responsive layout, layout fixes, widget/integration tests, widget previews, JSON, routing, localization, http | [flutter/skills](https://github.com/flutter/skills) (Flutter team) |
 | `.claude/skills/stitch/` | stitch-design, taste-design, design-md, enhance-prompt, stitch-loop, react-components, shadcn-ui, remotion | [google-labs-code/stitch-skills](https://github.com/google-labs-code/stitch-skills) |
+| `.claude/skills/flutter-bloc-*` | feature-workflow, api-errors, serverpod, review: the kit's standards as tested agent skills (MIT) | [afesohromeo/flutter-bloc-skills](https://github.com/afesohromeo/flutter-bloc-skills): `npx skills add afesohromeo/flutter-bloc-skills` |
 | `.claude/skills/serverpod-*`, `relic-*` | 28 Serverpod and Relic skills (start with `serverpod-overview`) | Installed by `serverpod create --ide claude` in Serverpod projects (`_standards/14` §0.4) |
 
 ## Setup in a new project

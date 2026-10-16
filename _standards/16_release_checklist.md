@@ -22,7 +22,14 @@ What every app built from the kit needs before its first public release. Built f
   - The answers must match the privacy policy.
 
 ## 2. Signing, keys and links
-- [ ] **Release signing key** (upload key) created and stored outside the repository (`key.properties` gitignored); its passwords in a password manager.
+- [ ] **Release signing key** (upload key) created and stored outside the repository; its passwords in a password manager. `android/key.properties` (gitignored) points at it:
+  ```properties
+  storePassword=…
+  keyPassword=…
+  keyAlias=upload
+  storeFile=C:/path/outside/the/repo/upload-keystore.jks
+  ```
+  `android/app/build.gradle` signs release builds with it; **without the file, release builds fall back to the debug key, which Play rejects.**
 - [ ] **SHA-1 of the release key** added wherever the debug one is registered: Google sign-in Android client, Firebase, Maps API key restrictions.
 - [ ] **App Links / Universal Links:** the release key's **SHA-256** in `assetlinks.json` (served at `https://<domain>/.well-known/assetlinks.json`); iOS `apple-app-site-association`.
 - [ ] **API keys restricted** (Android package + SHA-1, iOS bundle ID, web referrers). No secret in the app or the repository (RULE: secrets via `--dart-define` or server config).
@@ -33,8 +40,8 @@ What every app built from the kit needs before its first public release. Built f
 - [ ] **French pass** done (12): every screen checked in French with the screenshot harness.
 - [ ] Release builds with the production configuration:
   ```bash
-  flutter build appbundle --release --dart-define=env=prod --dart-define=BASE_URL=https://api.example.com
-  flutter build web --release --dart-define=env=prod --dart-define=BASE_URL=https://api.example.com
+  make build-android BASE_URL=https://api.example.com   # flutter build appbundle --release --dart-define=env=prod ...
+  make build-web BASE_URL=https://api.example.com
   ```
   (Serverpod: `--dart-define=SERVER_URL=...`, see 14.)
 - [ ] Version bumped in `pubspec.yaml` (`version: x.y.z+build`).
@@ -49,6 +56,7 @@ What every app built from the kit needs before its first public release. Built f
 - [ ] Privacy policy opens from the app and from its public URL.
 
 ## 5. Store listing
+- [ ] **New personal Play developer accounts:** before production access, a **closed test with at least 12 testers for 14 days** in a row. Start it early: it decides the earliest release date. (Organisation accounts are exempt; check the current Play policy.)
 - [ ] Short and full description, in every language; screenshots per device class (the screenshot harness gives a starting point).
 - [ ] Privacy policy URL, developer email, target audience (e.g. 13+, consistent with the policy), ads: yes/no, category.
 - [ ] **Demo account for reviewers** if the app needs sign-in (email + password in the review notes), with sample data that shows the main features.

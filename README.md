@@ -2,7 +2,7 @@
 
 A starting point for Flutter apps: **Clean Architecture + flutter_bloc + Freezed**, with engineering standards, a working reference feature, tests and agent setup included.
 
-**v2.1.0** · Flutter ≥ 3.44 · Dart ≥ 3.13 · Android, iOS, web
+**v2.1.1** · Flutter ≥ 3.44 · Dart ≥ 3.13 · Android, iOS, web
 
 ---
 
@@ -84,6 +84,8 @@ doc/                          # plans and specs
 ## Standards
 
 The rules every change follows are in [`_standards/`](_standards/README.md): architecture, BLoC patterns, naming, API layer, models, UI, routing, i18n, pagination, Serverpod, testing, release, and the RULE-001 to RULE-051 checklist. When a project improves a generic rule, copy it back here.
+
+The most important of these rules are also published as tested agent skills for any flutter_bloc app: [flutter-bloc-skills](https://github.com/afesohromeo/flutter-bloc-skills) (`npx skills add afesohromeo/flutter-bloc-skills`).
 
 See [`CHANGELOG.md`](CHANGELOG.md) for what changed in v2.
 

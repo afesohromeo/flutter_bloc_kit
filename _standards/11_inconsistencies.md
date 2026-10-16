@@ -45,5 +45,10 @@ Found in Plotwatch: the text theme colours body text with the secondary colour, 
 ### K-006: Input labels and borders in the error colour at rest
 `customInputDecoration` falls back to `customColors.error` when no `labelColor` is given, so an untouched field (e.g. `SearchInputField`) looks like an error (visible in the screenshot harness). A design decision for the developer: use a neutral colour at rest and keep the error colour for real errors.
 
+### K-007: `items` reference feature edge cases
+Found by the flutter-bloc-skills test runs (v2.1.1):
+- The last page is detected by a short page, so when the total is an exact multiple of the page size the list asks for one more, empty page. Harmless, but a backend that returns `totalElements` allows `loaded >= total` instead.
+- `Item.fromJson` turns a missing or invalid `id` into `0`. Fine for demo data; real models should reject or skip such rows.
+
 ### K-005: `GenericFlowStep` has no "loading details" step
 Removed in v2 because nothing used it; add it back (in 02 too) if a detail page needs its own flow step.

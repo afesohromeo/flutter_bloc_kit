@@ -1,4 +1,4 @@
-.PHONY: codegen i18n format analyze test check clean-ios build-android build-ios
+.PHONY: codegen i18n format analyze test check clean-ios build-android build-web build-ios
 
 codegen:
 	@echo "Generating code (Freezed, assets)..."
@@ -22,15 +22,26 @@ check: format analyze test
 
 clean-ios:
 	@echo "Cleaning iOS build files..."
-	fvm flutter clean
+	flutter clean
 	rm -rf ios/Pods ios/Podfile.lock
-	fvm flutter pub get
+	flutter pub get
 	cd ios && pod install && cd ..
 
+# Release builds. Pass the production values, e.g.
+#   make build-android BASE_URL=https://api.example.com
+# Android signs with android/key.properties when it exists (see _standards/16).
+ENV ?= prod
+BASE_URL ?=
+DEFINES = --dart-define=env=$(ENV) --dart-define=BASE_URL=$(BASE_URL)
+
 build-android:
-	@echo "Building Android..."
-	fvm flutter build appbundle --release
+	@echo "Building Android (env=$(ENV))..."
+	flutter build appbundle --release $(DEFINES)
+
+build-web:
+	@echo "Building web (env=$(ENV))..."
+	flutter build web --release $(DEFINES)
 
 build-ios:
-	@echo "Building iOS..."
-	fvm flutter build ios
+	@echo "Building iOS (env=$(ENV))..."
+	flutter build ipa --release $(DEFINES)

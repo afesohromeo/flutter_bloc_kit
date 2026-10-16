@@ -152,6 +152,10 @@
     "@errorLoadingItems": {
         "description": "Items page: loading a page of items failed"
     },
+    "errorItemsGone": "These items are no longer available.",
+    "@errorItemsGone": {
+        "description": "Items list: the server answered 410 (gone for good)"
+    },
     "itemsDemoNotice": "Demo data. Set BASE_URL to load items from your API.",
     "@itemsDemoNotice": {
         "description": "Items page banner when the app runs without a backend URL"

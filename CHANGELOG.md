@@ -1,5 +1,23 @@
 # Changelog
 
+## 2.1.1 (2026-10)
+
+Fixes found while testing [flutter-bloc-skills](https://github.com/afesohromeo/flutter-bloc-skills) on the kit.
+
+### Added
+- `showConfirmDialog(cancelLabel: …)` for a clearer dismiss button ("Keep order" beside "Cancel order").
+- `ItemsBloc` shows its own message for a 410 (`errorItemsGone`).
+- `make build-web`; build targets pass `--dart-define=env=$(ENV)` and `BASE_URL`.
+- `_standards/16`: the Play closed-test rule (12 testers, 14 days, new personal accounts) and the `key.properties` format.
+- Links to flutter-bloc-skills in the README and `.claude/SKILLS.md`.
+
+### Fixed
+- Android release builds were always signed with the debug key; they now use `android/key.properties` when it exists.
+- `make build-android`, `build-ios` and `clean-ios` called `fvm flutter`, which fails without fvm.
+
+### Known
+- `_standards/11` K-007: two edge cases in the `items` reference feature, documented.
+
 ## 2.1.0 (2026-10)
 
 What Plotwatch added to the standards, the agent setup and the shared components, made generic. Plan: [`doc/kit-v2.1-plan.md`](doc/kit-v2.1-plan.md).

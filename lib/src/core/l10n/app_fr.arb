@@ -35,6 +35,7 @@
     "itemsEmptyState": "Il n'y a encore aucun élément.",
     "itemsSearchEmptyState": "Aucun élément ne correspond à votre recherche.",
     "errorLoadingItems": "Les éléments n'ont pas pu être chargés.",
+    "errorItemsGone": "Ces éléments ne sont plus disponibles.",
     "itemsDemoNotice": "Données de démonstration. Définissez BASE_URL pour charger les éléments depuis votre API.",
     "showPassword": "Afficher le mot de passe",
     "hidePassword": "Masquer le mot de passe",

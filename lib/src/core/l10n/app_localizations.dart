@@ -308,6 +308,12 @@ abstract class AppLocalizations {
   /// **'The items couldn\'t be loaded.'**
   String get errorLoadingItems;
 
+  /// Items list: the server answered 410 (gone for good)
+  ///
+  /// In en, this message translates to:
+  /// **'These items are no longer available.'**
+  String get errorItemsGone;
+
   /// Items page banner when the app runs without a backend URL
   ///
   /// In en, this message translates to:

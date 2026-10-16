@@ -86,6 +86,13 @@ class ItemsBloc extends Bloc<ItemsEvent, ItemsState> {
           itemsListError: l10n.errorUnauthorized,
         ),
       );
+    } on HttpException410 {
+      emit(
+        state.copyWith(
+          itemsListStatus: GenericStatus.failure,
+          itemsListError: l10n.errorItemsGone,
+        ),
+      );
     } on NetworkException {
       emit(
         state.copyWith(

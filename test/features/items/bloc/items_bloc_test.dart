@@ -130,6 +130,20 @@ void main() {
     );
 
     blocTest<ItemsBloc, ItemsState>(
+      'when the items are gone for good (410) then it says so',
+      setUp: () => whenFetch(() async => throw const HttpException410()),
+      build: () => ItemsBloc(repository: repository),
+      act: (bloc) => bloc.add(const ItemsEvent.fetchItems()),
+      skip: 1,
+      expect: () => [
+        ItemsState(
+          itemsListStatus: GenericStatus.failure,
+          itemsListError: l10n.errorItemsGone,
+        ),
+      ],
+    );
+
+    blocTest<ItemsBloc, ItemsState>(
       'when the network fails then it shows the network error',
       setUp: () => whenFetch(() async => throw const NetworkException()),
       build: () => ItemsBloc(repository: repository),
